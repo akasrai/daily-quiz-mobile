@@ -20,9 +20,9 @@ const onGoogleButtonPress = async () => {
 const GoogleSignIn = () => {
   return (
     <GoogleSigninButton
-      style={{width: 192, height: 48}}
+      style={{width: 255, height: 48}}
       size={GoogleSigninButton.Size.Wide}
-      color={GoogleSigninButton.Color.Dark}
+      color={GoogleSigninButton.Color.Light}
       onPress={() => onGoogleButtonPress().then(() => console.log('fuck'))}
     />
   );

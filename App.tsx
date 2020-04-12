@@ -1,18 +1,23 @@
 import React from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
-import GoogleSignIn from '~/auth/screen/google-auth.screen';
+import {NavigationContainer} from '@react-navigation/native';
 
 import {auth} from '~/auth';
+import NavigationStack from '~/app/screen/navigator.screen';
 
 const App = () => {
   auth.initGoogleSignIn();
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <GoogleSignIn />
-      </SafeAreaView>
+      <StatusBar
+        translucent
+        barStyle="light-content"
+        backgroundColor={'#02183b'}
+      />
+      <NavigationContainer>
+        <NavigationStack />
+      </NavigationContainer>
     </>
   );
 };
