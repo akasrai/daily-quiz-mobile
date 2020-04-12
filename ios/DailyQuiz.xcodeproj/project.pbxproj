@@ -19,6 +19,7 @@
 		2D198D095029411DB4114088 /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 685677A95CEC4F7C8007F6F4 /* Ubuntu-R.ttf */; };
 		99A68C9FDC1A4C30B5C26090 /* UbuntuMono-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1BDC48F3372418BA50D8400 /* UbuntuMono-R.ttf */; };
 		DA450BDB653A4E9EB3F790BE /* UbuntuMono-RI.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1983D7A708D4E8B883170E5 /* UbuntuMono-RI.ttf */; };
+		1F9A6804CE4B4B28897BE2C5 /* KaushanScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4C3963A842441538885A594 /* KaushanScript-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		685677A95CEC4F7C8007F6F4 /* Ubuntu-R.ttf */ = {isa = PBXFileReference; name = "Ubuntu-R.ttf"; path = "../src/assets/fonts/Ubuntu-R.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		A1BDC48F3372418BA50D8400 /* UbuntuMono-R.ttf */ = {isa = PBXFileReference; name = "UbuntuMono-R.ttf"; path = "../src/assets/fonts/UbuntuMono-R.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		E1983D7A708D4E8B883170E5 /* UbuntuMono-RI.ttf */ = {isa = PBXFileReference; name = "UbuntuMono-RI.ttf"; path = "../src/assets/fonts/UbuntuMono-RI.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F4C3963A842441538885A594 /* KaushanScript-Regular.ttf */ = {isa = PBXFileReference; name = "KaushanScript-Regular.ttf"; path = "../src/assets/fonts/KaushanScript-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 				685677A95CEC4F7C8007F6F4 /* Ubuntu-R.ttf */,
 				A1BDC48F3372418BA50D8400 /* UbuntuMono-R.ttf */,
 				E1983D7A708D4E8B883170E5 /* UbuntuMono-RI.ttf */,
+				F4C3963A842441538885A594 /* KaushanScript-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				2D198D095029411DB4114088 /* Ubuntu-R.ttf in Resources */,
 				99A68C9FDC1A4C30B5C26090 /* UbuntuMono-R.ttf in Resources */,
 				DA450BDB653A4E9EB3F790BE /* UbuntuMono-RI.ttf in Resources */,
+				1F9A6804CE4B4B28897BE2C5 /* KaushanScript-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

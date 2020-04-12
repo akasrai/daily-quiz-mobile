@@ -7,10 +7,4 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#02183b',
   },
-  welcomeText: {
-    padding: 15,
-    fontSize: 30,
-    color: '#e9e9e9',
-    fontFamily: 'Ubuntu-R',
-  },
 });
