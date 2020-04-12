@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 
@@ -6,7 +6,9 @@ import {auth} from '~/auth';
 import NavigationStack from '~/app/screen/navigator.screen';
 
 const App = () => {
-  auth.initGoogleSignIn();
+  useEffect(() => {
+    auth.initGoogleSignIn();
+  });
 
   return (
     <>
