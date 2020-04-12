@@ -10,7 +10,6 @@ import {
 const signIn = async () => {
   try {
     await GoogleSignin.hasPlayServices();
-    console.log('fuck');
     const user = await GoogleSignin.signIn();
     console.log(user);
     const googleCredential = auth.GoogleAuthProvider.credential(user.idToken);
