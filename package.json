@@ -10,7 +10,9 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native-community/google-signin": "^4.0.0",
     "@react-native-firebase/app": "^6.4.0",
+    "@react-native-firebase/auth": "^6.4.0",
     "axios": "^0.19.2",
     "react": "16.11.0",
     "react-native": "0.62.2",

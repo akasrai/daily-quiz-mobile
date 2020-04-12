@@ -1,12 +1,17 @@
 import React from 'react';
-import {SafeAreaView, Text, StatusBar} from 'react-native';
+import {SafeAreaView, StatusBar} from 'react-native';
+import GoogleSignIn from '~/auth/screen/google-auth.screen';
+
+import {auth} from '~/auth';
 
 const App = () => {
+  auth.initGoogleSignIn();
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
-        <Text>Daily Quiz</Text>
+        <GoogleSignIn />
       </SafeAreaView>
     </>
   );
