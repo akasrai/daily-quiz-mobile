@@ -36,6 +36,16 @@ const signIn = async () => {
   }
 };
 
+export const signOut = async () => {
+  try {
+    await GoogleSignin.revokeAccess();
+    await GoogleSignin.signOut();
+    //states
+  } catch (error) {
+    //states
+  }
+};
+
 const GoogleSignInScreen = () => {
   return (
     <GoogleSigninButton
