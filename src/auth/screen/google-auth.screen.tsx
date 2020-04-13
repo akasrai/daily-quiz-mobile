@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Alert} from 'react-native';
+import {Alert} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {
   statusCodes,
@@ -7,27 +7,27 @@ import {
   GoogleSigninButton,
 } from '@react-native-community/google-signin';
 
+import {GoogleCredential, GoogleSigninResponse} from '../auth.type';
+
 const signIn = async () => {
   try {
     await GoogleSignin.hasPlayServices();
-    const user = await GoogleSignin.signIn();
-    console.log(user);
-    const googleCredential = auth.GoogleAuthProvider.credential(user.idToken);
+
+    const {user, idToken}: GoogleSigninResponse = await GoogleSignin.signIn();
+    const googleCredential: GoogleCredential = auth.GoogleAuthProvider.credential(
+      idToken,
+    );
 
     return auth().signInWithCredential(googleCredential);
   } catch (error) {
-    console.log(error);
     switch (error.code) {
       case statusCodes.SIGN_IN_CANCELLED:
-        // sign in was cancelled
         return Alert.alert('cancelled');
 
       case statusCodes.IN_PROGRESS:
-        // operation (eg. sign in) already in progress
-        return Alert.alert('in progress');
+        return Alert.alert('signin in progress');
 
       case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-        // android only
         return Alert.alert('play services not available or outdated');
 
       default:
@@ -36,7 +36,7 @@ const signIn = async () => {
   }
 };
 
-const GoogleSignIn = () => {
+const GoogleSignInScreen = () => {
   return (
     <GoogleSigninButton
       style={{width: 255, height: 50, marginTop: 20}}
@@ -47,4 +47,4 @@ const GoogleSignIn = () => {
   );
 };
 
-export default GoogleSignIn;
+export default GoogleSignInScreen;

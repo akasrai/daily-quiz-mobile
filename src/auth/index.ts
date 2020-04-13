@@ -1,1 +1,1 @@
-export * from './config.auth';
+export * from './auth.config';
