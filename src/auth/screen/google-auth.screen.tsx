@@ -1,24 +1,26 @@
-import React from 'react';
+import React, {useReducer} from 'react';
 import {Alert} from 'react-native';
-import auth from '@react-native-firebase/auth';
+import firebaseAuth from '@react-native-firebase/auth';
 import {
   statusCodes,
   GoogleSignin,
   GoogleSigninButton,
 } from '@react-native-community/google-signin';
 
-import {GoogleCredential, GoogleSigninResponse} from '../auth.type';
+import * as auth from '~/auth/auth.state';
+import {GoogleCredential, GoogleSigninResponse} from '~/auth/auth.type';
 
-const signIn = async () => {
+const signIn = async (setAuthState: Function) => {
   try {
     await GoogleSignin.hasPlayServices();
 
     const {user, idToken}: GoogleSigninResponse = await GoogleSignin.signIn();
-    const googleCredential: GoogleCredential = auth.GoogleAuthProvider.credential(
+    const googleCredential: GoogleCredential = firebaseAuth.GoogleAuthProvider.credential(
       idToken,
     );
 
-    return auth().signInWithCredential(googleCredential);
+    firebaseAuth().signInWithCredential(googleCredential);
+    setAuthState({type: auth.SIGN_IN, payload: {user}});
   } catch (error) {
     switch (error.code) {
       case statusCodes.SIGN_IN_CANCELLED:
@@ -47,12 +49,14 @@ export const signOut = async () => {
 };
 
 const GoogleSignInScreen = () => {
+  const [authState, setAuthState] = useReducer(auth.reducer, auth.initialState);
+
   return (
     <GoogleSigninButton
       style={{width: 255, height: 50, marginTop: 20}}
       size={GoogleSigninButton.Size.Wide}
       color={GoogleSigninButton.Color.Light}
-      onPress={signIn}
+      onPress={() => signIn(setAuthState)}
     />
   );
 };
