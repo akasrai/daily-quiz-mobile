@@ -22,9 +22,10 @@ export interface AuthState {
   user: User;
   provider: string;
   isAuthenticated: boolean;
+  setCurrentAuth: (currentAuth: AuthState) => void;
 }
 
 export interface Action {
-  payload: any;
+  payload?: any;
   type: string;
 }

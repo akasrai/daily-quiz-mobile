@@ -1,17 +1,27 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 
 import {styles} from './home.style';
 import Logo from '~/assets/image/logo';
-import GoogleSignInScreen from '~/auth/screen/google-auth.screen';
-import {AuthContextConsumer} from '~/auth/auth.state';
+import {AuthContextConsumer} from '~/auth/auth.context';
+import GoogleSignIn from '~/auth/screen/google-auth.screen';
 
 const HomeScreen = () => {
   return (
-    <View style={styles.container}>
-      <Logo />
-      <GoogleSignInScreen />
-    </View>
+    <AuthContextConsumer>
+      {(auth) =>
+        auth.isAuthenticated ? (
+          <View style={styles.container}>
+            <Text>Fuck You</Text>
+          </View>
+        ) : (
+          <View style={styles.container}>
+            <Logo />
+            <GoogleSignIn />
+          </View>
+        )
+      }
+    </AuthContextConsumer>
   );
 };
 

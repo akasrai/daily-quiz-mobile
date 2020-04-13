@@ -1,6 +1,6 @@
 import {Action} from '~/auth/auth.type';
 
-export function createReducer(defaultState: object = {}): any {
+export function createReducer(defaultState: object = {}) {
   const actionHandlerMap = new Map();
 
   function reducer(state: object = defaultState, action: Action) {

@@ -1,4 +1,3 @@
-import React from 'react';
 import {AuthState, Action} from './auth.type';
 import {updateObject, createReducer} from '~/helper';
 
@@ -17,25 +16,26 @@ export const initialState: AuthState = {
   },
   provider: 'Google',
   isAuthenticated: false,
+  setCurrentAuth: () => null,
 };
 
-const AuthContext = React.createContext<AuthState>(initialState);
+export const reducer = (
+  state: AuthState = initialState,
+  action: Action,
+): any => {
+  switch (action.type) {
+    case SIGN_IN:
+      return updateObject(state, {
+        isAuthenticated: true,
+        user: action.payload.user,
+      });
 
-export const AuthContextProvider = AuthContext.Provider;
+    case SIGN_OUT:
+      return updateObject(state, {
+        ...initialState,
+      });
 
-export const AuthContextConsumer = AuthContext.Consumer;
-
-export const reducer = createReducer(initialState);
-
-reducer.case(SIGN_IN).register((state: AuthState, action: Action) =>
-  updateObject(state, {
-    isAuthenticated: true,
-    user: action.payload.user,
-  }),
-);
-
-reducer.case(SIGN_OUT).register((state: AuthState) =>
-  updateObject(state, {
-    ...initialState,
-  }),
-);
+    default:
+      return state;
+  }
+};

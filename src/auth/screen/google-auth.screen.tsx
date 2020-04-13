@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useReducer, useEffect, useMemo} from 'react';
 import {Alert} from 'react-native';
 import firebaseAuth from '@react-native-firebase/auth';
 import {
@@ -8,7 +8,14 @@ import {
 } from '@react-native-community/google-signin';
 
 import * as auth from '~/auth/auth.state';
-import {GoogleCredential, GoogleSigninResponse} from '~/auth/auth.type';
+import {AuthContext, AuthContextProvider} from '~/auth/auth.context';
+import {
+  Action,
+  AuthState,
+  GoogleCredential,
+  GoogleSigninResponse,
+} from '~/auth/auth.type';
+import {Text} from 'react-native-svg';
 
 const signIn = async (setAuthState: Function) => {
   try {
@@ -49,7 +56,12 @@ export const signOut = async () => {
 };
 
 const GoogleSignInScreen = () => {
+  const {setCurrentAuth} = React.useContext(AuthContext);
   const [authState, setAuthState] = useReducer(auth.reducer, auth.initialState);
+
+  useMemo(() => {
+    setCurrentAuth(authState);
+  }, [authState]);
 
   return (
     <GoogleSigninButton
