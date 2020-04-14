@@ -8,20 +8,9 @@ import GoogleSignIn from '~/auth/screen/google-auth.screen';
 
 const HomeScreen = () => {
   return (
-    <AuthContextConsumer>
-      {(auth) =>
-        auth.isAuthenticated ? (
-          <View style={styles.container}>
-            <Text>Fuck You</Text>
-          </View>
-        ) : (
-          <View style={styles.container}>
-            <Logo />
-            <GoogleSignIn />
-          </View>
-        )
-      }
-    </AuthContextConsumer>
+    <>
+      <Text>FUCK</Text>
+    </>
   );
 };
 

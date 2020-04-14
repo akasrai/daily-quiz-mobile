@@ -3,6 +3,8 @@ import {Animated} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import HomeScreen from '~/home/screen/home.screen';
+import SigninScreen from '~/auth/screen/signin.screen';
+import {Authenticated, NonAuthenticated} from '~/auth/auth.context';
 
 const Stack = createStackNavigator();
 
@@ -23,8 +25,8 @@ const forFade = ({current, next}: any) => {
   };
 };
 
-const NavigationStack = () => {
-  return (
+const AuthenticatedNavigator = () => (
+  <Authenticated>
     <Stack.Navigator>
       <Stack.Screen
         name="Home"
@@ -35,7 +37,29 @@ const NavigationStack = () => {
         }}
       />
     </Stack.Navigator>
-  );
-};
+  </Authenticated>
+);
+
+const NonAuthenticatedNavigator = () => (
+  <NonAuthenticated>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={SigninScreen}
+        options={{
+          headerShown: false,
+          headerStyleInterpolator: forFade,
+        }}
+      />
+    </Stack.Navigator>
+  </NonAuthenticated>
+);
+
+const NavigationStack = () => (
+  <>
+    <NonAuthenticatedNavigator />
+    <AuthenticatedNavigator />
+  </>
+);
 
 export default NavigationStack;
