@@ -2,9 +2,14 @@ import React from 'react';
 import {Animated} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 
+import {AuthState} from '~/auth/auth.type';
 import HomeScreen from '~/home/screen/home.screen';
 import SigninScreen from '~/auth/screen/signin.screen';
-import {Authenticated, NonAuthenticated} from '~/auth/auth.context';
+import {
+  AuthContextConsumer,
+  Authenticated,
+  NonAuthenticated,
+} from '~/auth/auth.context';
 
 const Stack = createStackNavigator();
 
@@ -27,7 +32,7 @@ const forFade = ({current, next}: any) => {
 
 const AuthenticatedNavigator = () => (
   <Authenticated>
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
         component={HomeScreen}
@@ -42,9 +47,9 @@ const AuthenticatedNavigator = () => (
 
 const NonAuthenticatedNavigator = () => (
   <NonAuthenticated>
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Signin">
       <Stack.Screen
-        name="Home"
+        name="Signin"
         component={SigninScreen}
         options={{
           headerShown: false,
@@ -57,8 +62,8 @@ const NonAuthenticatedNavigator = () => (
 
 const NavigationStack = () => (
   <>
-    <NonAuthenticatedNavigator />
     <AuthenticatedNavigator />
+    <NonAuthenticatedNavigator />
   </>
 );
 
