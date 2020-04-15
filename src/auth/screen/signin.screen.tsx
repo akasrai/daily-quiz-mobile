@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 
 import Logo from '~/assets/image/logo';
-import {styles} from '~/auth/screen/auth.style';
-import GoogleSignIn from '~/auth/screen/google-auth.screen';
+import {styles} from '~/auth/auth.style';
+import GoogleSignIn from '~/auth/component/google-auth.component';
 
 const SigninScreen = () => {
   return (

@@ -4,8 +4,8 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import {auth} from '~/auth';
 import {useAuth} from '~/auth/auth.hooks';
+import NavigationStack from '~/app/app.navigator';
 import {AuthContextProvider} from '~/auth/auth.context';
-import NavigationStack from '~/app/screen/navigator.screen';
 
 const App = () => {
   const currentAuth = useAuth();

@@ -1,23 +1,17 @@
-import React, {useReducer, useEffect, useMemo} from 'react';
-import {Alert} from 'react-native';
-import firebaseAuth from '@react-native-firebase/auth';
+import {Alert, Button} from 'react-native';
 import {
   statusCodes,
   GoogleSignin,
   GoogleSigninButton,
 } from '@react-native-community/google-signin';
+import firebaseAuth from '@react-native-firebase/auth';
+import React, {useReducer, useMemo, useState} from 'react';
 
 import * as auth from '~/auth/auth.state';
-import {AuthContext, AuthContextProvider} from '~/auth/auth.context';
-import {
-  Action,
-  AuthState,
-  GoogleCredential,
-  GoogleSigninResponse,
-} from '~/auth/auth.type';
-import {Text} from 'react-native-svg';
+import {AuthContext} from '~/auth/auth.context';
+import {GoogleCredential, GoogleSigninResponse} from '~/auth/auth.type';
 
-const signIn = async (setAuthState: Function) => {
+const signIn = async (dispatch: Function) => {
   try {
     await GoogleSignin.hasPlayServices();
 
@@ -27,7 +21,7 @@ const signIn = async (setAuthState: Function) => {
     );
 
     firebaseAuth().signInWithCredential(googleCredential);
-    setAuthState({type: auth.SIGN_IN, payload: {user}});
+    dispatch({type: auth.SIGN_IN, payload: {user}});
   } catch (error) {
     switch (error.code) {
       case statusCodes.SIGN_IN_CANCELLED:
@@ -45,19 +39,40 @@ const signIn = async (setAuthState: Function) => {
   }
 };
 
-export const signOut = async () => {
+const signOut = async (dispatch: Function, setIsSignedOut: Function) => {
   try {
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
-    //states
+
+    dispatch({type: auth.SIGN_OUT});
+    setIsSignedOut(true);
   } catch (error) {
-    //states
+    return Alert.alert('Something went wrong');
   }
 };
 
-const GoogleSignInScreen = () => {
+export const GoogleSignoutButton = () => {
+  const [isSignedOut, setIsSignedOut] = useState(false);
   const {setCurrentAuth} = React.useContext(AuthContext);
-  const [authState, setAuthState] = useReducer(auth.reducer, auth.initialState);
+  const [authState, dispatch] = useReducer(auth.reducer, auth.initialState);
+
+  useMemo(() => {
+    if (isSignedOut) {
+      setCurrentAuth(authState);
+    }
+  }, [isSignedOut]);
+
+  return (
+    <Button
+      title="Sign Out"
+      onPress={() => signOut(dispatch, setIsSignedOut)}
+    />
+  );
+};
+
+const GoogleSignInButton = () => {
+  const {setCurrentAuth} = React.useContext(AuthContext);
+  const [authState, dispatch] = useReducer(auth.reducer, auth.initialState);
 
   useMemo(() => {
     setCurrentAuth(authState);
@@ -68,9 +83,9 @@ const GoogleSignInScreen = () => {
       style={{width: 255, height: 50, marginTop: 20}}
       size={GoogleSigninButton.Size.Wide}
       color={GoogleSigninButton.Color.Light}
-      onPress={() => signIn(setAuthState)}
+      onPress={() => signIn(dispatch)}
     />
   );
 };
 
-export default GoogleSignInScreen;
+export default GoogleSignInButton;

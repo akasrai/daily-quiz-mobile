@@ -55,11 +55,13 @@ const NonAuthenticatedNavigator = () => (
   </NonAuthenticated>
 );
 
-const NavigationStack = () => (
-  <>
-    <AuthenticatedNavigator />
-    <NonAuthenticatedNavigator />
-  </>
-);
+const NavigationStack = () => {
+  return (
+    <>
+      <AuthenticatedNavigator />
+      <NonAuthenticatedNavigator />
+    </>
+  );
+};
 
 export default NavigationStack;

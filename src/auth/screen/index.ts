@@ -1,1 +1,1 @@
-export * from './google-auth.screen';
+export * from '../component/google-auth.component';
