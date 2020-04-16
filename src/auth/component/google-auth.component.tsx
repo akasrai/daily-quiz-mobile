@@ -93,7 +93,6 @@ const GoogleSignInButton = () => {
 
   useMemo(() => {
     setCurrentAuth(authState);
-    console.log(authState, 'fuc');
   }, [authState]);
 
   return (
