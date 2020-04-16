@@ -1,41 +1,58 @@
-import {Alert, Button} from 'react-native';
 import {
   statusCodes,
   GoogleSignin,
   GoogleSigninButton,
 } from '@react-native-community/google-signin';
-import firebaseAuth from '@react-native-firebase/auth';
+import {Alert, Button} from 'react-native';
 import React, {useReducer, useMemo, useState} from 'react';
+import firebaseAuth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 import * as auth from '~/auth/auth.state';
+import {createUser} from '~/api/firebase.api';
 import {AuthContext} from '~/auth/auth.context';
-import {GoogleCredential, GoogleSigninResponse} from '~/auth/auth.type';
+import {GoogleCredential, User} from '~/auth/auth.type';
+
+const getCredentials = (idToken: string | null): GoogleCredential => {
+  return firebaseAuth.GoogleAuthProvider.credential(idToken);
+};
 
 const signIn = async (dispatch: Function) => {
   try {
     await GoogleSignin.hasPlayServices();
+    const {idToken}: {idToken: string | null} = await GoogleSignin.signIn();
+    const googleCredential: GoogleCredential = getCredentials(idToken);
 
-    const {user, idToken}: GoogleSigninResponse = await GoogleSignin.signIn();
-    const googleCredential: GoogleCredential = firebaseAuth.GoogleAuthProvider.credential(
-      idToken,
-    );
-
-    firebaseAuth().signInWithCredential(googleCredential);
-    dispatch({type: auth.SIGN_IN, payload: {user}});
+    firebaseAuth()
+      .signInWithCredential(googleCredential)
+      .then(({user}: {user: FirebaseAuthTypes.User}) => {
+        createUser(user);
+        dispatch({type: auth.SIGN_IN, payload: {user: getUserData(user)}});
+      });
   } catch (error) {
-    switch (error.code) {
-      case statusCodes.SIGN_IN_CANCELLED:
-        return Alert.alert('cancelled');
+    return handleSignInError(error);
+  }
+};
 
-      case statusCodes.IN_PROGRESS:
-        return Alert.alert('signin in progress');
+const getUserData = (user: FirebaseAuthTypes.User): User => ({
+  uid: user.uid,
+  email: user.email,
+  photo: user.photoURL,
+  name: user.displayName,
+});
 
-      case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-        return Alert.alert('play services not available or outdated');
+const handleSignInError = (error: any) => {
+  switch (error.code) {
+    case statusCodes.SIGN_IN_CANCELLED:
+      return Alert.alert('cancelled');
 
-      default:
-        Alert.alert('Something went wrong', error.toString());
-    }
+    case statusCodes.IN_PROGRESS:
+      return Alert.alert('signin in progress');
+
+    case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+      return Alert.alert('play services not available or outdated');
+
+    default:
+      Alert.alert('Something went wrong', error.toString());
   }
 };
 
@@ -76,6 +93,7 @@ const GoogleSignInButton = () => {
 
   useMemo(() => {
     setCurrentAuth(authState);
+    console.log(authState, 'fuc');
   }, [authState]);
 
   return (

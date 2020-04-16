@@ -1,12 +1,8 @@
-import {ReactNode} from 'react';
-
 export interface User {
-  id: string;
-  email: string;
+  email: string | null;
+  uid: string | null;
   name: string | null;
   photo: string | null;
-  familyName: string | null;
-  givenName: string | null;
 }
 
 export interface GoogleSigninResponse {
