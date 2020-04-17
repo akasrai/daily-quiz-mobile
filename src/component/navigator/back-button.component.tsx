@@ -8,6 +8,8 @@ const BackButton = () => {
 
   return (
     <TouchableHighlight
+      activeOpacity={0.5}
+      underlayColor="#02183b"
       style={styles.goBackButton}
       onPress={() => navigation.goBack()}>
       <Icon style={styles.icon} name="chevron-left"></Icon>

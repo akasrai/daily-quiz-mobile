@@ -11,15 +11,17 @@ export const ProfileIcon = () => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-      <View style={styles.profileIconRing}>
-        <View style={styles.profileIconWrapper}>
-          <Image
-            style={styles.profileIconImage}
-            source={{uri: user.photo || ''}}
-          />
+    <View style={styles.profileIcon}>
+      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <View style={styles.profileIconRing}>
+          <View style={styles.profileIconWrapper}>
+            <Image
+              style={styles.profileIconImage}
+              source={{uri: user.photo || ''}}
+            />
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };

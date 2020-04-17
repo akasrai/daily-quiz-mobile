@@ -1,6 +1,11 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
+  profileIcon: {
+    top: 15,
+    right: 10,
+    position: 'absolute',
+  },
   profileIconRing: {
     width: 60,
     height: 60,
