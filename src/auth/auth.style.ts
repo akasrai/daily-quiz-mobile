@@ -7,4 +7,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#02183b',
   },
+  signOut: {
+    padding: 6,
+    borderRadius: 2,
+    alignItems: 'center',
+    backgroundColor: 'white',
+    justifyContent: 'center',
+  },
 });

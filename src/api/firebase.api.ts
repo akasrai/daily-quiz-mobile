@@ -5,7 +5,7 @@ export const createUser = (user: FirebaseAuthTypes.User) => {
   return firestore()
     .collection('Users')
     .doc(user.uid)
-    .set({fullName: user.displayName});
+    .set({fullName: user.displayName, photo: user.photoURL});
 };
 
 export const getLatestQuestion = () => {
