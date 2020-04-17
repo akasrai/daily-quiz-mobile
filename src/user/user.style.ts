@@ -16,9 +16,9 @@ export const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   profileIconWrapper: {
+    margin: 2,
     width: 54,
     height: 54,
-    margin: 2,
     borderWidth: 1,
     overflow: 'hidden',
     backgroundColor: '#fff',
@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop: 27,
+    marginTop: 26,
     backgroundColor: '#02183b',
   },
   profile: {
