@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import HomeScreen from '~/home/screen/home.screen';
 import SigninScreen from '~/auth/screen/signin.screen';
+import ProfileScreen from '~/user/screen/profile.screen';
 import {Authenticated, NonAuthenticated} from '~/auth/auth.context';
 
 const Stack = createStackNavigator();
@@ -31,6 +32,14 @@ const AuthenticatedNavigator = () => (
       <Stack.Screen
         name="Home"
         component={HomeScreen}
+        options={{
+          headerShown: false,
+          headerStyleInterpolator: forFade,
+        }}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
         options={{
           headerShown: false,
           headerStyleInterpolator: forFade,

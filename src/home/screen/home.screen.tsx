@@ -4,8 +4,9 @@ import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 import {styles} from '../home.style';
 import {GoogleSignoutButton} from '~/auth/component/google-auth.component';
+import {ProfileIcon} from '~/user/component/profile.component';
 
-const HomeScreen = () => {
+const HomeScreen: React.FC = ({navigation}: any) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
@@ -21,15 +22,9 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <ProfileIcon navigation={navigation} />
       <View>
-        {loading ? (
-          <Text>Loading...</Text>
-        ) : (
-          <>
-            <Text style={styles.title}>Fuck You {user?.displayName}</Text>
-            <GoogleSignoutButton />
-          </>
-        )}
+        <Text style={styles.title}>Fuck</Text>
       </View>
     </SafeAreaView>
   );

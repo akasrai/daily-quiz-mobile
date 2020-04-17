@@ -8,6 +8,6 @@ export const createUser = (user: FirebaseAuthTypes.User) => {
     .set({fullName: user.displayName});
 };
 
-export const getQuiz = () => {
-  return firestore().collection('questions').limit(1).get();
+export const getLatestQuestion = () => {
+  return firestore().collection('Questions').limit(1).get();
 };
