@@ -4,12 +4,14 @@ import {View, Image, Text, SafeAreaView} from 'react-native';
 import {styles} from '~/user/user.style';
 import {AuthContext} from '~/auth/auth.context';
 import {GoogleSignoutButton} from '~/auth/screen';
+import BackButton from '~/component/navigator/back-button.component';
 
 const ProfileScreen = () => {
   const {user} = useContext(AuthContext);
 
   return (
     <SafeAreaView style={styles.container}>
+      <BackButton />
       <View style={styles.profile}>
         <View style={styles.profileImageRing}>
           <Image
