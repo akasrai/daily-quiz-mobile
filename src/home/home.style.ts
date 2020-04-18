@@ -9,4 +9,15 @@ export const styles = StyleSheet.create({
   title: {
     color: 'white',
   },
+  profileImage: {
+    flex: 0,
+    marginTop: 90,
+    alignItems: 'center',
+    alignContent: 'center',
+  },
+  name: {
+    padding: 20,
+    fontSize: 25,
+    color: '#fff',
+  },
 });

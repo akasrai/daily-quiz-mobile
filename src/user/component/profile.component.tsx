@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, Text, SafeAreaView} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 import {styles} from '~/user/user.style';
@@ -22,6 +22,19 @@ export const ProfileIcon = () => {
           </View>
         </View>
       </TouchableOpacity>
+    </View>
+  );
+};
+
+export const ProfileImage = () => {
+  const {user} = useContext(AuthContext);
+
+  return (
+    <View style={styles.profileImageRing}>
+      <Image
+        style={styles.profileImageWrapper}
+        source={{uri: user.photo || ''}}
+      />
     </View>
   );
 };
