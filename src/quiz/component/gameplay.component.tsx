@@ -29,14 +29,14 @@ const GamePlay = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: 40,
-    marginRight: 40,
+    // marginLeft: 40,
+    // marginRight: 40,
     paddingTop: 15,
     paddingLeft: 40,
     paddingRight: 40,
     paddingBottom: 10,
-    borderWidth: 1,
-    borderColor: '#b2b2b2',
+    // borderWidth: 1,
+    // borderColor: '#b2b2b2',
     borderRadius: 100 / 30,
     flex: 0,
     flexDirection: 'row',
@@ -59,13 +59,13 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    color: '#b2b2b2',
+    color: '#02183b',
     textAlign: 'center',
   },
   value: {
     fontSize: 18,
-    color: '#fff',
-    fontWeight: '800',
+    color: '#02183b',
+    fontWeight: 'bold',
     textAlign: 'center',
   },
 });

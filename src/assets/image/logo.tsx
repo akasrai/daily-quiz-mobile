@@ -34,4 +34,30 @@ const Logo = () => (
   </View>
 );
 
+export const LogoSm = () => (
+  <View style={{}}>
+    <Svg viewBox="0 0 360 100" height="30" width="200">
+      <Defs>
+        <LinearGradient
+          id="rainbow"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2="100%"
+          gradientUnits="userSpaceOnUse">
+          <Stop stopColor="#FF5B99" offset="0%" />
+          <Stop stopColor="#FF5447" offset="30%" />
+          <Stop stopColor="#FF7B21" offset="70%" />
+          <Stop stopColor="#EAFC37" offset="100%" />
+        </LinearGradient>
+      </Defs>
+      <Text fill="url(#rainbow)">
+        <TSpan fontFamily="KaushanScript-Regular" fontSize="85" x="0" y="70">
+          Daily Quiz
+        </TSpan>
+      </Text>
+    </Svg>
+  </View>
+);
+
 export default Logo;

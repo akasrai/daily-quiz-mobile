@@ -1,14 +1,17 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, SafeAreaView, TouchableHighlight} from 'react-native';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {useNavigation} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import LinearGradient from 'react-native-linear-gradient';
 import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
 
 import {styles} from '../home.style';
 import GamePlay from '~/quiz/component/gameplay.component';
 import {ProfileIcon, ProfileImage} from '~/user/component/profile.component';
 import {AuthContext} from '~/auth/auth.context';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import {useNavigation} from '@react-navigation/native';
+import Hr from '~/component/form/horizontal-line.component';
+import {LogoSm} from '~/assets/image/logo';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -16,24 +19,24 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.profileImage}>
-          <ProfileImage />
-          <Text style={styles.name}>{user.name}</Text>
-        </View>
-        <GamePlay />
-
-        <View style={styles.playBtnWrapper}>
-          <Text style={styles.note}>New Question Published</Text>
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigation.navigate('Profile')}>
-            <View style={styles.playBtn}>
-              <Icon style={styles.icon} name="play" />
+      <LinearGradient
+        colors={['#02183b', '#032862', '#fff', '#fff', '#fff']}
+        style={{flex: 1}}>
+        <ScrollView>
+          <View style={styles.quoteWrapper}>
+            <View style={styles.logo}>
+              <LogoSm />
             </View>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+            <Text style={styles.quote}>This fucking cool Quotes.</Text>
+          </View>
+
+          <View style={styles.content}>
+            <GamePlay />
+            <Hr />
+            <Text>This is fucking view</Text>
+          </View>
+        </ScrollView>
+      </LinearGradient>
     </SafeAreaView>
   );
 };

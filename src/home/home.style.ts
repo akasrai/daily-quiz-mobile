@@ -3,13 +3,34 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 27,
-    backgroundColor: '#02183b',
+    backgroundColor: '#fff',
   },
-  note: {
-    padding: 30,
-    color: 'white',
+
+  quoteWrapper: {
+    flex: 0,
+    padding: 20,
+    alignItems: 'center',
+  },
+  quote: {
+    color: '#fff',
     textAlign: 'center',
+  },
+  content: {
+    margin: 10,
+    borderColor: '#fff',
+    borderRadius: 8,
+    backgroundColor: '#fff',
+  },
+  logo: {
+    color: 'white',
+    fontSize: 25,
+    paddingTop: 30,
+    textAlign: 'center',
+    fontFamily: 'KaushanScript-Regular',
+  },
+
+  note: {
+    color: 'white',
   },
   profileImage: {
     flex: 0,
