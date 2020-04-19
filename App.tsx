@@ -4,7 +4,10 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import {auth} from '~/auth';
 import {useAuth} from '~/auth/auth.hooks';
-import NavigationStack from '~/app/app.navigator';
+import AppNavigationStack, {
+  ButtonNavigation,
+  NonAuthenticatedNavigator,
+} from '~/app/app.navigator';
 import {AuthContextProvider} from '~/auth/auth.context';
 
 const App = () => {
@@ -21,9 +24,9 @@ const App = () => {
         barStyle="light-content"
         backgroundColor={'#02183b'}
       />
-      <NavigationContainer>
-        <NavigationStack />
-      </NavigationContainer>
+      {/* <AppNavigationStack /> */}
+      <NonAuthenticatedNavigator />
+      <ButtonNavigation />
     </AuthContextProvider>
   );
 };

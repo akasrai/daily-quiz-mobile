@@ -1,6 +1,9 @@
 import React from 'react';
 import {Animated} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import HomeScreen from '~/home/screen/home.screen';
 import SigninScreen from '~/auth/screen/signin.screen';
@@ -26,6 +29,8 @@ const forFade = ({current, next}: any) => {
   };
 };
 
+const Tab = createBottomTabNavigator();
+
 const AuthenticatedNavigator = () => (
   <Authenticated>
     <Stack.Navigator initialRouteName="Home">
@@ -49,28 +54,69 @@ const AuthenticatedNavigator = () => (
   </Authenticated>
 );
 
-const NonAuthenticatedNavigator = () => (
+export const NonAuthenticatedNavigator = () => (
   <NonAuthenticated>
-    <Stack.Navigator initialRouteName="Signin">
-      <Stack.Screen
-        name="Signin"
-        component={SigninScreen}
-        options={{
-          headerShown: false,
-          headerStyleInterpolator: forFade,
-        }}
-      />
-    </Stack.Navigator>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Signin">
+        <Stack.Screen
+          name="Signin"
+          component={SigninScreen}
+          options={{
+            headerShown: false,
+            headerStyleInterpolator: forFade,
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   </NonAuthenticated>
 );
 
-const NavigationStack = () => {
+const AppNavigationStack = () => {
   return (
     <>
       <AuthenticatedNavigator />
-      <NonAuthenticatedNavigator />
     </>
   );
 };
 
-export default NavigationStack;
+export const ButtonNavigation = () => {
+  return (
+    <Authenticated>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({route}) => ({
+            tabBarIcon: ({focused, color, size}) => {
+              let iconName = '';
+
+              if (route.name === 'Home') {
+                iconName = focused ? 'info-circle' : 'info-circle';
+              }
+              if (route.name === 'Settings') {
+                iconName = focused ? 'cog' : 'cog';
+              }
+
+              // You can return any component that you like here!
+              return <Icon style={{color: '#fff'}} name={iconName} />;
+            },
+            backgroundColor: 'red',
+          })}
+          tabBarOptions={{
+            activeTintColor: '#dadada',
+            inactiveTintColor: '#fff',
+            style: {
+              paddingBottom: 10,
+              paddingTop: 10,
+              height: 60,
+              borderTopColor: '#011533',
+              backgroundColor: '#011533',
+            },
+          }}>
+          <Tab.Screen name="Home" component={AppNavigationStack} />
+          <Tab.Screen name="Settings" component={AppNavigationStack} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Authenticated>
+  );
+};
+
+export default AppNavigationStack;

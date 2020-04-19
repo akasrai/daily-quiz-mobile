@@ -6,8 +6,10 @@ export const styles = StyleSheet.create({
     marginTop: 27,
     backgroundColor: '#02183b',
   },
-  title: {
+  note: {
+    padding: 30,
     color: 'white',
+    textAlign: 'center',
   },
   profileImage: {
     flex: 0,
@@ -19,5 +21,21 @@ export const styles = StyleSheet.create({
     padding: 20,
     fontSize: 25,
     color: '#fff',
+  },
+  playBtnWrapper: {
+    flex: 0,
+    alignItems: 'center',
+  },
+  playBtn: {
+    width: 80,
+    height: 80,
+    padding: 6,
+    alignItems: 'center',
+    borderRadius: 100 / 2,
+    justifyContent: 'center',
+    backgroundColor: '#e4e4e4',
+  },
+  icon: {
+    fontSize: 25,
   },
 });

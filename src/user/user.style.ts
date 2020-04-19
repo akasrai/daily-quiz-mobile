@@ -34,12 +34,15 @@ export const styles = StyleSheet.create({
     backgroundColor: '#02183b',
   },
   profile: {
-    flex: 1,
+    flex: 0,
     width: '100%',
     paddingTop: 130,
     alignItems: 'center',
     alignContent: 'center',
-    backgroundColor: '#02183b',
+  },
+  info: {
+    paddingTop: 10,
+    paddingBottom: 20,
   },
   profileImageRing: {
     width: 120,
@@ -72,6 +75,8 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   buttons: {
-    padding: 20,
+    paddingTop: 20,
+    paddingLeft: 40,
+    paddingRight: 40,
   },
 });
