@@ -29,14 +29,10 @@ const GamePlay = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // marginLeft: 40,
-    // marginRight: 40,
     paddingTop: 15,
     paddingLeft: 40,
     paddingRight: 40,
     paddingBottom: 10,
-    // borderWidth: 1,
-    // borderColor: '#b2b2b2',
     borderRadius: 100 / 30,
     flex: 0,
     flexDirection: 'row',

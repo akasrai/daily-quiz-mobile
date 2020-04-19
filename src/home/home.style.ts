@@ -5,18 +5,20 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-
   quoteWrapper: {
     flex: 0,
     padding: 20,
+    marginTop: 30,
     alignItems: 'center',
   },
   quote: {
+    padding: 5,
     color: '#fff',
     textAlign: 'center',
   },
   content: {
-    margin: 10,
+    marginLeft: 10,
+    marginRight: 10,
     borderColor: '#fff',
     borderRadius: 8,
     backgroundColor: '#fff',
@@ -28,35 +30,30 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'KaushanScript-Regular',
   },
-
-  note: {
-    color: 'white',
+  pointsTable: {
+    flex: 0,
+    padding: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  profileImageWrapper: {
+    width: 35,
+    height: 35,
+    overflow: 'hidden',
+    borderRadius: 100 / 2,
   },
   profileImage: {
-    flex: 0,
-    marginTop: 90,
-    alignItems: 'center',
-    alignContent: 'center',
+    width: 35,
+    height: 35,
   },
   name: {
-    padding: 20,
-    fontSize: 25,
-    color: '#fff',
-  },
-  playBtnWrapper: {
-    flex: 0,
-    alignItems: 'center',
-  },
-  playBtn: {
-    width: 80,
-    height: 80,
+    width: 230,
     padding: 6,
-    alignItems: 'center',
-    borderRadius: 100 / 2,
-    justifyContent: 'center',
-    backgroundColor: '#e4e4e4',
+    textAlign: 'left',
   },
-  icon: {
-    fontSize: 25,
+  point: {
+    padding: 6,
+    textAlign: 'left',
+    fontWeight: 'bold',
   },
 });
