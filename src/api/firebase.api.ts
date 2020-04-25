@@ -11,3 +11,7 @@ export const createUser = (user: FirebaseAuthTypes.User) => {
 export const getLatestQuestion = () => {
   return firestore().collection('Questions').limit(1).get();
 };
+
+export const getQuotes = () => {
+  return firestore().collection('Quotes').get();
+};
