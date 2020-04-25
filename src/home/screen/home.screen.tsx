@@ -1,16 +1,14 @@
 import React, {useContext} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import LinearGradient from 'react-native-linear-gradient';
-import {View, Image, Text, SafeAreaView} from 'react-native';
-import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
+import {View, Image, Text, ScrollView, SafeAreaView} from 'react-native';
 
 import {styles} from '../home.style';
 import {LogoSm} from '~/assets/image/logo';
 import {AuthContext} from '~/auth/auth.context';
+import {appGradientBG, appStyles} from '~/app/app.style';
 import GamePlay from '~/quiz/component/gameplay.component';
 import Hr from '~/component/form/horizontal-line.component';
-import {appGradientBG, appStyles} from '~/app/app.style';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
