@@ -31,7 +31,6 @@ export const styles = StyleSheet.create({
     flex: 0,
     flexDirection: 'row',
     alignItems: 'baseline',
-    alignContent: 'center',
     justifyContent: 'space-between',
   },
   leadName: {

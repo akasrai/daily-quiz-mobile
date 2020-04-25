@@ -20,7 +20,7 @@ const TopThree = ({user}: {user: User}) => {
           <Image style={styles.leadTwoImage} source={{uri: user.photo || ''}} />
         </View>
         <Text style={styles.leadName}>
-          <Icon style={styles.silver} name="award" /> {user.name}
+          <Icon style={styles.silver} name="medal" /> {user.name}
         </Text>
         <Text style={styles.leadName}>4500</Text>
       </View>
@@ -31,7 +31,7 @@ const TopThree = ({user}: {user: User}) => {
         </View>
         <Text style={styles.leadName}>
           {' '}
-          <Icon style={styles.gold} name="award" /> {user.name}
+          <Icon style={styles.gold} name="medal" /> {user.name}
         </Text>
         <Text style={styles.leadName}>450</Text>
       </View>
@@ -45,7 +45,7 @@ const TopThree = ({user}: {user: User}) => {
         </View>
         <Text style={styles.leadName}>
           {' '}
-          <Icon style={styles.bronze} name="award" /> {user.name}
+          <Icon style={styles.bronze} name="medal" /> {user.name}
         </Text>
         <Text style={styles.leadName}>4580</Text>
       </View>
