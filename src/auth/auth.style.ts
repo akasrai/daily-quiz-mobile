@@ -7,11 +7,23 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#02183b',
   },
-  signOut: {
-    padding: 6,
-    borderRadius: 2,
-    alignItems: 'center',
-    backgroundColor: 'white',
-    justifyContent: 'center',
+  signOutButtonWrapper: {
+    right: 15,
+    zIndex: 888,
+    marginTop: 18,
+    position: 'absolute',
+  },
+  signOutButton: {
+    width: 40,
+    height: 40,
+    padding: 10,
+    paddingLeft: 12,
+    position: 'relative',
+    borderRadius: 100 / 2,
+    backgroundColor: 'transparent',
+  },
+  icon: {
+    color: '#fff',
+    fontSize: 18,
   },
 });

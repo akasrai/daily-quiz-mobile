@@ -4,6 +4,7 @@ import {
   GoogleSigninButton,
 } from '@react-native-community/google-signin';
 import {Alert, Text, View} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 import React, {useReducer, useMemo, useState} from 'react';
 import firebaseAuth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
@@ -82,13 +83,15 @@ export const GoogleSignoutButton = () => {
   }, [isSignedOut]);
 
   return (
-    <TouchableHighlight
-      underlayColor="#02183b"
-      onPress={() => signOut(dispatch, setIsSignedOut)}>
-      <View style={styles.signOut}>
-        <Text style={{color: '#02183b'}}>Sign Out</Text>
-      </View>
-    </TouchableHighlight>
+    <View style={styles.signOutButtonWrapper}>
+      <TouchableHighlight
+        activeOpacity={0.5}
+        underlayColor="#02183b"
+        style={styles.signOutButton}
+        onPress={() => signOut(dispatch, setIsSignedOut)}>
+        <Icon style={styles.icon} name="log-out" />
+      </TouchableHighlight>
+    </View>
   );
 };
 

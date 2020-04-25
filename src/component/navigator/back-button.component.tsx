@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-import {TouchableHighlight, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {TouchableHighlight, StyleSheet} from 'react-native';
 
 const BackButton = () => {
   const navigation = useNavigation();

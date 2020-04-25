@@ -77,6 +77,21 @@ export const NonAuthenticatedNavigator = () => (
   </NonAuthenticated>
 );
 
+const ProfileNavigationStack = () => (
+  <Authenticated>
+    <Stack.Navigator initialRouteName="Profile">
+      <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          headerShown: false,
+          headerStyleInterpolator: forFade,
+        }}
+      />
+    </Stack.Navigator>
+  </Authenticated>
+);
+
 const AppNavigationStack = () => <AuthenticatedNavigator />;
 
 export const ButtonNavigation = () => {
@@ -92,7 +107,7 @@ export const ButtonNavigation = () => {
           tabBarOptions={getTabBarOptions()}>
           <Tab.Screen name="Home" component={AppNavigationStack} />
           <Tab.Screen name="Leaderboard" component={AppNavigationStack} />
-          <Tab.Screen name="Profile" component={ProfileScreen} />
+          <Tab.Screen name="Profile" component={ProfileNavigationStack} />
         </Tab.Navigator>
       </NavigationContainer>
     </Authenticated>
