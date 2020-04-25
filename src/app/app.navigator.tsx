@@ -77,13 +77,7 @@ export const NonAuthenticatedNavigator = () => (
   </NonAuthenticated>
 );
 
-const AppNavigationStack = () => {
-  return (
-    <>
-      <AuthenticatedNavigator />
-    </>
-  );
-};
+const AppNavigationStack = () => <AuthenticatedNavigator />;
 
 export const ButtonNavigation = () => {
   const {user}: {user: User} = useContext(AuthContext);
@@ -94,21 +88,8 @@ export const ButtonNavigation = () => {
         <Tab.Navigator
           screenOptions={({route}) => ({
             tabBarIcon: ({focused}) => getTabBarIcons(route, focused, user),
-            backgroundColor: 'red',
           })}
-          tabBarOptions={{
-            showIcon: true,
-            showLabel: false,
-            inactiveTintColor: '#fff',
-            activeTintColor: '#dadada',
-            style: {
-              height: 50,
-              paddingTop: 10,
-              paddingBottom: 10,
-              borderTopColor: '#011533',
-              backgroundColor: '#011533',
-            },
-          }}>
+          tabBarOptions={getTabBarOptions()}>
           <Tab.Screen name="Home" component={AppNavigationStack} />
           <Tab.Screen name="Leaderboard" component={AppNavigationStack} />
           <Tab.Screen name="Profile" component={ProfileScreen} />
@@ -118,13 +99,28 @@ export const ButtonNavigation = () => {
   );
 };
 
+const getTabBarOptions = () => ({
+  showIcon: true,
+  showLabel: false,
+  inactiveTintColor: '#fff',
+  activeTintColor: '#dadada',
+  style: {
+    height: 50,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderTopColor: '#011533',
+    backgroundColor: '#011533',
+  },
+});
+
 const getTabBarIcons = (route: Route, focused: boolean, user: User) => {
+  let fontColor = focused ? '#fff' : '#a5a5a5';
   switch (route.name) {
     case 'Home':
-      return <MIcon style={{color: '#fff', fontSize: 25}} name="home" />;
+      return <MIcon style={{color: fontColor, fontSize: 25}} name="home" />;
 
     case 'Leaderboard':
-      return <FIcon style={{color: '#fff', fontSize: 18}} name="trophy" />;
+      return <FIcon style={{color: fontColor, fontSize: 18}} name="trophy" />;
 
     case 'Profile':
       return (
