@@ -30,38 +30,4 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'KaushanScript-Regular',
   },
-  pointsTable: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingBottom: 20,
-    height: '71%',
-  },
-  pointsRow: {
-    flex: 0,
-    padding: 15,
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: 'lightgray',
-    justifyContent: 'space-between',
-  },
-  profileImageWrapper: {
-    width: 35,
-    height: 35,
-    overflow: 'hidden',
-    borderRadius: 100 / 2,
-  },
-  profileImage: {
-    width: 35,
-    height: 35,
-  },
-  name: {
-    width: 230,
-    padding: 6,
-    textAlign: 'left',
-  },
-  point: {
-    padding: 6,
-    textAlign: 'left',
-    fontWeight: 'bold',
-  },
 });
