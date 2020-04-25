@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {View, Image, Text, ScrollView, SafeAreaView} from 'react-native';

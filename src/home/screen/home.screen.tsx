@@ -1,30 +1,27 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
-import {View, Image, Text, ScrollView, SafeAreaView} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import React, {useContext, useEffect, useState} from 'react';
+import {View, Text, ScrollView, SafeAreaView} from 'react-native';
 
 import {styles} from '../home.style';
+import {getRandomInt} from '~/helper';
 import {LogoSm} from '~/assets/image/logo';
 import {getQuotes} from '~/api/firebase.api';
 import {AuthContext} from '~/auth/auth.context';
 import {appGradientBG, appStyles} from '~/app/app.style';
 import GamePlay from '~/quiz/component/gameplay.component';
 import Hr from '~/component/form/horizontal-line.component';
-import {getRandomInt} from '~/helper';
 
 const Quote = () => {
   const [quote, setQuote] = useState<String>();
 
   useEffect(() => {
-    (async function getQuote() {
-      getQuotes().then((snapshot) => {
-        const quotes: Array<String> = [];
-
-        snapshot.forEach((doc) => quotes.push(doc.data().quote));
-        setQuote(quotes[getRandomInt(0, quotes.length)]);
-      });
-    })();
-  }, [quote]);
+    getQuotes().then((snapshot) => {
+      const quotes: Array<String> = [];
+      snapshot.forEach((doc) => quotes.push(doc.data().quote));
+      setQuote(quotes[getRandomInt(0, quotes.length)]);
+    });
+  });
 
   return (
     <View style={styles.quoteWrapper}>
@@ -35,7 +32,6 @@ const Quote = () => {
 };
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
   const {user} = useContext(AuthContext);
 
   return (

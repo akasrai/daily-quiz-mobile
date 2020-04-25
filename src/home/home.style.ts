@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
     padding: 5,
     color: '#fff',
     textAlign: 'center',
+    fontFamily: 'Ubuntu-R',
   },
   content: {
     marginLeft: 10,

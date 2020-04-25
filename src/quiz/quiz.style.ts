@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 50,
     paddingRight: 50,
     paddingBottom: 10,
-    flex: 0,
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'baseline',
     justifyContent: 'space-between',
@@ -108,7 +108,7 @@ export const styles = StyleSheet.create({
     height: 35,
   },
   name: {
-    width: 230,
+    width: 210,
     padding: 6,
     textAlign: 'left',
   },
