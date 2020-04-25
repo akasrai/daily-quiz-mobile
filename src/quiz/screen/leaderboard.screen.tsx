@@ -14,7 +14,7 @@ import BackButton from '~/component/navigator/back-button.component';
 const TopThree = ({user}: {user: User}) => {
   return (
     <View style={styles.lead}>
-      <View>
+      <View style={styles.leadWrapper}>
         <View style={styles.leadTwo}>
           <Image style={styles.leadTwoImage} source={{uri: user.photo || ''}} />
         </View>
@@ -24,7 +24,7 @@ const TopThree = ({user}: {user: User}) => {
         <Text style={styles.leadName}>4500</Text>
       </View>
 
-      <View>
+      <View style={styles.leadWrapper}>
         <View style={styles.leadOne}>
           <Image style={styles.leadOneImage} source={{uri: user.photo || ''}} />
         </View>
@@ -35,7 +35,7 @@ const TopThree = ({user}: {user: User}) => {
         <Text style={styles.leadName}>450</Text>
       </View>
 
-      <View>
+      <View style={styles.leadWrapper}>
         <View style={styles.leadThree}>
           <Image
             style={styles.leadThreeImage}

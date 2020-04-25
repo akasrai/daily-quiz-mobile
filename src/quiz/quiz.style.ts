@@ -25,13 +25,17 @@ export const styles = StyleSheet.create({
   },
   lead: {
     paddingTop: 25,
-    paddingLeft: 50,
-    paddingRight: 50,
+    paddingLeft: 40,
+    paddingRight: 40,
     paddingBottom: 10,
     flex: 1,
     flexDirection: 'row',
+    alignContent: 'center',
     alignItems: 'baseline',
     justifyContent: 'space-between',
+  },
+  leadWrapper: {
+    alignItems: 'center',
   },
   leadName: {
     fontSize: 12,
