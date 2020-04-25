@@ -31,9 +31,17 @@ export const styles = StyleSheet.create({
     fontFamily: 'KaushanScript-Regular',
   },
   pointsTable: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 20,
+    height: '71%',
+  },
+  pointsRow: {
     flex: 0,
     padding: 15,
     flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderColor: 'lightgray',
     justifyContent: 'space-between',
   },
   profileImageWrapper: {

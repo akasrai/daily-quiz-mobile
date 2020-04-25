@@ -1,14 +1,20 @@
-import React from 'react';
-import {Animated} from 'react-native';
+import React, {useContext} from 'react';
+import {Animated, Image, Route} from 'react-native';
+import FIcon from 'react-native-vector-icons/FontAwesome5';
+import MIcon from 'react-native-vector-icons/MaterialIcons';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import HomeScreen from '~/home/screen/home.screen';
 import SigninScreen from '~/auth/screen/signin.screen';
 import ProfileScreen from '~/user/screen/profile.screen';
-import {Authenticated, NonAuthenticated} from '~/auth/auth.context';
+import {
+  Authenticated,
+  NonAuthenticated,
+  AuthContext,
+} from '~/auth/auth.context';
+import {User} from '~/auth';
 
 const Stack = createStackNavigator();
 
@@ -80,43 +86,54 @@ const AppNavigationStack = () => {
 };
 
 export const ButtonNavigation = () => {
+  const {user}: {user: User} = useContext(AuthContext);
+
   return (
     <Authenticated>
       <NavigationContainer>
         <Tab.Navigator
           screenOptions={({route}) => ({
-            tabBarIcon: ({focused, color, size}) => {
-              let iconName = '';
-
-              if (route.name === 'Home') {
-                iconName = focused ? 'info-circle' : 'info-circle';
-              }
-              if (route.name === 'Settings') {
-                iconName = focused ? 'cog' : 'cog';
-              }
-
-              // You can return any component that you like here!
-              return <Icon style={{color: '#fff'}} name={iconName} />;
-            },
+            tabBarIcon: ({focused}) => getTabBarIcons(route, focused, user),
             backgroundColor: 'red',
           })}
           tabBarOptions={{
-            activeTintColor: '#dadada',
+            showIcon: true,
+            showLabel: false,
             inactiveTintColor: '#fff',
+            activeTintColor: '#dadada',
             style: {
-              paddingBottom: 10,
+              height: 50,
               paddingTop: 10,
-              height: 60,
+              paddingBottom: 10,
               borderTopColor: '#011533',
               backgroundColor: '#011533',
             },
           }}>
           <Tab.Screen name="Home" component={AppNavigationStack} />
-          <Tab.Screen name="Settings" component={AppNavigationStack} />
+          <Tab.Screen name="Leaderboard" component={AppNavigationStack} />
+          <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </Authenticated>
   );
+};
+
+const getTabBarIcons = (route: Route, focused: boolean, user: User) => {
+  switch (route.name) {
+    case 'Home':
+      return <MIcon style={{color: '#fff', fontSize: 25}} name="home" />;
+
+    case 'Leaderboard':
+      return <FIcon style={{color: '#fff', fontSize: 18}} name="trophy" />;
+
+    case 'Profile':
+      return (
+        <Image
+          style={{width: 25, height: 25, borderRadius: 100 / 2}}
+          source={{uri: user.photo || ''}}
+        />
+      );
+  }
 };
 
 export default AppNavigationStack;
