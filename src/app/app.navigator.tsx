@@ -15,6 +15,7 @@ import {
   AuthContext,
 } from '~/auth/auth.context';
 import {User} from '~/auth';
+import LeaderboardScreen from '~/quiz/screen/leaderboard.screen';
 
 const Stack = createStackNavigator();
 
@@ -37,30 +38,7 @@ const forFade = ({current, next}: any) => {
 
 const Tab = createBottomTabNavigator();
 
-const AuthenticatedNavigator = () => (
-  <Authenticated>
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          headerShown: false,
-          headerStyleInterpolator: forFade,
-        }}
-      />
-      <Stack.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          headerShown: false,
-          headerStyleInterpolator: forFade,
-        }}
-      />
-    </Stack.Navigator>
-  </Authenticated>
-);
-
-export const NonAuthenticatedNavigator = () => (
+export const SigninNavigation = () => (
   <NonAuthenticated>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Signin">
@@ -75,6 +53,36 @@ export const NonAuthenticatedNavigator = () => (
       </Stack.Navigator>
     </NavigationContainer>
   </NonAuthenticated>
+);
+
+const HomeNavigationStack = () => (
+  <Authenticated>
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerShown: false,
+          headerStyleInterpolator: forFade,
+        }}
+      />
+    </Stack.Navigator>
+  </Authenticated>
+);
+
+const LeaderboardNavigationStack = () => (
+  <Authenticated>
+    <Stack.Navigator initialRouteName="Leaderboard">
+      <Stack.Screen
+        name="Leaderboard"
+        component={LeaderboardScreen}
+        options={{
+          headerShown: false,
+          headerStyleInterpolator: forFade,
+        }}
+      />
+    </Stack.Navigator>
+  </Authenticated>
 );
 
 const ProfileNavigationStack = () => (
@@ -92,8 +100,6 @@ const ProfileNavigationStack = () => (
   </Authenticated>
 );
 
-const AppNavigationStack = () => <AuthenticatedNavigator />;
-
 export const ButtonNavigation = () => {
   const {user}: {user: User} = useContext(AuthContext);
 
@@ -105,8 +111,11 @@ export const ButtonNavigation = () => {
             tabBarIcon: ({focused}) => getTabBarIcons(route, focused, user),
           })}
           tabBarOptions={getTabBarOptions()}>
-          <Tab.Screen name="Home" component={AppNavigationStack} />
-          <Tab.Screen name="Leaderboard" component={AppNavigationStack} />
+          <Tab.Screen name="Home" component={HomeNavigationStack} />
+          <Tab.Screen
+            name="Leaderboard"
+            component={LeaderboardNavigationStack}
+          />
           <Tab.Screen name="Profile" component={ProfileNavigationStack} />
         </Tab.Navigator>
       </NavigationContainer>
@@ -146,5 +155,3 @@ const getTabBarIcons = (route: Route, focused: boolean, user: User) => {
       );
   }
 };
-
-export default AppNavigationStack;
