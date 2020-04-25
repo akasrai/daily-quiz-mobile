@@ -6,15 +6,16 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
+import {
+  AuthContext,
+  Authenticated,
+  NonAuthenticated,
+} from '~/auth/auth.context';
+import {User} from '~/auth';
+import QuizScreen from '~/quiz/screen/quiz.screen';
 import HomeScreen from '~/home/screen/home.screen';
 import SigninScreen from '~/auth/screen/signin.screen';
 import ProfileScreen from '~/user/screen/profile.screen';
-import {
-  Authenticated,
-  NonAuthenticated,
-  AuthContext,
-} from '~/auth/auth.context';
-import {User} from '~/auth';
 import LeaderboardScreen from '~/quiz/screen/leaderboard.screen';
 
 const Stack = createStackNavigator();
@@ -61,6 +62,14 @@ const HomeNavigationStack = () => (
       <Stack.Screen
         name="Home"
         component={HomeScreen}
+        options={{
+          headerShown: false,
+          headerStyleInterpolator: forFade,
+        }}
+      />
+      <Stack.Screen
+        name="Quiz"
+        component={QuizScreen}
         options={{
           headerShown: false,
           headerStyleInterpolator: forFade,

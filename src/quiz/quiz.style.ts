@@ -121,4 +121,21 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
     fontWeight: 'bold',
   },
+  quesLabel: {
+    fontSize: 18,
+    color: '#cfcece',
+  },
+  questionWrapper: {
+    marginTop: 70,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  question: {
+    fontSize: 23,
+    color: '#fff',
+  },
+  icon: {
+    fontSize: 20,
+    color: '#fff',
+  },
 });

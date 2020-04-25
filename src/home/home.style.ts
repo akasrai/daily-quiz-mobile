@@ -31,4 +31,9 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'KaushanScript-Regular',
   },
+  title: {
+    padding: 30,
+    fontSize: 30,
+    textAlign: 'center',
+  },
 });

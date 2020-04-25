@@ -1,7 +1,14 @@
+import {
+  View,
+  Text,
+  ScrollView,
+  SafeAreaView,
+  TouchableHighlight,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React, {useContext, useEffect, useState} from 'react';
-import {View, Text, ScrollView, SafeAreaView} from 'react-native';
 
 import {styles} from '../home.style';
 import {getRandomInt} from '~/helper';
@@ -32,6 +39,7 @@ const Quote = () => {
 };
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   const {user} = useContext(AuthContext);
 
   return (
@@ -41,7 +49,15 @@ const HomeScreen = () => {
         <View style={styles.content}>
           <GamePlay />
           <Hr />
-          <ScrollView></ScrollView>
+          <ScrollView>
+            <Text style={styles.title}>Nothing to show here :(</Text>
+            <TouchableHighlight
+              activeOpacity={0.5}
+              underlayColor="#02183b"
+              onPress={() => navigation.navigate('Quiz')}>
+              <Icon style={{fontSize: 30}} name="chevron-left"></Icon>
+            </TouchableHighlight>
+          </ScrollView>
         </View>
       </LinearGradient>
     </SafeAreaView>
