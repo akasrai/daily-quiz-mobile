@@ -24,7 +24,7 @@ const HomeScreen = () => {
         <View style={styles.content}>
           <GamePlay />
           <Hr />
-          <ScrollView style={styles.pointsTable}></ScrollView>
+          <ScrollView></ScrollView>
         </View>
       </LinearGradient>
     </SafeAreaView>
