@@ -4,10 +4,16 @@ import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 
+import {Option} from '../quiz.type';
 import {styles} from '~/quiz/quiz.style';
+import {useNavigation} from '@react-navigation/native';
 import {appGradientBG, appStyles} from '~/app/app.style';
 import BackButton from '~/component/navigator/back-button.component';
-import {Options, Option} from '../quiz.type';
+
+interface IAnswers {
+  timeOut: boolean;
+  setTimeOut: Function;
+}
 
 const Question = () => {
   return (
@@ -22,16 +28,23 @@ const Question = () => {
   );
 };
 
-const Counter = () => {
-  let counter = 0;
-  const [count, setCount] = useState<Number>(0);
+const Counter = ({setTimeOut}: {setTimeOut: Function}) => {
+  let [count, setCount] = useState<number>(10);
 
   useEffect(() => {
-    // setInterval(() => {
-    //   counter++;
-    //   setCount(counter);
-    // }, 1000);
-  });
+    const timeInterval = setInterval(() => {
+      setCount(count--);
+    }, 1000);
+
+    if (count === 0) {
+      setTimeOut(true);
+      clearInterval(timeInterval);
+    }
+
+    return function cleanUp() {
+      clearInterval(timeInterval);
+    };
+  }, [count]);
 
   return (
     <View style={appStyles.flex}>
@@ -39,6 +52,88 @@ const Counter = () => {
         <Text style={styles.counts}>{count}</Text>
       </View>
     </View>
+  );
+};
+
+const AnswerIcon = ({option, answer}: any) => {
+  if (typeof answer !== 'undefined') {
+    if (answer?.isCorrect && answer?.option === option.option) {
+      return <Icon style={styles.answerIcon} name="done" />;
+    }
+
+    if (!answer?.isCorrect && option.option === answer?.option) {
+      return <Icon style={styles.answerIcon} name="close" />;
+    }
+  }
+
+  return null;
+};
+
+const Answers = ({timeOut, setTimeOut}: IAnswers) => {
+  const options: Array<Option> = [
+    {option: 'Option A', isCorrect: false},
+    {option: 'Option B', isCorrect: true},
+    {option: 'Option C', isCorrect: false},
+    {option: 'Option D', isCorrect: false},
+  ];
+
+  const [answer, setAnswer] = useState<Option>();
+
+  useEffect(() => {
+    if (answer) setTimeOut(true);
+  }, [answer]);
+
+  return (
+    <View style={styles.options}>
+      {options.map((option: Option, key: number) => (
+        <TouchableHighlight
+          key={key}
+          activeOpacity={0.9}
+          underlayColor="#2260c2"
+          style={checkAnswer(option, answer)}
+          onPress={!timeOut ? () => setAnswer(option) : void 0}>
+          <View style={appStyles.row}>
+            <Text style={getTextStyle(answer, option)}>{option.option}</Text>
+            <AnswerIcon option={option} answer={answer} />
+          </View>
+        </TouchableHighlight>
+      ))}
+    </View>
+  );
+};
+
+const Exit = () => {
+  const navigation = useNavigation();
+
+  return (
+    <View style={appStyles.flex}>
+      <View style={styles.exitBtnWrapper}>
+        <TouchableHighlight
+          activeOpacity={0.1}
+          style={styles.exitBtn}
+          underlayColor="#fff"
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.exitText}>Exit</Text>
+        </TouchableHighlight>
+      </View>
+    </View>
+  );
+};
+
+const QuizScreen = () => {
+  const [timeOut, setTimeOut] = useState<boolean>(false);
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <LinearGradient colors={appGradientBG} style={appStyles.container}>
+        <BackButton />
+        <Question />
+        <View style={styles.content}>
+          <Answers timeOut={timeOut} setTimeOut={setTimeOut} />
+          {timeOut ? <Exit /> : <Counter setTimeOut={setTimeOut} />}
+        </View>
+      </LinearGradient>
+    </SafeAreaView>
   );
 };
 
@@ -60,69 +155,9 @@ const checkAnswer = (option: Option, answer: Option | undefined) => {
   return styles.option;
 };
 
-const AnswerIcon = ({option, answer}: any) => {
-  if (typeof answer !== 'undefined') {
-    if (answer?.isCorrect && answer?.option === option.option) {
-      return <Icon style={styles.answerIcon} name="done" />;
-    }
-
-    if (!answer?.isCorrect && option.option === answer?.option) {
-      return <Icon style={styles.answerIcon} name="close" />;
-    }
-  }
-
-  return null;
-};
-
-const Answers = () => {
-  const options: Array<Option> = [
-    {option: 'Option A', isCorrect: false},
-    {option: 'Option B', isCorrect: true},
-    {option: 'Option C', isCorrect: false},
-    {option: 'Option D', isCorrect: false},
-  ];
-
-  const [answer, setAnswer] = useState<Option>();
-
-  return (
-    <View style={styles.options}>
-      {options.map((option, key) => (
-        <TouchableHighlight
-          key={key}
-          activeOpacity={0.9}
-          underlayColor="#2260c2"
-          style={checkAnswer(option, answer)}
-          onPress={() => setAnswer(option)}>
-          <View style={appStyles.row}>
-            <Text
-              style={
-                answer && answer.option === option.option
-                  ? styles.answered
-                  : styles.unanswered
-              }>
-              {option.option}
-            </Text>
-            <AnswerIcon option={option} answer={answer} />
-          </View>
-        </TouchableHighlight>
-      ))}
-    </View>
-  );
-};
-
-const QuizScreen = () => {
-  return (
-    <SafeAreaView style={styles.container}>
-      <LinearGradient colors={appGradientBG} style={appStyles.container}>
-        <BackButton />
-        <Question />
-        <View style={styles.content}>
-          <Answers />
-          <Counter />
-        </View>
-      </LinearGradient>
-    </SafeAreaView>
-  );
-};
+const getTextStyle = (answer: Option | undefined, option: Option) =>
+  answer && answer?.option === option.option
+    ? styles.answered
+    : styles.unanswered;
 
 export default QuizScreen;

@@ -170,7 +170,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 50,
     borderColor: 'red',
-    backgroundColor: '#ff5722',
+    backgroundColor: '#f44336',
   },
   answered: {
     color: '#fff',
@@ -187,13 +187,32 @@ export const styles = StyleSheet.create({
     width: 60,
     height: 60,
     padding: 10,
+    borderWidth: 3,
     borderRadius: 100 / 2,
-    backgroundColor: 'red',
+    borderColor: '#032862',
   },
   counts: {
     fontSize: 25,
-    color: '#fff',
+    color: '#032862',
     fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  exitBtnWrapper: {
+    width: 60,
+    height: 60,
+  },
+  exitBtn: {
+    width: 60,
+    height: 60,
+    padding: 10,
+    borderWidth: 3,
+    borderRadius: 100 / 2,
+    borderColor: '#f44336',
+  },
+  exitText: {
+    fontSize: 20,
+    paddingTop: 3,
+    color: '#f44336',
     textAlign: 'center',
   },
 });
