@@ -83,8 +83,8 @@ export const styles = StyleSheet.create({
   },
   content: {
     margin: 10,
-    borderColor: '#fff',
     borderRadius: 8,
+    borderColor: '#fff',
     backgroundColor: '#fff',
   },
   pointsTable: {
@@ -126,6 +126,7 @@ export const styles = StyleSheet.create({
     color: '#cfcece',
   },
   questionWrapper: {
+    minHeight: 120,
     marginTop: 70,
     paddingLeft: 20,
     paddingRight: 20,
@@ -137,5 +138,62 @@ export const styles = StyleSheet.create({
   icon: {
     fontSize: 20,
     color: '#fff',
+  },
+  options: {
+    margin: 25,
+    marginTop: 50,
+  },
+  option: {
+    padding: 15,
+    paddingLeft: 25,
+    paddingRight: 25,
+    marginBottom: 18,
+    borderWidth: 1,
+    borderRadius: 50,
+    borderColor: '#02183b',
+  },
+  correctOption: {
+    padding: 15,
+    paddingLeft: 25,
+    paddingRight: 25,
+    marginBottom: 18,
+    borderWidth: 1,
+    borderRadius: 50,
+    borderColor: 'green',
+    backgroundColor: '#4caf50',
+  },
+  incorrectOption: {
+    padding: 15,
+    paddingLeft: 25,
+    paddingRight: 25,
+    marginBottom: 18,
+    borderWidth: 1,
+    borderRadius: 50,
+    borderColor: 'red',
+    backgroundColor: '#ff5722',
+  },
+  answered: {
+    color: '#fff',
+  },
+  unanswered: {
+    color: '#000',
+  },
+  answerIcon: {
+    color: '#fff',
+    fontSize: 20,
+    textAlign: 'right',
+  },
+  counter: {
+    width: 60,
+    height: 60,
+    padding: 10,
+    borderRadius: 100 / 2,
+    backgroundColor: 'red',
+  },
+  counts: {
+    fontSize: 25,
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

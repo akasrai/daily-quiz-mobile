@@ -23,11 +23,11 @@ const Quote = () => {
   const [quote, setQuote] = useState<String>();
 
   useEffect(() => {
-    getQuotes().then((snapshot) => {
-      const quotes: Array<String> = [];
-      snapshot.forEach((doc) => quotes.push(doc.data().quote));
-      setQuote(quotes[getRandomInt(0, quotes.length)]);
-    });
+    // getQuotes().then((snapshot) => {
+    //   const quotes: Array<String> = [];
+    //   snapshot.forEach((doc) => quotes.push(doc.data().quote));
+    //   setQuote(quotes[getRandomInt(0, quotes.length)]);
+    // });
   });
 
   return (
