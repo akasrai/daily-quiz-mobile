@@ -10,6 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React, {useContext, useEffect, useState} from 'react';
 
+import {Quote} from '../home.types';
 import {styles} from '../home.style';
 import {getRandomInt} from '~/helper';
 import {LogoSm} from '~/assets/image/logo';
@@ -19,15 +20,14 @@ import {appGradientBG, appStyles} from '~/app/app.style';
 import GamePlay from '~/quiz/component/gameplay.component';
 import Hr from '~/component/form/horizontal-line.component';
 
-const Quote = () => {
-  const [quote, setQuote] = useState<String>();
+const RandomQuote = () => {
+  const [quote, setQuote] = useState<String>('');
 
   useEffect(() => {
-    // getQuotes().then((snapshot) => {
-    //   const quotes: Array<String> = [];
-    //   snapshot.forEach((doc) => quotes.push(doc.data().quote));
-    //   setQuote(quotes[getRandomInt(0, quotes.length)]);
-    // });
+    if (!quote)
+      getQuotes().then((quotes: Array<Quote>) => {
+        setQuote(quotes[getRandomInt(0, quotes.length)].quote);
+      });
   });
 
   return (
@@ -45,7 +45,7 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={appGradientBG} style={appStyles.container}>
-        <Quote />
+        <RandomQuote />
         <View style={styles.content}>
           <GamePlay />
           <Hr />
