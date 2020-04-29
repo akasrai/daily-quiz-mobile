@@ -8,6 +8,7 @@ import {styles} from '~/quiz/quiz.style';
 import {getLatestQuestion} from '~/api/firebase.api';
 import {useNavigation} from '@react-navigation/native';
 import {appGradientBG, appStyles} from '~/app/app.style';
+import GameLoader from '~/component/loader/spinner.component';
 import BackButton from '~/component/navigator/back-button.component';
 import {Option, Answers, Question, QuestionOptions} from '../quiz.type';
 
@@ -128,7 +129,7 @@ const QuizScreen = () => {
       <LinearGradient colors={appGradientBG} style={appStyles.container}>
         <BackButton />
 
-        {question && options && (
+        {question && options ? (
           <>
             <QuizQuestion question={question} />
             <View style={styles.content}>
@@ -140,6 +141,8 @@ const QuizScreen = () => {
               {timeOut ? <Exit /> : <Counter setTimeOut={setTimeOut} />}
             </View>
           </>
+        ) : (
+          <GameLoader />
         )}
       </LinearGradient>
     </SafeAreaView>
