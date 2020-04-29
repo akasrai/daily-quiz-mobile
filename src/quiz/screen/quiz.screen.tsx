@@ -4,26 +4,20 @@ import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 
-import {Option} from '../quiz.type';
 import {styles} from '~/quiz/quiz.style';
+import {getLatestQuestion} from '~/api/firebase.api';
 import {useNavigation} from '@react-navigation/native';
 import {appGradientBG, appStyles} from '~/app/app.style';
 import BackButton from '~/component/navigator/back-button.component';
+import {Option, Answers, Question, QuestionOptions} from '../quiz.type';
 
-interface IAnswers {
-  timeOut: boolean;
-  setTimeOut: Function;
-}
-
-const Question = () => {
+const QuizQuestion = ({question}: {question: Question}) => {
   return (
     <View style={styles.questionWrapper}>
       <Text style={styles.quesLabel}>
         Question <Icon style={styles.quesLabel} name="help-outline" />
       </Text>
-      <Text style={styles.question}>
-        What attraction in Montreal is one of the largest in the world?
-      </Text>
+      <Text style={styles.question}>{question.question}</Text>
     </View>
   );
 };
@@ -69,14 +63,7 @@ const AnswerIcon = ({option, answer}: any) => {
   return null;
 };
 
-const Answers = ({timeOut, setTimeOut}: IAnswers) => {
-  const options: Array<Option> = [
-    {option: 'Option A', isCorrect: false},
-    {option: 'Option B', isCorrect: true},
-    {option: 'Option C', isCorrect: false},
-    {option: 'Option D', isCorrect: false},
-  ];
-
+const QuizAnswers = ({timeOut, setTimeOut, options}: Answers) => {
   const [answer, setAnswer] = useState<Option>();
 
   useEffect(() => {
@@ -93,7 +80,9 @@ const Answers = ({timeOut, setTimeOut}: IAnswers) => {
           style={checkAnswer(option, answer)}
           onPress={!timeOut ? () => setAnswer(option) : void 0}>
           <View style={appStyles.row}>
-            <Text style={getTextStyle(answer, option)}>{option.option}</Text>
+            <Text style={getTextStyle(answer, option)}>
+              {key + 1}. {option.option}
+            </Text>
             <AnswerIcon option={option} answer={answer} />
           </View>
         </TouchableHighlight>
@@ -121,17 +110,37 @@ const Exit = () => {
 };
 
 const QuizScreen = () => {
+  const [question, setQuestion] = useState<Question>();
+  const [options, setOptions] = useState<Array<Option>>();
   const [timeOut, setTimeOut] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!question)
+      (async function () {
+        const {question, options}: QuestionOptions = await getLatestQuestion();
+        setOptions(options);
+        setQuestion(question);
+      })();
+  });
 
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={appGradientBG} style={appStyles.container}>
         <BackButton />
-        <Question />
-        <View style={styles.content}>
-          <Answers timeOut={timeOut} setTimeOut={setTimeOut} />
-          {timeOut ? <Exit /> : <Counter setTimeOut={setTimeOut} />}
-        </View>
+
+        {question && options && (
+          <>
+            <QuizQuestion question={question} />
+            <View style={styles.content}>
+              <QuizAnswers
+                options={options}
+                timeOut={timeOut}
+                setTimeOut={setTimeOut}
+              />
+              {timeOut ? <Exit /> : <Counter setTimeOut={setTimeOut} />}
+            </View>
+          </>
+        )}
       </LinearGradient>
     </SafeAreaView>
   );

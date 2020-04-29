@@ -174,9 +174,11 @@ export const styles = StyleSheet.create({
   },
   answered: {
     color: '#fff',
+    fontWeight: 'bold',
   },
   unanswered: {
-    color: '#000',
+    color: '#3d3d3d',
+    fontWeight: 'bold',
   },
   answerIcon: {
     color: '#fff',
