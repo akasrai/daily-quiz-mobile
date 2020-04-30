@@ -1,7 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
-import {Question, Option, GamePlay} from '~/quiz/quiz.type';
+import {Question, Option, GamePlay, GameLeaderboard} from '~/quiz/quiz.type';
 import {User} from '~/auth';
 
 const getList = (snapshot: any) => {
@@ -89,9 +89,30 @@ export const getGamePosition = async (userId: string) => {
     .orderBy('point', 'desc')
     .get();
 
-  snapshot.forEach((a) => {
-    positions.push(a.id);
+  snapshot.forEach((gamePlay) => {
+    positions.push(gamePlay.id);
   });
 
   return positions.indexOf(userId) + 1;
+};
+
+const getUser = async (userId: string) => {
+  const user = await firestore().collection('Users').doc(userId).get();
+
+  return user.data();
+};
+
+export const getGameLeaderboard = async () => {
+  const positions: Array<any> = [];
+  const snapshot = await firestore()
+    .collection('GamePlay')
+    .orderBy('point', 'desc')
+    .get();
+
+  snapshot.forEach(async (gamePlay) => {
+    const user = await getUser(gamePlay.id);
+    positions.push({...gamePlay.data(), user});
+  });
+
+  return positions;
 };

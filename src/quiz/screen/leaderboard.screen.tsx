@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {View, Image, Text, ScrollView, SafeAreaView} from 'react-native';
@@ -6,10 +6,12 @@ import {View, Image, Text, ScrollView, SafeAreaView} from 'react-native';
 import {User} from '~/auth';
 import {styles} from '../quiz.style';
 import {AuthContext} from '~/auth/auth.context';
+import {getGameLeaderboard} from '~/api/firebase.api';
 import {appGradientBG, appStyles} from '~/app/app.style';
 import Hr from '~/component/form/horizontal-line.component';
 import GameStatus from '~/quiz/component/game-status.component';
 import BackButton from '~/component/navigator/back-button.component';
+import {GameLeaderboard} from '../quiz.type';
 
 const TopThree = ({user}: {user: User}) => {
   return (
@@ -54,6 +56,14 @@ const TopThree = ({user}: {user: User}) => {
 
 const LeaderboardScreen = () => {
   const {user} = useContext(AuthContext);
+  const [leaderboard, setLeaderboard] = useState<Array<GameLeaderboard>>();
+
+  useEffect(() => {
+    (async function () {
+      const gameLeaderboard = await getGameLeaderboard();
+      setLeaderboard(gameLeaderboard);
+    })();
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -68,245 +78,22 @@ const LeaderboardScreen = () => {
           <GameStatus />
           <Hr />
           <ScrollView style={styles.pointsTable}>
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
+            {leaderboard?.map((position) => (
+              <View style={styles.pointsRow}>
+                <View style={styles.profileImageWrapper}>
+                  <Image
+                    style={styles.profileImage}
+                    source={{uri: position.user.photo}}
+                  />
+                </View>
+                <View>
+                  <Text style={styles.name}>{position.user.fullName}</Text>
+                </View>
+                <View>
+                  <Text style={styles.point}>{position.point}</Text>
+                </View>
               </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name}</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
-
-            <View style={styles.pointsRow}>
-              <View style={styles.profileImageWrapper}>
-                <Image
-                  style={styles.profileImage}
-                  source={{uri: user.photo || ''}}
-                />
-              </View>
-              <View>
-                <Text style={styles.name}>{user.name} Fuck</Text>
-              </View>
-              <View>
-                <Text style={styles.point}>500pts</Text>
-              </View>
-            </View>
+            ))}
           </ScrollView>
         </View>
       </LinearGradient>

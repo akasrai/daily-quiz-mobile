@@ -1,3 +1,5 @@
+import {User} from '~/auth';
+
 export interface Option {
   option: string;
   isCorrect: boolean;
@@ -29,4 +31,13 @@ export interface Answers {
 export interface GamePlay {
   point: number;
   gamePlayed: number;
+}
+
+export interface GameLeaderboard {
+  point: number;
+  gamePlayed: number;
+  user: {
+    photo: string;
+    fullName: string;
+  };
 }
