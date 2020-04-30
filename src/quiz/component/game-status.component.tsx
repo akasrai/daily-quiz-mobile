@@ -1,24 +1,43 @@
-import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import React, {useState, useEffect, useContext} from 'react';
 
-const GamePlay = () => {
+import {GamePlay} from '../quiz.type';
+import {AuthContext} from '~/auth/auth.context';
+import {getCurrentGamePlay, getGamePosition} from '~/api/firebase.api';
+
+const GameStatus = () => {
+  const {user} = useContext(AuthContext);
+  const [position, setPosition] = useState<number>();
+  const [gamePlay, setGamePlay] = useState<GamePlay>();
+
+  useEffect(() => {
+    (async function () {
+      const gp = (await getCurrentGamePlay(user.uid)) as GamePlay;
+      setGamePlay(gp);
+    })();
+
+    (async function () {
+      setPosition(await getGamePosition(user.uid));
+    })();
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.contentBox}>
-        <Text style={styles.value}>1</Text>
+        <Text style={styles.value}>{position}</Text>
         <Text style={styles.label}>
           <Icon style={styles.posIcon} name="award" /> Position
         </Text>
       </View>
       <View style={styles.contentBox}>
-        <Text style={styles.value}>500</Text>
+        <Text style={styles.value}>{gamePlay?.point}</Text>
         <Text style={styles.label}>
           <Icon style={styles.pointIcon} name="check-circle" /> Points
         </Text>
       </View>
       <View style={styles.contentBox}>
-        <Text style={styles.value}>5</Text>
+        <Text style={styles.value}>{gamePlay?.gamePlayed}</Text>
         <Text style={styles.label}>
           <Icon style={styles.gameIcon} name="dice-d6" /> Gameplay
         </Text>
@@ -66,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GamePlay;
+export default GameStatus;

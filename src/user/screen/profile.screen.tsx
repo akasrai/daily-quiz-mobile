@@ -6,7 +6,7 @@ import {styles} from '~/user/user.style';
 import {AuthContext} from '~/auth/auth.context';
 import {GoogleSignoutButton} from '~/auth/screen';
 import {appGradientBG, appStyles} from '~/app/app.style';
-import GamePlay from '~/quiz/component/gameplay.component';
+import GameStatus from '~/quiz/component/game-status.component';
 import BackButton from '~/component/navigator/back-button.component';
 
 const ProfileScreen = () => {
@@ -33,7 +33,7 @@ const ProfileScreen = () => {
           </View>
 
           <View style={styles.points}>
-            <GamePlay />
+            <GameStatus />
           </View>
         </View>
       </LinearGradient>

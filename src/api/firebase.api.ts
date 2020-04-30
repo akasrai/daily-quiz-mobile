@@ -82,7 +82,7 @@ export const getCurrentGamePlay = async (docId: string) => {
   };
 };
 
-const getGamePosition = async (userId: string) => {
+export const getGamePosition = async (userId: string) => {
   const positions: Array<any> = [];
   const snapshot = await firestore()
     .collection('GamePlay')

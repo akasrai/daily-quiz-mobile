@@ -7,8 +7,8 @@ import {User} from '~/auth';
 import {styles} from '../quiz.style';
 import {AuthContext} from '~/auth/auth.context';
 import {appGradientBG, appStyles} from '~/app/app.style';
-import GamePlay from '~/quiz/component/gameplay.component';
 import Hr from '~/component/form/horizontal-line.component';
+import GameStatus from '~/quiz/component/game-status.component';
 import BackButton from '~/component/navigator/back-button.component';
 
 const TopThree = ({user}: {user: User}) => {
@@ -65,7 +65,7 @@ const LeaderboardScreen = () => {
         <TopThree user={user} />
 
         <View style={styles.content}>
-          <GamePlay />
+          <GameStatus />
           <Hr />
           <ScrollView style={styles.pointsTable}>
             <View style={styles.pointsRow}>
