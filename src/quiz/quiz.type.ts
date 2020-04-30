@@ -20,7 +20,13 @@ export interface QuestionOptions {
 }
 
 export interface Answers {
+  point: number;
   timeOut: boolean;
   setTimeOut: Function;
   options: Array<Option>;
+}
+
+export interface GamePlay {
+  point: number;
+  gamePlayed: number;
 }

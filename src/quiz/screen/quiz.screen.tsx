@@ -1,16 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, SafeAreaView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 
 import {styles} from '~/quiz/quiz.style';
-import {getLatestQuestion} from '~/api/firebase.api';
+import {getLatestQuestion, setGamePlay} from '~/api/firebase.api';
 import {useNavigation} from '@react-navigation/native';
 import {appGradientBG, appStyles} from '~/app/app.style';
 import GameLoader from '~/component/loader/spinner.component';
 import BackButton from '~/component/navigator/back-button.component';
 import {Option, Answers, Question, QuestionOptions} from '../quiz.type';
+import {AuthContext} from '~/auth/auth.context';
 
 const QuizQuestion = ({question}: {question: Question}) => {
   return (
@@ -64,11 +65,15 @@ const AnswerIcon = ({option, answer}: any) => {
   return null;
 };
 
-const QuizAnswers = ({timeOut, setTimeOut, options}: Answers) => {
+const QuizAnswers = ({timeOut, setTimeOut, options, point}: Answers) => {
+  const {user} = useContext(AuthContext);
   const [answer, setAnswer] = useState<Option>();
 
   useEffect(() => {
-    if (answer) setTimeOut(true);
+    if (answer) {
+      setTimeOut(true);
+      if (answer.isCorrect) setGamePlay(user, point);
+    }
   }, [answer]);
 
   return (
@@ -136,6 +141,7 @@ const QuizScreen = () => {
               <QuizAnswers
                 options={options}
                 timeOut={timeOut}
+                point={question.point}
                 setTimeOut={setTimeOut}
               />
               {timeOut ? <Exit /> : <Counter setTimeOut={setTimeOut} />}
