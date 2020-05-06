@@ -1,5 +1,6 @@
+import {updateObject} from '~/helper';
 import {AuthState, Action} from './auth.type';
-import {updateObject, createReducer} from '~/helper';
+import {asyncStorage} from '~/helper/async-storage-helper';
 
 const AUTH = 'AUTH';
 export const SIGN_IN = `${AUTH}_SIGN_IN`;
@@ -26,6 +27,8 @@ export const reducer = (
 ): any => {
   switch (action.type) {
     case SIGN_IN:
+      asyncStorage.set('auth', action.payload);
+
       return updateObject(state, {
         isAuthenticated: true,
         user: action.payload.user,

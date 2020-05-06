@@ -1,10 +1,11 @@
 import axios from 'axios';
+import {useContext} from 'react';
 
 import env from '../../env';
-
 import {STATUS_CODE} from '~/app';
-// import { refreshAccessToken } from '~/api';
 import {withError, withData} from '~/helper';
+import {refreshAccessToken} from './request.api';
+import {AuthContext} from '~/auth/auth.context';
 
 const axiosInstance = axios.create({
   baseURL: env.BASE_URL,
@@ -46,7 +47,7 @@ axiosInstance.interceptors.response.use(
     const {
       response: {status},
     } = error;
-    const isSignedIn = true; // securedLS.get('_ft').data ? true : false;
+    const isSignedIn = '';
 
     if (status === STATUS_CODE.UNAUTHORIZED && isSignedIn) {
       return handle401Error(error);
@@ -61,21 +62,16 @@ const handle401Error = (error: any) => {
 
   if (!isRefreshing) {
     isRefreshing = true;
-    // refreshAccessToken().then((res: any) => {
-    //   if (res.data) {
-    //     const { data } = res;
+    refreshAccessToken().then((res: any) => {
+      if (res.data) {
+        const {data} = res;
+        isRefreshing = false;
+        onRrefreshed(data.token);
+        // setAuthenticationToken(data.token);
 
-    //     isRefreshing = false;
-    //     // set token in storage
-    //     onRrefreshed(data.token);
-
-    //     return (refreshSubscribers = []);
-    //   }
-
-    // clear auth details immediately if access token
-    // cannot be refreshed to prevent infinite loop
-    // clear auth details here
-    // });
+        return (refreshSubscribers = []);
+      }
+    });
   }
 
   const retryPendingRequest = new Promise((resolve) => {
@@ -95,7 +91,7 @@ export function get(url: string, params: object = {}): any {
     url,
     params,
     headers: {
-      authorization: `Bearer token`,
+      authorization: `Bearer `,
     },
   });
 }
@@ -106,7 +102,7 @@ export function post(url: string, data: any): any {
     url,
     data,
     headers: {
-      authorization: `Bearer token`,
+      authorization: `Bearer `,
     },
   });
 }
@@ -117,7 +113,7 @@ export function put(url: string, data: any): any {
     url,
     data,
     headers: {
-      authorization: `Bearer token`,
+      authorization: `Bearer `,
     },
   });
 }
@@ -128,7 +124,7 @@ export function remove(url: string, params: object = {}): any {
     url,
     params,
     headers: {
-      authorization: `Bearer token`,
+      authorization: `Bearer `,
     },
   });
 }

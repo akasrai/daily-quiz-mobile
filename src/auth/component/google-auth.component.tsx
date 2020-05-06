@@ -3,24 +3,21 @@ import {
   GoogleSignin,
   GoogleSigninButton,
 } from '@react-native-community/google-signin';
-import {Alert, Text, View} from 'react-native';
+import {Alert, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import React, {useReducer, useMemo, useState} from 'react';
-import firebaseAuth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
-import * as auth from '~/auth/auth.state';
 import {styles} from '~/auth/auth.style';
-import {createUser} from '~/api/firebase.api';
+import * as auth from '~/auth/auth.state';
 import {AuthContext} from '~/auth/auth.context';
-import {GoogleCredential, User} from '~/auth/auth.type';
+import {signOut, signWithGoogle} from '~/api/request.api';
 import {TouchableHighlight} from 'react-native-gesture-handler';
-import {loginWithGoogle} from '~/api/request.api';
 
 const signIn = async (dispatch: Function) => {
   try {
     await GoogleSignin.hasPlayServices();
     const googleSignIn = await GoogleSignin.signIn();
-    const {data, error} = await loginWithGoogle(googleSignIn.idToken);
+    const {data, error} = await signWithGoogle(googleSignIn.idToken);
 
     if (error) handleSignInError(error);
 
@@ -49,8 +46,9 @@ const handleSignInError = (error: any) => {
   }
 };
 
-const signOut = async (dispatch: Function, setIsSignedOut: Function) => {
+const handleSignOut = async (dispatch: Function, setIsSignedOut: Function) => {
   try {
+    await signOut();
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
 
@@ -78,7 +76,7 @@ export const GoogleSignoutButton = () => {
         activeOpacity={0.5}
         underlayColor="#02183b"
         style={styles.signOutButton}
-        onPress={() => signOut(dispatch, setIsSignedOut)}>
+        onPress={() => handleSignOut(dispatch, setIsSignedOut)}>
         <Icon style={styles.icon} name="log-out" />
       </TouchableHighlight>
     </View>

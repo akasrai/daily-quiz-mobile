@@ -79,6 +79,8 @@ target 'DailyQuiz' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
   target 'DailyQuizTests' do
     inherit! :complete
     # Pods for testing
