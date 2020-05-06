@@ -1,8 +1,9 @@
 export interface User {
-  email: string | null;
-  uid: string;
   name: string | null;
   photo: string | null;
+  email: string | null;
+  givenName: string | null;
+  familyName: string | null;
 }
 
 export interface GoogleSigninResponse {
@@ -18,7 +19,9 @@ export interface GoogleCredential {
 
 export interface AuthState {
   user: User;
+  token: string;
   provider: string;
+  roles: Array<string>;
   isAuthenticated: boolean;
   setCurrentAuth: (currentAuth: AuthState) => void;
 }

@@ -2,22 +2,10 @@ import {ApiResponse} from '~/api';
 
 const toString = Object.prototype.toString;
 
-/**
- * Checks if argument is Object.
- *
- * @param {Any} arg
- * @returns {Boolean}
- */
 export const isObject = (arg: any): boolean => {
   return toString.call(arg) === '[object Object]';
 };
 
-/**
- * Wrap arguments with error.
- *
- * @param {Any} arg
- * @returns {Object}
- */
 export const withError = (arg: any): ApiResponse => {
   if (isObject(arg)) {
     const {message = '', ...rest} = arg;
@@ -41,31 +29,13 @@ export const withError = (arg: any): ApiResponse => {
   };
 };
 
-/**
- * Wrap data with error status.
- *
- * @param {Any} data
- * @returns {Object}
- */
 export const withData = (data: any): ApiResponse => ({
   error: false,
   data,
 });
 
-/**
- * Serialize the data.
- *
- * @param {Object} data
- * @returns {String}
- */
 export const serialize = (data: object): string => JSON.stringify(data);
 
-/**
- * Parse string data.
- *
- * @param {String} data
- * @returns {Object}
- */
 export const parse = (data: string): object => {
   try {
     const parsedData = JSON.parse(data);
@@ -76,11 +46,6 @@ export const parse = (data: string): object => {
   }
 };
 
-/**
- * Checks is given value is empty.
- *
- * @param {Any} value
- */
 export const isEmpty = (value: any) =>
   !value ||
   value === undefined ||
@@ -88,11 +53,6 @@ export const isEmpty = (value: any) =>
   (typeof value === 'object' && Object.keys(value).length === 0) ||
   (typeof value === 'string' && value.trim().length === 0);
 
-/**
- * Calculates reading time for content.
- *
- * @param content {string}
- */
 export const getReadingTime = (content: string) => {
   const wordsPerMinute = 200;
 
@@ -104,12 +64,6 @@ export const getReadingTime = (content: string) => {
   return 0;
 };
 
-/**
- * Returns random number.
- *
- * @param {Number} min
- * @param {Number} max
- */
 export const getRandomInt = (min: number, max: number) => {
   min = Math.ceil(min);
   max = Math.floor(max);

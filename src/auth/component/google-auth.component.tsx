@@ -14,34 +14,24 @@ import {createUser} from '~/api/firebase.api';
 import {AuthContext} from '~/auth/auth.context';
 import {GoogleCredential, User} from '~/auth/auth.type';
 import {TouchableHighlight} from 'react-native-gesture-handler';
-
-const getCredentials = (idToken: string | null): GoogleCredential => {
-  return firebaseAuth.GoogleAuthProvider.credential(idToken);
-};
+import {loginWithGoogle} from '~/api/request.api';
 
 const signIn = async (dispatch: Function) => {
   try {
     await GoogleSignin.hasPlayServices();
-    const {idToken}: {idToken: string | null} = await GoogleSignin.signIn();
-    const googleCredential: GoogleCredential = getCredentials(idToken);
+    const googleSignIn = await GoogleSignin.signIn();
+    const {data, error} = await loginWithGoogle(googleSignIn.idToken);
 
-    firebaseAuth()
-      .signInWithCredential(googleCredential)
-      .then(({user}: {user: FirebaseAuthTypes.User}) => {
-        createUser(user);
-        dispatch({type: auth.SIGN_IN, payload: {user: getUserData(user)}});
-      });
+    if (error) handleSignInError(error);
+
+    dispatch({
+      type: auth.SIGN_IN,
+      payload: {user: googleSignIn.user, token: data.token, roles: data.roles},
+    });
   } catch (error) {
     return handleSignInError(error);
   }
 };
-
-const getUserData = (user: FirebaseAuthTypes.User): User => ({
-  uid: user.uid,
-  email: user.email,
-  photo: user.photoURL,
-  name: user.displayName,
-});
 
 const handleSignInError = (error: any) => {
   switch (error.code) {

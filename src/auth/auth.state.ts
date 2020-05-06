@@ -7,13 +7,14 @@ export const SIGN_OUT = `${AUTH}_SIGN_OUT`;
 
 export const initialState: AuthState = {
   user: {
-    id: '',
     name: '',
     email: '',
     photo: '',
     familyName: '',
     givenName: '',
   },
+  token: '',
+  roles: [],
   provider: 'Google',
   isAuthenticated: false,
   setCurrentAuth: () => null,
@@ -28,6 +29,8 @@ export const reducer = (
       return updateObject(state, {
         isAuthenticated: true,
         user: action.payload.user,
+        token: action.payload.token,
+        roles: action.payload.roles,
       });
 
     case SIGN_OUT:
