@@ -5,13 +5,15 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 
 import {styles} from '~/quiz/quiz.style';
-import {getLatestQuestion, setGamePlay} from '~/api/firebase.api';
+import {setGamePlay} from '~/api/firebase.api';
+import {AuthContext} from '~/auth/auth.context';
 import {useNavigation} from '@react-navigation/native';
 import {appGradientBG, appStyles} from '~/app/app.style';
 import GameLoader from '~/component/loader/spinner.component';
 import BackButton from '~/component/navigator/back-button.component';
 import {Option, Answers, Question, QuestionOptions} from '../quiz.type';
-import {AuthContext} from '~/auth/auth.context';
+import {getLatestQuestion} from '~/api/request.api';
+import {ApiResponse} from '~/api';
 
 const QuizQuestion = ({question}: {question: Question}) => {
   return (
@@ -72,7 +74,7 @@ const QuizAnswers = ({timeOut, setTimeOut, options, point}: Answers) => {
   useEffect(() => {
     if (answer) {
       setTimeOut(true);
-      if (answer.isCorrect) setGamePlay(user, point);
+      // add point if correct
     }
   }, [answer]);
 
@@ -87,7 +89,7 @@ const QuizAnswers = ({timeOut, setTimeOut, options, point}: Answers) => {
           onPress={!timeOut ? () => setAnswer(option) : void 0}>
           <View style={appStyles.row}>
             <Text style={getTextStyle(answer, option)}>
-              {key + 1}. {option.option}
+              {key + 1}. {option.answer}
             </Text>
             <AnswerIcon option={option} answer={answer} />
           </View>
@@ -123,9 +125,14 @@ const QuizScreen = () => {
   useEffect(() => {
     if (!question)
       (async function () {
-        const {question, options}: QuestionOptions = await getLatestQuestion();
-        setOptions(options);
-        setQuestion(question);
+        const {data, error}: ApiResponse = await getLatestQuestion();
+        setOptions(data.answers);
+        setQuestion({
+          id: data.id,
+          point: data.point,
+          category: data.category,
+          question: data.question,
+        });
       })();
   });
 
@@ -156,25 +163,25 @@ const QuizScreen = () => {
 };
 
 const checkAnswer = (option: Option, answer: Option | undefined) => {
-  if (typeof answer !== 'undefined') {
-    if (answer?.isCorrect && answer?.option === option.option) {
-      return styles.correctOption;
-    }
+  // if (typeof answer !== 'undefined') {
+  //   if (answer?.isCorrect && answer?.option === option.option) {
+  //     return styles.correctOption;
+  //   }
 
-    if (!answer?.isCorrect) {
-      if (option.option === answer?.option) {
-        return styles.incorrectOption;
-      }
+  //   if (!answer?.isCorrect) {
+  //     if (option.option === answer?.option) {
+  //       return styles.incorrectOption;
+  //     }
 
-      if (option.isCorrect) return styles.correctOption;
-    }
-  }
+  //     if (option.isCorrect) return styles.correctOption;
+  //   }
+  // }
 
   return styles.option;
 };
 
 const getTextStyle = (answer: Option | undefined, option: Option) =>
-  answer && answer?.option === option.option
+  answer && answer?.answer === option.answer
     ? styles.answered
     : styles.unanswered;
 

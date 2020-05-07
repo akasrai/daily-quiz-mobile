@@ -1,8 +1,8 @@
 import {User} from '~/auth';
 
 export interface Option {
-  option: string;
-  isCorrect: boolean;
+  id: number;
+  answer: string;
 }
 
 export interface Options {
@@ -12,7 +12,7 @@ export interface Options {
 export interface Question {
   id: string;
   point: number;
-  isActive: boolean;
+  category: string;
   question: string;
 }
 
