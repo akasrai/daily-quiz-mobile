@@ -5,6 +5,7 @@ import {asyncStorage} from '~/helper/async-storage-helper';
 const AUTH = 'AUTH';
 export const SIGN_IN = `${AUTH}_SIGN_IN`;
 export const SIGN_OUT = `${AUTH}_SIGN_OUT`;
+export const RESTORE_AUTH = 'RESTORE_AUTH';
 
 export const initialState: AuthState = {
   user: {
@@ -37,8 +38,16 @@ export const reducer = (
       });
 
     case SIGN_OUT:
+      asyncStorage.remove('auth');
+
       return updateObject(state, {
         ...initialState,
+      });
+
+    case RESTORE_AUTH:
+      return updateObject(state, {
+        isAuthenticated: true,
+        ...action.payload,
       });
 
     default:

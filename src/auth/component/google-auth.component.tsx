@@ -5,13 +5,15 @@ import {
 } from '@react-native-community/google-signin';
 import {Alert, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import React, {useReducer, useMemo, useState} from 'react';
+import React, {useReducer, useMemo, useState, useEffect} from 'react';
 
 import {styles} from '~/auth/auth.style';
 import * as auth from '~/auth/auth.state';
 import {AuthContext} from '~/auth/auth.context';
 import {signOut, signWithGoogle} from '~/api/request.api';
 import {TouchableHighlight} from 'react-native-gesture-handler';
+import {ApiResponse} from '~/api';
+import {asyncStorage} from '~/helper/async-storage-helper';
 
 const signIn = async (dispatch: Function) => {
   try {
@@ -48,7 +50,7 @@ const handleSignInError = (error: any) => {
 
 const handleSignOut = async (dispatch: Function, setIsSignedOut: Function) => {
   try {
-    await signOut();
+    // await signOut();
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
 
@@ -83,6 +85,13 @@ export const GoogleSignoutButton = () => {
   );
 };
 
+const restoreAuthentication = async (dispatch: Function) => {
+  const {data}: ApiResponse = await asyncStorage.get('auth');
+  if (data) {
+    dispatch({type: auth.RESTORE_AUTH, payload: data});
+  }
+};
+
 const GoogleSignInButton = () => {
   const {setCurrentAuth} = React.useContext(AuthContext);
   const [authState, dispatch] = useReducer(auth.reducer, auth.initialState);
@@ -90,6 +99,8 @@ const GoogleSignInButton = () => {
   useMemo(() => {
     setCurrentAuth(authState);
   }, [authState]);
+
+  restoreAuthentication(dispatch);
 
   return (
     <GoogleSigninButton
