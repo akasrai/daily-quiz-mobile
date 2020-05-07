@@ -1,11 +1,10 @@
 import axios from 'axios';
-import {useContext} from 'react';
 
 import env from '../../env';
 import {STATUS_CODE} from '~/app';
+import {token} from './token.api';
 import {withError, withData} from '~/helper';
 import {refreshAccessToken} from './request.api';
-import {AuthContext} from '~/auth/auth.context';
 
 const axiosInstance = axios.create({
   baseURL: env.BASE_URL,
@@ -47,7 +46,7 @@ axiosInstance.interceptors.response.use(
     const {
       response: {status},
     } = error;
-    const isSignedIn = '';
+    const isSignedIn = token.getAccessToken();
 
     if (status === STATUS_CODE.UNAUTHORIZED && isSignedIn) {
       return handle401Error(error);
@@ -67,7 +66,7 @@ const handle401Error = (error: any) => {
         const {data} = res;
         isRefreshing = false;
         onRrefreshed(data.token);
-        // setAuthenticationToken(data.token);
+        token.setAccessToken(data.token);
 
         return (refreshSubscribers = []);
       }
@@ -91,7 +90,7 @@ export function get(url: string, params: object = {}): any {
     url,
     params,
     headers: {
-      authorization: `Bearer `,
+      authorization: `Bearer ${token.getAccessToken()}`,
     },
   });
 }
@@ -102,7 +101,7 @@ export function post(url: string, data: any): any {
     url,
     data,
     headers: {
-      authorization: `Bearer `,
+      authorization: `Bearer ${token.getAccessToken()}`,
     },
   });
 }
@@ -113,7 +112,7 @@ export function put(url: string, data: any): any {
     url,
     data,
     headers: {
-      authorization: `Bearer `,
+      authorization: `Bearer ${token.getAccessToken()} `,
     },
   });
 }
@@ -124,7 +123,7 @@ export function remove(url: string, params: object = {}): any {
     url,
     params,
     headers: {
-      authorization: `Bearer `,
+      authorization: `Bearer ${token.getAccessToken()} `,
     },
   });
 }

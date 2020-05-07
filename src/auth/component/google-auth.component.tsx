@@ -5,14 +5,15 @@ import {
 } from '@react-native-community/google-signin';
 import {Alert, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import React, {useReducer, useMemo, useState, useEffect} from 'react';
+import React, {useReducer, useMemo, useState} from 'react';
 
+import {ApiResponse} from '~/api';
+import {token} from '~/api/token.api';
 import {styles} from '~/auth/auth.style';
 import * as auth from '~/auth/auth.state';
 import {AuthContext} from '~/auth/auth.context';
 import {signOut, signWithGoogle} from '~/api/request.api';
 import {TouchableHighlight} from 'react-native-gesture-handler';
-import {ApiResponse} from '~/api';
 import {asyncStorage} from '~/helper/async-storage-helper';
 
 const signIn = async (dispatch: Function) => {
@@ -22,6 +23,8 @@ const signIn = async (dispatch: Function) => {
     const {data, error} = await signWithGoogle(googleSignIn.idToken);
 
     if (error) handleSignInError(error);
+
+    token.setAccessToken(data.token);
 
     dispatch({
       type: auth.SIGN_IN,
@@ -50,7 +53,7 @@ const handleSignInError = (error: any) => {
 
 const handleSignOut = async (dispatch: Function, setIsSignedOut: Function) => {
   try {
-    // await signOut();
+    await signOut();
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
 
@@ -87,7 +90,9 @@ export const GoogleSignoutButton = () => {
 
 const restoreAuthentication = async (dispatch: Function) => {
   const {data}: ApiResponse = await asyncStorage.get('auth');
+
   if (data) {
+    token.setAccessToken(data.token);
     dispatch({type: auth.RESTORE_AUTH, payload: data});
   }
 };
