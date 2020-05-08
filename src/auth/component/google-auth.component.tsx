@@ -55,7 +55,7 @@ const handleSignInError = (error: any) => {
 
 const handleSignOut = async (dispatch: Function, setIsSignedOut: Function) => {
   try {
-    await signOut();
+    // await signOut();
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
 

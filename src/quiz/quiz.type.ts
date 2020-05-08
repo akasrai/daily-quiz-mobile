@@ -37,11 +37,11 @@ export interface GamePlay {
   gamePlayed: number;
 }
 
-export interface GameLeaderboard {
+export interface QuizPlayer {
   point: number;
   gamePlayed: number;
-  user: {
+  player: {
     photo: string;
-    fullName: string;
+    name: string;
   };
 }

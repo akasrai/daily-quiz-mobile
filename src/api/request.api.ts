@@ -21,5 +21,9 @@ export const getLatestQuestion = () => {
 };
 
 export const submitAnswer = (answer: Answer) => {
-  return http.post(`quiz/answer`, answer);
+  return http.post(`/quiz/answer`, answer);
+};
+
+export const getQuizLeaderBoard = () => {
+  return http.get(`/quiz/leaderboard`);
 };
