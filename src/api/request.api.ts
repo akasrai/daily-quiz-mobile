@@ -1,5 +1,6 @@
 import {token} from './token.api';
 import * as http from './http.api';
+import {Answer} from '~/quiz/quiz.type';
 
 export const signWithGoogle = (token: string | null) => {
   return http.get(`/auth/google/${token}`);
@@ -17,4 +18,8 @@ export const refreshAccessToken = () => {
 
 export const getLatestQuestion = () => {
   return http.get(`/quiz`);
+};
+
+export const submitAnswer = (answer: Answer) => {
+  return http.post(`quiz/answer`, answer);
 };

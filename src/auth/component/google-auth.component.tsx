@@ -3,7 +3,7 @@ import {
   GoogleSignin,
   GoogleSigninButton,
 } from '@react-native-community/google-signin';
-import {Alert, View} from 'react-native';
+import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import React, {useReducer, useMemo, useState} from 'react';
 
@@ -11,10 +11,12 @@ import {ApiResponse} from '~/api';
 import {token} from '~/api/token.api';
 import {styles} from '~/auth/auth.style';
 import * as auth from '~/auth/auth.state';
+import {VALIDATION} from '../auth.constant';
 import {AuthContext} from '~/auth/auth.context';
 import {signOut, signWithGoogle} from '~/api/request.api';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import {asyncStorage} from '~/helper/async-storage-helper';
+import {alert} from '~/component/alert/alert.component';
 
 const signIn = async (dispatch: Function) => {
   try {
@@ -38,16 +40,16 @@ const signIn = async (dispatch: Function) => {
 const handleSignInError = (error: any) => {
   switch (error.code) {
     case statusCodes.SIGN_IN_CANCELLED:
-      return Alert.alert('cancelled');
+      return alert.error(VALIDATION.SIGN_IN_CANCELED);
 
     case statusCodes.IN_PROGRESS:
-      return Alert.alert('signin in progress');
+      return alert.error(VALIDATION.SIGN_IN_PROGRESS);
 
     case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-      return Alert.alert('play services not available or outdated');
+      return alert.error(VALIDATION.PLAY_SERVICES_NOT_AVAILABLE);
 
     default:
-      Alert.alert('Something went wrong', error.toString());
+      alert.error(VALIDATION.SOMETHING_WENT_WRONG, error.toString());
   }
 };
 
@@ -60,7 +62,7 @@ const handleSignOut = async (dispatch: Function, setIsSignedOut: Function) => {
     dispatch({type: auth.SIGN_OUT});
     setIsSignedOut(true);
   } catch (error) {
-    return Alert.alert('Something went wrong');
+    return alert.error(VALIDATION.SOMETHING_WENT_WRONG);
   }
 };
 

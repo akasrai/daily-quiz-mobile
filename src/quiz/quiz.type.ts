@@ -1,12 +1,6 @@
-import {User} from '~/auth';
-
 export interface Option {
   id: number;
   answer: string;
-}
-
-export interface Options {
-  options: Array<Option>;
 }
 
 export interface Question {
@@ -21,9 +15,19 @@ export interface QuestionOptions {
   options: Array<Option>;
 }
 
+export interface Answer {
+  answer: number;
+  question: string;
+}
+
+export interface AnswerResponse {
+  correct: boolean;
+  correctAnswer: number;
+}
+
 export interface Answers {
-  point: number;
   timeOut: boolean;
+  question: Question;
   setTimeOut: Function;
   options: Array<Option>;
 }
