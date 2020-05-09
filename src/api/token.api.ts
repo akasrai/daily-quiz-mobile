@@ -1,15 +1,15 @@
-export const token = {
-  accessToken: '',
+export class Token {
+  private static accessToken: string = '';
 
-  getAccessToken: function () {
+  static getAccessToken(): string {
     return this.accessToken;
-  },
+  }
 
-  setAccessToken: function (token: string) {
+  static setAccessToken(token: string): void {
     this.accessToken = token;
-  },
+  }
 
-  deleteAccessToken: function () {
+  static deleteAccessToken(): void {
     this.accessToken = '';
-  },
-};
+  }
+}

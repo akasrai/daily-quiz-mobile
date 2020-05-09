@@ -8,7 +8,6 @@ import Icon from 'react-native-vector-icons/Feather';
 import React, {useReducer, useMemo, useState} from 'react';
 
 import {ApiResponse} from '~/api';
-import {token} from '~/api/token.api';
 import {styles} from '~/auth/auth.style';
 import * as auth from '~/auth/auth.state';
 import {VALIDATION} from '../auth.constant';
@@ -25,8 +24,6 @@ const signIn = async (dispatch: Function) => {
     const {data, error} = await signWithGoogle(googleSignIn.idToken);
 
     if (error) handleSignInError(error);
-
-    token.setAccessToken(data.token);
 
     dispatch({
       type: auth.SIGN_IN,
@@ -94,7 +91,6 @@ const restoreAuthentication = async (dispatch: Function) => {
   const {data}: ApiResponse = await asyncStorage.get('auth');
 
   if (data) {
-    token.setAccessToken(data.token);
     dispatch({type: auth.RESTORE_AUTH, payload: data});
   }
 };

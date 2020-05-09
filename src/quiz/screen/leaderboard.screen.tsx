@@ -118,8 +118,8 @@ const LeaderboardScreen = () => {
           <GameStatus />
           <Hr />
           <ScrollView style={styles.pointsTable}>
-            {leaderboard?.map((position) => (
-              <View style={styles.pointsRow}>
+            {leaderboard?.map((position, key) => (
+              <View key={key} style={styles.pointsRow}>
                 <View style={styles.profileImageWrapper}>
                   <Image
                     style={styles.profileImage}

@@ -17,6 +17,7 @@ export interface QuestionOptions {
 
 export interface Answer {
   answer: number;
+  timeTaken: number;
   question: string;
 }
 

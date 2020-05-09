@@ -1,6 +1,7 @@
 import {updateObject} from '~/helper';
 import {AuthState, Action} from './auth.type';
 import {asyncStorage} from '~/helper/async-storage-helper';
+import {Token} from '~/api/token.api';
 
 const AUTH = 'AUTH';
 export const SIGN_IN = `${AUTH}_SIGN_IN`;
@@ -29,6 +30,7 @@ export const reducer = (
   switch (action.type) {
     case SIGN_IN:
       asyncStorage.set('auth', action.payload);
+      Token.setAccessToken(action.payload.token);
 
       return updateObject(state, {
         isAuthenticated: true,
@@ -38,6 +40,7 @@ export const reducer = (
       });
 
     case SIGN_OUT:
+      Token.deleteAccessToken();
       asyncStorage.remove('auth');
 
       return updateObject(state, {
@@ -45,6 +48,8 @@ export const reducer = (
       });
 
     case RESTORE_AUTH:
+      Token.setAccessToken(action.payload.token);
+
       return updateObject(state, {
         isAuthenticated: true,
         ...action.payload,

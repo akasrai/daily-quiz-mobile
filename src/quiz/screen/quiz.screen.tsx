@@ -4,7 +4,6 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {
   Exit,
-  Counter,
   QuizAnswers,
   QuizQuestion,
 } from '~/quiz/component/play-quiz.component';
@@ -13,10 +12,11 @@ import {styles} from '~/quiz/quiz.style';
 import {Option, Question} from '../quiz.type';
 import {VALIDATION} from '~/quiz/quiz.constant';
 import {getLatestQuestion} from '~/api/request.api';
+import {useNavigation} from '@react-navigation/native';
 import {alert} from '~/component/alert/alert.component';
 import {appGradientBG, appStyles} from '~/app/app.style';
-import {useNavigation} from '@react-navigation/native';
-import GameLoader, {PageLoader} from '~/component/loader/spinner.component';
+import {Counter} from '../component/quiz-timer.component';
+import {PageLoader} from '~/component/loader/spinner.component';
 import BackButton from '~/component/navigator/back-button.component';
 
 const getQuestion = async (

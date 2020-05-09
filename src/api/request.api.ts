@@ -1,4 +1,4 @@
-import {token} from './token.api';
+import {Token} from './token.api';
 import * as http from './http.api';
 import {Answer} from '~/quiz/quiz.type';
 
@@ -12,7 +12,7 @@ export const signOut = () => {
 
 export const refreshAccessToken = () => {
   return http.post(`/auth/token`, {
-    referenceToken: token.getAccessToken(),
+    referenceToken: Token.getAccessToken(),
   });
 };
 

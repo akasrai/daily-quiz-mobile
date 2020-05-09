@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import env from '../../env';
 import {STATUS_CODE} from '~/app';
-import {token} from './token.api';
+import {Token} from './token.api';
 import {withError, withData} from '~/helper';
 import {refreshAccessToken} from './request.api';
 
@@ -46,7 +46,7 @@ axiosInstance.interceptors.response.use(
     const {
       response: {status},
     } = error;
-    const isSignedIn = token.getAccessToken();
+    const isSignedIn = Token.getAccessToken();
 
     if (status === STATUS_CODE.UNAUTHORIZED && isSignedIn) {
       return handle401Error(error);
@@ -67,7 +67,7 @@ const handle401Error = (error: any) => {
         const {data} = res;
         isRefreshing = false;
         onRrefreshed(data.token);
-        token.setAccessToken(data.token);
+        Token.setAccessToken(data.token);
 
         return (refreshSubscribers = []);
       }
@@ -91,7 +91,7 @@ export function get(url: string, params: object = {}): any {
     url,
     params,
     headers: {
-      authorization: `Bearer ${token.getAccessToken()}`,
+      authorization: `Bearer ${Token.getAccessToken()}`,
     },
   });
 }
@@ -102,7 +102,7 @@ export function post(url: string, data: any): any {
     url,
     data,
     headers: {
-      authorization: `Bearer ${token.getAccessToken()}`,
+      authorization: `Bearer ${Token.getAccessToken()}`,
     },
   });
 }
@@ -113,7 +113,7 @@ export function put(url: string, data: any): any {
     url,
     data,
     headers: {
-      authorization: `Bearer ${token.getAccessToken()} `,
+      authorization: `Bearer ${Token.getAccessToken()} `,
     },
   });
 }
@@ -124,7 +124,7 @@ export function remove(url: string, params: object = {}): any {
     url,
     params,
     headers: {
-      authorization: `Bearer ${token.getAccessToken()} `,
+      authorization: `Bearer ${Token.getAccessToken()} `,
     },
   });
 }

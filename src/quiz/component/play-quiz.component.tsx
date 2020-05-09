@@ -1,7 +1,7 @@
 import {View, Text} from 'react-native';
-import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import React, {useState, useEffect, useContext} from 'react';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 
 import {ApiResponse} from '~/api';
@@ -9,6 +9,7 @@ import {styles} from '~/quiz/quiz.style';
 import {appStyles} from '~/app/app.style';
 import {VALIDATION} from '../quiz.constant';
 import {submitAnswer} from '~/api/request.api';
+import {Counter} from './quiz-timer.component';
 import {alert} from '~/component/alert/alert.component';
 import {Option, Answer, Answers, Question, AnswerResponse} from '../quiz.type';
 
@@ -20,6 +21,7 @@ const checkAnswer = async (
   const answer: Answer = {
     answer: option.id,
     question: question.id,
+    timeTaken: Counter.getTotalTimeTaken(),
   };
 
   const {data, error}: ApiResponse = await submitAnswer(answer);
@@ -36,7 +38,6 @@ const getOptionStyle = (
   selectedOption: Option | undefined,
   answerResponse: AnswerResponse | undefined,
 ) => {
-  console.log(option, answerResponse);
   if (typeof answerResponse !== 'undefined') {
     if (answerResponse.correct && answerResponse?.correctAnswer === option.id) {
       return styles.correctOption;
@@ -72,33 +73,6 @@ export const Exit = () => {
           onPress={() => navigation.navigate('Home')}>
           <Text style={styles.exitText}>Exit</Text>
         </TouchableHighlight>
-      </View>
-    </View>
-  );
-};
-
-export const Counter = ({setTimeOut}: {setTimeOut: Function}) => {
-  let [count, setCount] = useState<number>(10);
-
-  useEffect(() => {
-    const timeInterval = setInterval(() => {
-      setCount(count--);
-    }, 1000);
-
-    if (count === 0) {
-      setTimeOut(true);
-      clearInterval(timeInterval);
-    }
-
-    return function cleanUp() {
-      clearInterval(timeInterval);
-    };
-  }, [count]);
-
-  return (
-    <View style={appStyles.flex}>
-      <View style={styles.counter}>
-        <Text style={styles.counts}>{count}</Text>
       </View>
     </View>
   );
