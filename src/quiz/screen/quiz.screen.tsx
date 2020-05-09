@@ -15,39 +15,57 @@ import {VALIDATION} from '~/quiz/quiz.constant';
 import {getLatestQuestion} from '~/api/request.api';
 import {alert} from '~/component/alert/alert.component';
 import {appGradientBG, appStyles} from '~/app/app.style';
-import GameLoader from '~/component/loader/spinner.component';
+import {useNavigation} from '@react-navigation/native';
+import GameLoader, {PageLoader} from '~/component/loader/spinner.component';
 import BackButton from '~/component/navigator/back-button.component';
 
+const getQuestion = async (
+  setQuestion: Function,
+  setOptions: Function,
+  setIsLoading: Function,
+) => {
+  const {data, error}: ApiResponse = await getLatestQuestion();
+
+  if (error) {
+    setIsLoading(false);
+    return alert.error(VALIDATION.SOMETHING_WENT_WRONG);
+  }
+
+  setIsLoading(false);
+  setOptions(data.answers);
+  setQuestion({
+    id: data.id,
+    point: data.point,
+    category: data.category,
+    question: data.question,
+  });
+};
+
 const QuizScreen = () => {
+  const navigation = useNavigation();
   const [question, setQuestion] = useState<Question>();
-  const [options, setOptions] = useState<Array<Option>>();
   const [timeOut, setTimeOut] = useState<boolean>(false);
+  const [options, setOptions] = useState<Array<Option>>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (!question)
-      (async function () {
-        const {data, error}: ApiResponse = await getLatestQuestion();
+    const unsubscribe = navigation.addListener('focus', () => {
+      getQuestion(setQuestion, setOptions, setIsLoading);
+    });
 
-        if (error) {
-          return alert.error(VALIDATION.SOMETHING_WENT_WRONG);
-        }
+    return unsubscribe;
+  }, []);
 
-        setOptions(data.answers);
-        setQuestion({
-          id: data.id,
-          point: data.point,
-          category: data.category,
-          question: data.question,
-        });
-      })();
-  });
+  if (isLoading) {
+    return <PageLoader />;
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={appGradientBG} style={appStyles.container}>
         <BackButton />
 
-        {question && options ? (
+        {question && options && (
           <>
             <QuizQuestion question={question} />
             <View style={styles.content}>
@@ -60,8 +78,6 @@ const QuizScreen = () => {
               {timeOut ? <Exit /> : <Counter setTimeOut={setTimeOut} />}
             </View>
           </>
-        ) : (
-          <GameLoader />
         )}
       </LinearGradient>
     </SafeAreaView>

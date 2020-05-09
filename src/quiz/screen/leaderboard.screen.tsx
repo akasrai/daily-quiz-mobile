@@ -14,20 +14,21 @@ import Loader, {PageLoader} from '~/component/loader/spinner.component';
 import Hr from '~/component/form/horizontal-line.component';
 import GameStatus from '~/quiz/component/game-status.component';
 import BackButton from '~/component/navigator/back-button.component';
+import {useNavigation} from '@react-navigation/native';
 
 const GoldMedalist = ({winner}: {winner: QuizPlayer}) => (
   <View style={styles.leadWrapper}>
     <View style={styles.leadOne}>
       <Image
         style={styles.leadOneImage}
-        source={{uri: winner.player.photo || ''}}
+        source={{uri: winner?.player?.photo || ''}}
       />
     </View>
     <Text style={styles.leadName}>
       {' '}
-      <Icon style={styles.gold} name="medal" /> {winner.player.name}
+      <Icon style={styles.gold} name="medal" /> {winner?.player?.name}
     </Text>
-    <Text style={styles.leadName}>{winner.point}</Text>
+    <Text style={styles.leadName}>{winner?.point}</Text>
   </View>
 );
 
@@ -36,13 +37,13 @@ const SilverMedalist = ({winner}: {winner: QuizPlayer}) => (
     <View style={styles.leadTwo}>
       <Image
         style={styles.leadTwoImage}
-        source={{uri: winner.player.photo || ''}}
+        source={{uri: winner?.player?.photo || ''}}
       />
     </View>
     <Text style={styles.leadName}>
-      <Icon style={styles.silver} name="medal" /> {winner.player.name}
+      <Icon style={styles.silver} name="medal" /> {winner?.player?.name}
     </Text>
-    <Text style={styles.leadName}>{winner.point}</Text>
+    <Text style={styles.leadName}>{winner?.point}</Text>
   </View>
 );
 
@@ -51,13 +52,13 @@ const BronzeMedalist = ({winner}: {winner: QuizPlayer}) => (
     <View style={styles.leadThree}>
       <Image
         style={styles.leadThreeImage}
-        source={{uri: winner.player.photo || ''}}
+        source={{uri: winner.player?.photo || ''}}
       />
     </View>
     <Text style={styles.leadName}>
-      <Icon style={styles.bronze} name="medal" /> {winner.player.name}
+      <Icon style={styles.bronze} name="medal" /> {winner?.player?.name}
     </Text>
-    <Text style={styles.leadName}>{winner.point}</Text>
+    <Text style={styles.leadName}>{winner?.point}</Text>
   </View>
 );
 
@@ -72,22 +73,31 @@ const TopThree = ({winners}: {winners: Array<QuizPlayer>}) => {
   );
 };
 
+const getLeaderBoard = async (
+  setIsLoading: Function,
+  setLeaderboard: Function,
+) => {
+  const {data, error}: ApiResponse = await getQuizLeaderBoard();
+
+  if (error) {
+    return alert.error(VALIDATION.SOMETHING_WENT_WRONG);
+  }
+  setIsLoading(false);
+  setLeaderboard(data.result);
+};
+
 const LeaderboardScreen = () => {
+  const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [leaderboard, setLeaderboard] = useState<Array<QuizPlayer>>();
+  const [leaderboard, setLeaderboard] = useState<Array<QuizPlayer>>([]);
 
   useEffect(() => {
-    if (!leaderboard)
-      (async function () {
-        const {data, error}: ApiResponse = await getQuizLeaderBoard();
+    const unsubscribe = navigation.addListener('focus', () => {
+      getLeaderBoard(setIsLoading, setLeaderboard);
+    });
 
-        if (error) {
-          return alert.error(VALIDATION.SOMETHING_WENT_WRONG);
-        }
-        setIsLoading(false);
-        setLeaderboard(data.result);
-      })();
-  });
+    return unsubscribe;
+  }, []);
 
   if (isLoading) {
     return <PageLoader />;
@@ -100,7 +110,9 @@ const LeaderboardScreen = () => {
         <View>
           <Text style={styles.title}>Leaderboard</Text>
         </View>
-        {leaderboard?.length && <TopThree winners={leaderboard.splice(0, 3)} />}
+        {leaderboard?.length > 3 && (
+          <TopThree winners={leaderboard.splice(0, 3)} />
+        )}
 
         <View style={styles.content}>
           <GameStatus />
@@ -111,14 +123,14 @@ const LeaderboardScreen = () => {
                 <View style={styles.profileImageWrapper}>
                   <Image
                     style={styles.profileImage}
-                    source={{uri: position.player.photo}}
+                    source={{uri: position?.player?.photo}}
                   />
                 </View>
                 <View>
-                  <Text style={styles.name}>{position.player.name}</Text>
+                  <Text style={styles.name}>{position?.player?.name}</Text>
                 </View>
                 <View>
-                  <Text style={styles.point}>{position.point}</Text>
+                  <Text style={styles.point}>{position?.point}</Text>
                 </View>
               </View>
             ))}

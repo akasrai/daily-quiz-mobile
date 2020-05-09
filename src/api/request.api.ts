@@ -27,3 +27,7 @@ export const submitAnswer = (answer: Answer) => {
 export const getQuizLeaderBoard = () => {
   return http.get(`/quiz/leaderboard`);
 };
+
+export const getRandomQuote = () => {
+  return http.get(`/quote`);
+};

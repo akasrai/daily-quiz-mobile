@@ -10,30 +10,44 @@ import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React, {useContext, useEffect, useState} from 'react';
 
+import {ApiResponse} from '~/api';
 import {Quote} from '../home.types';
 import {styles} from '../home.style';
-import {getRandomInt} from '~/helper';
 import {LogoSm} from '~/assets/image/logo';
-import {getQuotes} from '~/api/firebase.api';
 import {AuthContext} from '~/auth/auth.context';
+import {getRandomQuote} from '~/api/request.api';
+import {VALIDATION} from '~/home/home.constant';
 import {appGradientBG, appStyles} from '~/app/app.style';
-import GameStatus from '~/quiz/component/game-status.component';
+import {alert} from '~/component/alert/alert.component';
 import Hr from '~/component/form/horizontal-line.component';
+import GameStatus from '~/quiz/component/game-status.component';
+
+const getQuote = async (setQuote: Function) => {
+  const {data, error}: ApiResponse = await getRandomQuote();
+
+  if (error) {
+    return alert.error(VALIDATION.SOMETHING_WENT_WRONG);
+  }
+
+  setQuote(data);
+};
 
 const RandomQuote = () => {
-  const [quote, setQuote] = useState<String>('');
+  const navigation = useNavigation();
+  const [quote, setQuote] = useState<Quote>();
 
   useEffect(() => {
-    if (!quote)
-      getQuotes().then((quotes: Array<Quote>) => {
-        setQuote(quotes[getRandomInt(0, quotes.length)].quote);
-      });
-  });
+    const unsubscribe = navigation.addListener('focus', () => {
+      getQuote(setQuote);
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <View style={styles.quoteWrapper}>
       <LogoSm />
-      <Text style={styles.quote}>{quote}</Text>
+      <Text style={styles.quote}>{quote?.quote}</Text>
     </View>
   );
 };

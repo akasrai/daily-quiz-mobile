@@ -141,7 +141,6 @@ export const QuizAnswers = ({
   useEffect(() => {
     if (selectedOption) {
       setTimeOut(true);
-      // add point if correct
     }
   }, [selectedOption]);
 
