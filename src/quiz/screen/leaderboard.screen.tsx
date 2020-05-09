@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {View, Image, Text, ScrollView, SafeAreaView} from 'react-native';
@@ -10,18 +11,21 @@ import {VALIDATION} from '../quiz.constant';
 import {getQuizLeaderBoard} from '~/api/request.api';
 import {alert} from '~/component/alert/alert.component';
 import {appGradientBG, appStyles} from '~/app/app.style';
-import Loader, {PageLoader} from '~/component/loader/spinner.component';
 import Hr from '~/component/form/horizontal-line.component';
+import {PageLoader} from '~/component/loader/spinner.component';
 import GameStatus from '~/quiz/component/game-status.component';
 import BackButton from '~/component/navigator/back-button.component';
-import {useNavigation} from '@react-navigation/native';
 
 const GoldMedalist = ({winner}: {winner: QuizPlayer}) => (
   <View style={styles.leadWrapper}>
     <View style={styles.leadOne}>
       <Image
         style={styles.leadOneImage}
-        source={{uri: winner?.player?.photo || ''}}
+        source={
+          winner?.player?.photo
+            ? {uri: winner?.player?.photo}
+            : require('../../assets/image/dp.png')
+        }
       />
     </View>
     <Text style={styles.leadName}>
@@ -37,7 +41,11 @@ const SilverMedalist = ({winner}: {winner: QuizPlayer}) => (
     <View style={styles.leadTwo}>
       <Image
         style={styles.leadTwoImage}
-        source={{uri: winner?.player?.photo || ''}}
+        source={
+          winner?.player?.photo
+            ? {uri: winner?.player?.photo}
+            : require('../../assets/image/dp.png')
+        }
       />
     </View>
     <Text style={styles.leadName}>
@@ -52,7 +60,11 @@ const BronzeMedalist = ({winner}: {winner: QuizPlayer}) => (
     <View style={styles.leadThree}>
       <Image
         style={styles.leadThreeImage}
-        source={{uri: winner.player?.photo || ''}}
+        source={
+          winner?.player?.photo
+            ? {uri: winner?.player?.photo}
+            : require('../../assets/image/dp.png')
+        }
       />
     </View>
     <Text style={styles.leadName}>
@@ -123,7 +135,11 @@ const LeaderboardScreen = () => {
                 <View style={styles.profileImageWrapper}>
                   <Image
                     style={styles.profileImage}
-                    source={{uri: position?.player?.photo}}
+                    source={
+                      position?.player?.photo
+                        ? {uri: position?.player?.photo}
+                        : require('../../assets/image/dp.png')
+                    }
                   />
                 </View>
                 <View>

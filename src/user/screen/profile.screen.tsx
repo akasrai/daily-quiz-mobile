@@ -23,7 +23,11 @@ const ProfileScreen = () => {
             <View style={styles.profileImageRing}>
               <Image
                 style={styles.profileImageWrapper}
-                source={{uri: user.photo || ''}}
+                source={
+                  user.photo
+                    ? {uri: user.photo}
+                    : require('~/assets/image/dp.png')
+                }
               />
             </View>
             <View style={styles.info}>

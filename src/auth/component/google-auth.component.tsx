@@ -12,10 +12,10 @@ import {styles} from '~/auth/auth.style';
 import * as auth from '~/auth/auth.state';
 import {VALIDATION} from '../auth.constant';
 import {AuthContext} from '~/auth/auth.context';
-import {signOut, signWithGoogle} from '~/api/request.api';
-import {TouchableHighlight} from 'react-native-gesture-handler';
-import {asyncStorage} from '~/helper/async-storage-helper';
 import {alert} from '~/component/alert/alert.component';
+import {signOut, signWithGoogle} from '~/api/request.api';
+import {asyncStorage} from '~/helper/async-storage-helper';
+import {TouchableHighlight} from 'react-native-gesture-handler';
 
 const signIn = async (dispatch: Function) => {
   try {
@@ -52,7 +52,7 @@ const handleSignInError = (error: any) => {
 
 const handleSignOut = async (dispatch: Function, setIsSignedOut: Function) => {
   try {
-    // await signOut();
+    signOut();
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
 

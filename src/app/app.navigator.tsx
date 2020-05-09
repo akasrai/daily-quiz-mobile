@@ -159,7 +159,9 @@ const getTabBarIcons = (route: Route, focused: boolean, user: User) => {
       return (
         <Image
           style={{width: 25, height: 25, borderRadius: 100 / 2}}
-          source={{uri: user.photo || ''}}
+          source={
+            user.photo ? {uri: user.photo} : require('~/assets/image/dp.png')
+          }
         />
       );
   }

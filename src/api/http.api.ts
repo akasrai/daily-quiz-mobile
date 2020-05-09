@@ -62,12 +62,11 @@ const handle401Error = (error: any) => {
   if (!isRefreshing) {
     isRefreshing = true;
     refreshAccessToken().then((res: any) => {
-      console.log(res);
       if (res.data) {
         const {data} = res;
         isRefreshing = false;
         onRrefreshed(data.token);
-        Token.setAccessToken(data.token);
+        Token.refreshAccessToken(data.token);
 
         return (refreshSubscribers = []);
       }
