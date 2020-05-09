@@ -32,8 +32,9 @@ export interface Answers {
   options: Array<Option>;
 }
 
-export interface GamePlay {
+export interface CurrentStatus {
   point: number;
+  position: number;
   gamePlayed: number;
 }
 

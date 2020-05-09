@@ -1,43 +1,59 @@
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import React, {useState, useEffect, useContext} from 'react';
 
-import {GamePlay} from '../quiz.type';
-import {AuthContext} from '~/auth/auth.context';
-import {getCurrentGamePlay, getGamePosition} from '~/api/firebase.api';
+import {ApiResponse} from '~/api';
+import {CurrentStatus} from '../quiz.type';
+import {VALIDATION} from '../quiz.constant';
+import {getPlayerCurrentStatus} from '~/api/request.api';
+import {alert} from '~/component/alert/alert.component';
+import {useNavigation} from '@react-navigation/native';
+
+const getCurrentStatus = async (setCurrentStatus: Function) => {
+  const {data, error}: ApiResponse = await getPlayerCurrentStatus();
+
+  if (error) {
+    return alert.error(VALIDATION.SOMETHING_WENT_WRONG);
+  }
+
+  setCurrentStatus(data);
+};
 
 const GameStatus = () => {
-  const {user} = useContext(AuthContext);
-  const [position, setPosition] = useState<number>();
-  const [gamePlay, setGamePlay] = useState<GamePlay>();
+  const defaultStatus = {
+    point: 0,
+    position: 0,
+    gamePlayed: 0,
+  };
+  const navigation = useNavigation();
+  const [currentStatus, setCurrentStatus] = useState<CurrentStatus>(
+    defaultStatus,
+  );
 
   useEffect(() => {
-    (async function () {
-      const gp = (await getCurrentGamePlay(user.uid)) as GamePlay;
-      setGamePlay(gp);
-    })();
+    const unsubscribe = navigation.addListener('focus', () => {
+      getCurrentStatus(setCurrentStatus);
+    });
 
-    (async function () {
-      setPosition(await getGamePosition(user.uid));
-    })();
-  });
+    return unsubscribe;
+  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.contentBox}>
-        <Text style={styles.value}>{position}</Text>
+        <Text style={styles.value}>{currentStatus?.position}</Text>
         <Text style={styles.label}>
           <Icon style={styles.posIcon} name="award" /> Position
         </Text>
       </View>
       <View style={styles.contentBox}>
-        <Text style={styles.value}>{gamePlay?.point}</Text>
+        <Text style={styles.value}>{currentStatus?.point}</Text>
         <Text style={styles.label}>
           <Icon style={styles.pointIcon} name="check-circle" /> Points
         </Text>
       </View>
       <View style={styles.contentBox}>
-        <Text style={styles.value}>{gamePlay?.gamePlayed}</Text>
+        <Text style={styles.value}>{currentStatus?.gamePlayed}</Text>
         <Text style={styles.label}>
           <Icon style={styles.gameIcon} name="dice-d6" /> Gameplay
         </Text>

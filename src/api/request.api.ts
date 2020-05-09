@@ -31,3 +31,7 @@ export const getQuizLeaderBoard = () => {
 export const getRandomQuote = () => {
   return http.get(`/quote`);
 };
+
+export const getPlayerCurrentStatus = () => {
+  return http.get(`/quiz/current/status`);
+};
