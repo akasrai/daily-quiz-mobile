@@ -20,7 +20,7 @@ import {VALIDATION} from '~/home/home.constant';
 import {appGradientBG, appStyles} from '~/app/app.style';
 import {alert} from '~/component/alert/alert.component';
 import Hr from '~/component/form/horizontal-line.component';
-import GameStatus from '~/quiz/component/game-status.component';
+import GameStatus from '~/quiz/component/current-player-stats.component';
 
 const getQuote = async (setQuote: Function) => {
   const {data, error}: ApiResponse = await getRandomQuote();

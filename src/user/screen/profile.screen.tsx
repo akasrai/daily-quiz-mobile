@@ -6,7 +6,7 @@ import {styles} from '~/user/user.style';
 import {AuthContext} from '~/auth/auth.context';
 import {GoogleSignoutButton} from '~/auth/screen';
 import {appGradientBG, appStyles} from '~/app/app.style';
-import GameStatus from '~/quiz/component/game-status.component';
+import GameStatus from '~/quiz/component/current-player-stats.component';
 import BackButton from '~/component/navigator/back-button.component';
 
 const ProfileScreen = () => {

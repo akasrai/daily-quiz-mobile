@@ -32,6 +32,6 @@ export const getRandomQuote = () => {
   return http.get(`/quote`);
 };
 
-export const getPlayerCurrentStatus = () => {
-  return http.get(`/quiz/current/status`);
+export const getPlayerCurrentStats = () => {
+  return http.get(`/quiz/current/stats`);
 };

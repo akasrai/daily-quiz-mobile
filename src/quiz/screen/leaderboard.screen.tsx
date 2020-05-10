@@ -13,7 +13,7 @@ import {alert} from '~/component/alert/alert.component';
 import {appGradientBG, appStyles} from '~/app/app.style';
 import Hr from '~/component/form/horizontal-line.component';
 import {PageLoader} from '~/component/loader/spinner.component';
-import GameStatus from '~/quiz/component/game-status.component';
+import GameStatus from '~/quiz/component/current-player-stats.component';
 import BackButton from '~/component/navigator/back-button.component';
 
 const GoldMedalist = ({winner}: {winner: QuizPlayer}) => (
@@ -29,8 +29,8 @@ const GoldMedalist = ({winner}: {winner: QuizPlayer}) => (
       />
     </View>
     <Text style={styles.leadName}>
-      {' '}
-      <Icon style={styles.gold} name="medal" /> {winner?.player?.name}
+      <Icon style={styles.gold} name="medal" />{' '}
+      {winner?.player?.name.split(' ')[0]}
     </Text>
     <Text style={styles.leadName}>{winner?.point}</Text>
   </View>
@@ -49,7 +49,8 @@ const SilverMedalist = ({winner}: {winner: QuizPlayer}) => (
       />
     </View>
     <Text style={styles.leadName}>
-      <Icon style={styles.silver} name="medal" /> {winner?.player?.name}
+      <Icon style={styles.silver} name="medal" />{' '}
+      {winner?.player?.name.split(' ')[0]}
     </Text>
     <Text style={styles.leadName}>{winner?.point}</Text>
   </View>
@@ -68,7 +69,8 @@ const BronzeMedalist = ({winner}: {winner: QuizPlayer}) => (
       />
     </View>
     <Text style={styles.leadName}>
-      <Icon style={styles.bronze} name="medal" /> {winner?.player?.name}
+      <Icon style={styles.bronze} name="medal" />{' '}
+      {winner?.player?.name.split(' ')[0]}
     </Text>
     <Text style={styles.leadName}>{winner?.point}</Text>
   </View>

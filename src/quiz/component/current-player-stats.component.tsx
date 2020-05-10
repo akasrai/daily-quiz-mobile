@@ -5,12 +5,12 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ApiResponse} from '~/api';
 import {CurrentStatus} from '../quiz.type';
 import {VALIDATION} from '../quiz.constant';
-import {getPlayerCurrentStatus} from '~/api/request.api';
+import {getPlayerCurrentStats} from '~/api/request.api';
 import {alert} from '~/component/alert/alert.component';
 import {useNavigation} from '@react-navigation/native';
 
-const getCurrentStatus = async (setCurrentStatus: Function) => {
-  const {data, error}: ApiResponse = await getPlayerCurrentStatus();
+const getCurrentStats = async (setCurrentStatus: Function) => {
+  const {data, error}: ApiResponse = await getPlayerCurrentStats();
 
   if (error) {
     return alert.error(VALIDATION.SOMETHING_WENT_WRONG);
@@ -32,7 +32,7 @@ const GameStatus = () => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      getCurrentStatus(setCurrentStatus);
+      getCurrentStats(setCurrentStatus);
     });
 
     return unsubscribe;
