@@ -15,12 +15,13 @@ import {Quote} from '../home.types';
 import {styles} from '../home.style';
 import {LogoSm} from '~/assets/image/logo';
 import {AuthContext} from '~/auth/auth.context';
-import {getRandomQuote} from '~/api/request.api';
 import {VALIDATION} from '~/home/home.constant';
-import {appGradientBG, appStyles} from '~/app/app.style';
 import {alert} from '~/component/alert/alert.component';
+import {appGradientBG, appStyles} from '~/app/app.style';
+import Loader from '~/component/loader/spinner.component';
 import Hr from '~/component/form/horizontal-line.component';
 import GameStatus from '~/quiz/component/current-player-stats.component';
+import {getRandomQuote, getQuizPlayPermission} from '~/api/request.api';
 
 const getQuote = async (setQuote: Function) => {
   const {data, error}: ApiResponse = await getRandomQuote();
@@ -30,6 +31,20 @@ const getQuote = async (setQuote: Function) => {
   }
 
   setQuote(data);
+};
+
+const getQuizPermission = async (
+  setPermission: Function,
+  setCheckingPem: Function,
+) => {
+  const {data, error} = await getQuizPlayPermission();
+
+  if (error) {
+    return alert.error(VALIDATION.SOMETHING_WENT_WRONG);
+  }
+
+  setPermission(data);
+  setCheckingPem(false);
 };
 
 const RandomQuote = () => {
@@ -52,10 +67,49 @@ const RandomQuote = () => {
   );
 };
 
-const HomeScreen = () => {
+const PlayQuiz = () => {
   const navigation = useNavigation();
   const {user} = useContext(AuthContext);
+  const [isEligible, setPermission] = useState<boolean>(false);
+  const [isCheckingPem, setCheckingPem] = useState<boolean>(false);
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      setCheckingPem(true);
+      getQuizPermission(setPermission, setCheckingPem);
+    });
+
+    return unsubscribe;
+  }, [isEligible]);
+
+  return (
+    <View style={styles.playBtnWrapper}>
+      {isCheckingPem ? (
+        <View style={styles.gameNotice}>
+          <Loader />
+        </View>
+      ) : isEligible ? (
+        <>
+          <Text style={styles.gameNotice}>
+            Hey {user.givenName}, here's a new question for you.
+          </Text>
+          <TouchableHighlight
+            activeOpacity={0.5}
+            underlayColor="#fff"
+            onPress={() => navigation.navigate('Quiz')}>
+            <Icon style={styles.playBtn} name="play-circle-filled"></Icon>
+          </TouchableHighlight>
+        </>
+      ) : (
+        <Text style={styles.gameNotice}>
+          Question is not yet published. Please, come back later.
+        </Text>
+      )}
+    </View>
+  );
+};
+
+const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={appGradientBG} style={appStyles.container}>
@@ -64,13 +118,7 @@ const HomeScreen = () => {
           <GameStatus />
           <Hr />
           <ScrollView>
-            <Text style={styles.title}>Nothing to show here :(</Text>
-            <TouchableHighlight
-              activeOpacity={0.5}
-              underlayColor="#02183b"
-              onPress={() => navigation.navigate('Quiz')}>
-              <Icon style={{fontSize: 30}} name="chevron-left"></Icon>
-            </TouchableHighlight>
+            <PlayQuiz />
           </ScrollView>
         </View>
       </LinearGradient>

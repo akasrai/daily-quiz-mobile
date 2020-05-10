@@ -77,7 +77,6 @@ const BronzeMedalist = ({winner}: {winner: QuizPlayer}) => (
 );
 
 const TopThree = ({winners}: {winners: Array<QuizPlayer>}) => {
-  console.log(winners[1]);
   return (
     <View style={styles.lead}>
       <SilverMedalist winner={winners[1]} />

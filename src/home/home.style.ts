@@ -36,4 +36,17 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: 'center',
   },
+  playBtnWrapper: {
+    flex: 1,
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  playBtn: {
+    fontSize: 80,
+    color: 'green',
+    paddingBottom: 20,
+  },
+  gameNotice: {
+    padding: 15,
+  },
 });

@@ -35,3 +35,7 @@ export const getRandomQuote = () => {
 export const getPlayerCurrentStats = () => {
   return http.get(`/quiz/current/stats`);
 };
+
+export const getQuizPlayPermission = () => {
+  return http.get(`/quiz/permission`);
+};
