@@ -47,3 +47,8 @@ export interface QuizPlayer {
     name: string;
   };
 }
+
+export interface LeaderBoard {
+  type: string;
+  results: Array<QuizPlayer>;
+}

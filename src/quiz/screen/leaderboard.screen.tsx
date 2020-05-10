@@ -6,8 +6,8 @@ import {View, Image, Text, ScrollView, SafeAreaView} from 'react-native';
 
 import {ApiResponse} from '~/api';
 import {styles} from '../quiz.style';
-import {QuizPlayer} from '../quiz.type';
-import {VALIDATION} from '../quiz.constant';
+import {QuizPlayer, LeaderBoard} from '../quiz.type';
+import {VALIDATION, RESULT_TYPE} from '../quiz.constant';
 import {getQuizLeaderBoard} from '~/api/request.api';
 import {alert} from '~/component/alert/alert.component';
 import {appGradientBG, appStyles} from '~/app/app.style';
@@ -86,6 +86,47 @@ const TopThree = ({winners}: {winners: Array<QuizPlayer>}) => {
   );
 };
 
+const SeasonWinners = ({leaderboard}: {leaderboard: Array<QuizPlayer>}) => {
+  return <TopThree winners={leaderboard} />;
+};
+
+const SeasonLeaderBoard = ({leaderboard}: {leaderboard: Array<QuizPlayer>}) => {
+  return (
+    <>
+      {leaderboard?.length > 3 && (
+        <TopThree winners={leaderboard.splice(0, 3)} />
+      )}
+
+      <View style={styles.content}>
+        <GameStatus />
+        <Hr />
+        <ScrollView style={styles.pointsTable}>
+          {leaderboard?.map((position, key) => (
+            <View key={key} style={styles.pointsRow}>
+              <View style={styles.profileImageWrapper}>
+                <Image
+                  style={styles.profileImage}
+                  source={
+                    position?.player?.photo
+                      ? {uri: position?.player?.photo}
+                      : require('../../assets/image/dp.png')
+                  }
+                />
+              </View>
+              <View>
+                <Text style={styles.name}>{position?.player?.name}</Text>
+              </View>
+              <View>
+                <Text style={styles.point}>{position?.point}</Text>
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+    </>
+  );
+};
+
 const getLeaderBoard = async (
   setIsLoading: Function,
   setLeaderboard: Function,
@@ -95,14 +136,18 @@ const getLeaderBoard = async (
   if (error) {
     return alert.error(VALIDATION.SOMETHING_WENT_WRONG);
   }
+
   setIsLoading(false);
-  setLeaderboard(data.result);
+  setLeaderboard(data);
 };
 
 const LeaderboardScreen = () => {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [leaderboard, setLeaderboard] = useState<Array<QuizPlayer>>([]);
+  const [leaderboard, setLeaderboard] = useState<LeaderBoard>({
+    type: '',
+    results: [],
+  });
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -123,36 +168,13 @@ const LeaderboardScreen = () => {
         <View>
           <Text style={styles.title}>Leaderboard</Text>
         </View>
-        {leaderboard?.length > 3 && (
-          <TopThree winners={leaderboard.splice(0, 3)} />
+        {RESULT_TYPE.SEASON_WINNERS === leaderboard.type && (
+          <SeasonWinners leaderboard={leaderboard.results} />
         )}
 
-        <View style={styles.content}>
-          <GameStatus />
-          <Hr />
-          <ScrollView style={styles.pointsTable}>
-            {leaderboard?.map((position, key) => (
-              <View key={key} style={styles.pointsRow}>
-                <View style={styles.profileImageWrapper}>
-                  <Image
-                    style={styles.profileImage}
-                    source={
-                      position?.player?.photo
-                        ? {uri: position?.player?.photo}
-                        : require('../../assets/image/dp.png')
-                    }
-                  />
-                </View>
-                <View>
-                  <Text style={styles.name}>{position?.player?.name}</Text>
-                </View>
-                <View>
-                  <Text style={styles.point}>{position?.point}</Text>
-                </View>
-              </View>
-            ))}
-          </ScrollView>
-        </View>
+        {RESULT_TYPE.SEASON_LEADER_BOARD === leaderboard.type && (
+          <SeasonLeaderBoard leaderboard={leaderboard.results} />
+        )}
       </LinearGradient>
     </SafeAreaView>
   );
