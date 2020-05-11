@@ -18,14 +18,12 @@ export const styles = StyleSheet.create({
   },
   silver: {
     fontSize: 25,
-    marginTop: -8,
-    marginBottom: 4,
+    marginTop: -9,
     color: '#959595',
   },
   bronze: {
     fontSize: 25,
-    marginTop: -8,
-    marginBottom: 4,
+    marginTop: -9,
     color: '#c67526',
   },
   lead: {
@@ -233,7 +231,6 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     flex: 0,
     alignItems: 'center',
-    // backgroundColor: '#02183b',
     backgroundColor: '#fff',
   },
   winner: {
