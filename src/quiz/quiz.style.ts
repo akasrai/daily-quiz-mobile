@@ -12,21 +12,26 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   gold: {
-    fontSize: 12,
+    fontSize: 25,
+    marginTop: -9,
     color: '#f3b72e',
   },
   silver: {
-    fontSize: 12,
+    fontSize: 25,
+    marginTop: -8,
+    marginBottom: 4,
     color: '#959595',
   },
   bronze: {
-    fontSize: 12,
+    fontSize: 25,
+    marginTop: -8,
+    marginBottom: 4,
     color: '#c67526',
   },
   lead: {
     paddingTop: 25,
-    paddingLeft: 40,
-    paddingRight: 40,
+    paddingLeft: 20,
+    paddingRight: 20,
     paddingBottom: 10,
     flex: 1,
     flexDirection: 'row',
@@ -35,6 +40,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   leadWrapper: {
+    zIndex: 444,
+    width: '33.33%',
     alignItems: 'center',
   },
   leadName: {
@@ -45,6 +52,7 @@ export const styles = StyleSheet.create({
   leadOne: {
     width: 80,
     height: 80,
+    zIndex: 444,
     marginBottom: 5,
     overflow: 'hidden',
     borderWidth: 2,
@@ -58,6 +66,7 @@ export const styles = StyleSheet.create({
   leadTwo: {
     width: 60,
     height: 60,
+    zIndex: 444,
     marginBottom: 5,
     overflow: 'hidden',
     borderWidth: 2,
@@ -71,6 +80,7 @@ export const styles = StyleSheet.create({
   leadThree: {
     width: 60,
     height: 60,
+    zIndex: 444,
     marginBottom: 5,
     overflow: 'hidden',
     borderWidth: 2,
@@ -117,8 +127,8 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
   },
   point: {
-    padding: 6,
-    textAlign: 'left',
+    fontSize: 12,
+    color: '#fff',
     fontWeight: 'bold',
   },
   quesLabel: {
@@ -216,5 +226,67 @@ export const styles = StyleSheet.create({
     paddingTop: 3,
     color: '#f44336',
     textAlign: 'center',
+  },
+  winners: {
+    margin: 10,
+    padding: 20,
+    borderRadius: 5,
+    flex: 0,
+    alignItems: 'center',
+    // backgroundColor: '#02183b',
+    backgroundColor: '#fff',
+  },
+  winner: {
+    width: '100%',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  congrats: {
+    width: '100%',
+    padding: 15,
+    paddingLeft: 110,
+    marginTop: -70,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: '#02183b',
+  },
+  congratsText: {
+    padding: 15,
+    marginTop: 15,
+    width: '100%',
+    fontSize: 20,
+    color: 'orange',
+  },
+  winnerName: {
+    color: '#02183b',
+    fontSize: 16,
+  },
+  winnerPoints: {
+    fontSize: 18,
+    color: '#02183b',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  stats: {
+    flex: 0,
+    padding: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  statText: {
+    fontSize: 9,
+    color: '#02183b',
+  },
+  pointIcon: {
+    fontSize: 10,
+    color: 'green',
+  },
+  posIcon: {
+    fontSize: 10,
+    color: 'red',
+  },
+  gameIcon: {
+    fontSize: 10,
+    color: 'orange',
   },
 });
