@@ -148,7 +148,7 @@ export const SeasonLeaderBoard = ({plays}: {plays: Array<QuizPlayer>}) => (
               <Text style={styles.name}>{position?.player?.name}</Text>
             </View>
             <View>
-              <Text style={styles.point}>{position?.point}</Text>
+              <Text style={styles.pointDark}>{position?.point}</Text>
             </View>
           </View>
         ))}

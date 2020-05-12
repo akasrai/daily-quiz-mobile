@@ -129,6 +129,11 @@ export const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+  pointDark: {
+    padding: 6,
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
   quesLabel: {
     fontSize: 18,
     color: '#cfcece',
