@@ -1,3 +1,10 @@
+import React, {
+  useMemo,
+  useState,
+  useEffect,
+  useContext,
+  useReducer,
+} from 'react';
 import {
   statusCodes,
   GoogleSignin,
@@ -5,7 +12,6 @@ import {
 } from '@react-native-community/google-signin';
 import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import React, {useReducer, useMemo, useState} from 'react';
 
 import {ApiResponse} from '~/api';
 import {styles} from '~/auth/auth.style';
@@ -14,10 +20,13 @@ import {VALIDATION} from '../auth.constant';
 import {AuthContext} from '~/auth/auth.context';
 import {alert} from '~/component/alert/alert.component';
 import {signOut, signWithGoogle} from '~/api/request.api';
+import Loader from '~/component/loader/spinner.component';
 import {asyncStorage} from '~/helper/async-storage-helper';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 
 const signIn = async (dispatch: Function) => {
+  dispatch({type: auth.SIGN_IN_PENDING});
+
   try {
     await GoogleSignin.hasPlayServices();
     const googleSignIn = await GoogleSignin.signIn();
@@ -26,10 +35,12 @@ const signIn = async (dispatch: Function) => {
     if (error) handleSignInError(error);
 
     dispatch({
-      type: auth.SIGN_IN,
+      type: auth.SIGN_IN_SUCCESS,
       payload: {user: googleSignIn.user, token: data.token, roles: data.roles},
     });
   } catch (error) {
+    dispatch({type: auth.SIGN_IN_ERROR});
+
     return handleSignInError(error);
   }
 };
@@ -88,29 +99,40 @@ export const GoogleSignoutButton = () => {
 };
 
 const restoreAuthentication = async (dispatch: Function) => {
+  dispatch({type: auth.SIGN_IN_PENDING});
   const {data}: ApiResponse = await asyncStorage.get('auth');
 
   if (data) {
-    dispatch({type: auth.RESTORE_AUTH, payload: data});
+    return dispatch({type: auth.RESTORE_AUTH, payload: data});
   }
+
+  dispatch({type: auth.SIGN_IN_ERROR});
 };
 
 const GoogleSignInButton = () => {
-  const {setCurrentAuth} = React.useContext(AuthContext);
+  const [checkAuth, setCheckAuth] = useState<boolean>(true);
+  const {setCurrentAuth, isSigningIn} = useContext(AuthContext);
   const [authState, dispatch] = useReducer(auth.reducer, auth.initialState);
 
-  useMemo(() => {
+  useEffect(() => {
     setCurrentAuth(authState);
+
+    if (checkAuth) {
+      setCheckAuth(false);
+      restoreAuthentication(dispatch);
+    }
   }, [authState]);
 
-  restoreAuthentication(dispatch);
+  if (isSigningIn) {
+    return <Loader />;
+  }
 
   return (
     <GoogleSigninButton
-      style={{width: 255, height: 50, marginTop: 20}}
+      onPress={() => signIn(dispatch)}
       size={GoogleSigninButton.Size.Wide}
       color={GoogleSigninButton.Color.Light}
-      onPress={() => signIn(dispatch)}
+      style={{width: 255, height: 50, marginTop: 20}}
     />
   );
 };

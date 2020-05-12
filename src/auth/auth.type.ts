@@ -22,6 +22,7 @@ export interface AuthState {
   token: string;
   provider: string;
   roles: Array<string>;
+  isSigningIn: boolean;
   isAuthenticated: boolean;
   setCurrentAuth: (currentAuth: AuthState) => void;
 }
