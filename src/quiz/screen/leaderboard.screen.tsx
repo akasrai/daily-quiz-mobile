@@ -22,7 +22,7 @@ const getLeaderBoard = async (
   setLeaderboard: Function,
 ) => {
   const {data, error}: ApiResponse = await getQuizLeaderBoard();
-  console.log(data, error);
+
   if (error) {
     return alert.error(VALIDATION.SOMETHING_WENT_WRONG);
   }

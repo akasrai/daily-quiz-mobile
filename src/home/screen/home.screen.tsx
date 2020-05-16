@@ -10,29 +10,18 @@ import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React, {useContext, useEffect, useState} from 'react';
 
-import {ApiResponse} from '~/api';
-import {Quote} from '../home.types';
 import {styles} from '../home.style';
-import {LogoSm} from '~/assets/image/logo';
 import {AuthContext} from '~/auth/auth.context';
 import {VALIDATION} from '~/home/home.constant';
+import {getQuizPlayPermission} from '~/api/request.api';
 import {alert} from '~/component/alert/alert.component';
 import {appGradientBG, appStyles} from '~/app/app.style';
 import Loader from '~/component/loader/spinner.component';
 import Hr from '~/component/form/horizontal-line.component';
 import MoreMenu from '~/component/navigator/more-menu.component';
-import {getRandomQuote, getQuizPlayPermission} from '~/api/request.api';
+import DailyQuote from '~/quote/component/daily-quote.component';
 import GameStatus from '~/quiz/component/current-player-stats.component';
-
-const getQuote = async (setQuote: Function) => {
-  const {data, error}: ApiResponse = await getRandomQuote();
-
-  if (error) {
-    return alert.error(VALIDATION.SOMETHING_WENT_WRONG);
-  }
-
-  setQuote(data);
-};
+import {AddQuoteFloatingBtn} from '~/quote/component/add-quote.component';
 
 const getQuizPermission = async (
   setPermission: Function,
@@ -46,26 +35,6 @@ const getQuizPermission = async (
 
   setPermission(data);
   setCheckingPem(false);
-};
-
-const RandomQuote = () => {
-  const navigation = useNavigation();
-  const [quote, setQuote] = useState<Quote>();
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      getQuote(setQuote);
-    });
-
-    return unsubscribe;
-  }, []);
-
-  return (
-    <View style={styles.quoteWrapper}>
-      <LogoSm />
-      <Text style={styles.quote}>{quote?.quote}</Text>
-    </View>
-  );
 };
 
 const PlayQuiz = () => {
@@ -114,8 +83,10 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={appGradientBG} style={appStyles.container}>
-        <RandomQuote />
-        <MoreMenu />
+        <DailyQuote />
+        <AddQuoteFloatingBtn />
+        {/* <MoreMenu /> */}
+
         <View style={styles.content}>
           <GameStatus />
           <Hr />
