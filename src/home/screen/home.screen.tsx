@@ -20,8 +20,9 @@ import {alert} from '~/component/alert/alert.component';
 import {appGradientBG, appStyles} from '~/app/app.style';
 import Loader from '~/component/loader/spinner.component';
 import Hr from '~/component/form/horizontal-line.component';
-import GameStatus from '~/quiz/component/current-player-stats.component';
+import MoreMenu from '~/component/navigator/more-menu.component';
 import {getRandomQuote, getQuizPlayPermission} from '~/api/request.api';
+import GameStatus from '~/quiz/component/current-player-stats.component';
 
 const getQuote = async (setQuote: Function) => {
   const {data, error}: ApiResponse = await getRandomQuote();
@@ -114,6 +115,7 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={appGradientBG} style={appStyles.container}>
         <RandomQuote />
+        <MoreMenu />
         <View style={styles.content}>
           <GameStatus />
           <Hr />

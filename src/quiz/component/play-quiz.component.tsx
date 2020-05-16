@@ -27,7 +27,7 @@ const checkAnswer = async (
   const {data, error}: ApiResponse = await submitAnswer(answer);
 
   if (error) {
-    return alert.error(VALIDATION.SOMETHING_WENT_WRONG);
+    return alert.error(error.message);
   }
 
   return setAnswerResponse(data);

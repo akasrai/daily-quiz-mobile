@@ -28,7 +28,7 @@ const getQuestion = async (
 
   if (error) {
     setIsLoading(false);
-    return alert.error(VALIDATION.SOMETHING_WENT_WRONG);
+    return alert.error(error.message);
   }
 
   setIsLoading(false);
