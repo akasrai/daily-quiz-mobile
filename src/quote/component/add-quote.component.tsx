@@ -107,6 +107,8 @@ const AddQuoteForm = ({
                 <CloseButton
                   label="Cancel"
                   handler={function () {
+                    setQuote('');
+                    setAuthor('');
                     setModalVisible(false);
                   }}
                 />

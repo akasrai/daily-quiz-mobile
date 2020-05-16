@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, TouchableHighlight} from 'react-native';
+import {isEmpty} from '~/helper';
 
 interface ButtonProps {
   value?: any;
@@ -7,18 +8,11 @@ interface ButtonProps {
   handler: Function;
 }
 
-const hasValue = (value: any) => {
-  if (typeof value !== 'undefined' && value !== '' && value !== null)
-    return true;
-
-  return false;
-};
-
 export const ActionButton = ({value, label, handler}: ButtonProps) => {
   return (
     <TouchableHighlight
-      disabled={!hasValue(value) ? true : false}
-      style={!hasValue(value) ? styles.disabled : styles.button}
+      disabled={isEmpty(value) ? true : false}
+      style={isEmpty(value) ? styles.disabled : styles.button}
       onPress={() => handler()}>
       <Text style={styles.text}>{label}</Text>
     </TouchableHighlight>

@@ -55,8 +55,8 @@ export const isEmpty = (value: any) =>
 
 export const getReadingTime = (content: string) => {
   const wordsPerMinute = 200;
-
   let textLength = content.split(' ').length;
+
   if (textLength > 0) {
     return Math.ceil(textLength / wordsPerMinute);
   }
