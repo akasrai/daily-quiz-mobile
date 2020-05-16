@@ -48,6 +48,7 @@ export const validate = (
   setError: Function,
   handler: Function,
 ) => {
+  handler('');
   const value = input.nativeEvent.text;
 
   if (rules.length) {

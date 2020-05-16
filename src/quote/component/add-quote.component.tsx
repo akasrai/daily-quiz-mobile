@@ -9,6 +9,7 @@ import {VALIDATION} from '../quote.constant';
 import {alert} from '~/component/alert/alert.component';
 import {TextArea, Input} from '~/component/form/input-element.component';
 import Loader from '~/component/loader/spinner.component';
+import {ActionButton, CloseButton} from '~/component/form/button.component';
 
 const quoteValidation = [
   {
@@ -27,6 +28,7 @@ const quoteValidation = [
 
 const submitQuote = async (quote: Quote, setIsPosting: Function) => {
   setIsPosting(true);
+
   const {error} = await postQuote({
     content: quote.quote,
     author: quote.author,
@@ -75,24 +77,22 @@ const AddQuoteForm = ({
               <Loader />
             ) : (
               <>
-                <View style={styles.button}>
-                  <Button
-                    disabled={quote === '' ? true : false}
-                    title="Post"
-                    onPress={async function () {
-                      await submitQuote({quote, author}, setIsPosting);
-                      setQuote('');
-                      setAuthor('');
-                      setModalVisible(false);
-                    }}
-                  />
-                </View>
-                <View style={styles.button}>
-                  <Button
-                    title="Cancel"
-                    onPress={() => setModalVisible(false)}
-                  />
-                </View>
+                <ActionButton
+                  label="Post"
+                  value={quote}
+                  handler={async function () {
+                    await submitQuote({quote, author}, setIsPosting);
+                    setQuote('');
+                    setAuthor('');
+                    setModalVisible(false);
+                  }}
+                />
+                <CloseButton
+                  label="Cancel"
+                  handler={function () {
+                    setModalVisible(false);
+                  }}
+                />
               </>
             )}
           </View>
@@ -123,7 +123,7 @@ export const AddQuoteFloatingBtn = () => {
     <TouchableHighlight
       activeOpacity={0.5}
       underlayColor="#02183b"
-      style={styles.addQuoteFloat}
+      style={styles.addQuote}
       onPress={() => setModalVisible(true)}>
       <>
         <AddQuoteForm
@@ -155,16 +155,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
   },
-  button: {
-    width: 100,
-    marginRight: 5,
-  },
-  input: {
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: '#000',
-  },
-  addQuoteFloat: {
+  addQuote: {
     width: 40,
     height: 40,
     padding: 10,
@@ -178,6 +169,11 @@ const styles = StyleSheet.create({
   icon: {
     color: '#fff',
     fontSize: 20,
+  },
+  text: {
+    fontSize: 14,
+    color: '#fff',
+    textAlign: 'center',
   },
 });
 
