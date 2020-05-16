@@ -1,7 +1,15 @@
 import React, {useState} from 'react';
 import Modal from 'react-native-modal';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
-import {Button, Text, View, StyleSheet, TouchableHighlight} from 'react-native';
+import {
+  Button,
+  Text,
+  View,
+  StyleSheet,
+  TouchableHighlight,
+  ToastAndroid,
+  Alert,
+} from 'react-native';
 
 import {Quote} from '../quote.type';
 import {postQuote} from '~/api/request.api';
@@ -26,6 +34,14 @@ const quoteValidation = [
   },
 ];
 
+const showSuccessMessage = () => {
+  ToastAndroid.showWithGravity(
+    'You quote is posted successfully',
+    ToastAndroid.LONG,
+    ToastAndroid.CENTER,
+  );
+};
+
 const submitQuote = async (quote: Quote, setIsPosting: Function) => {
   setIsPosting(true);
 
@@ -41,6 +57,7 @@ const submitQuote = async (quote: Quote, setIsPosting: Function) => {
   }
 
   setIsPosting(false);
+  showSuccessMessage();
 };
 
 const AddQuoteForm = ({
