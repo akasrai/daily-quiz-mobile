@@ -8,6 +8,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   ProfileNavigationStack,
   LeaderboardNavigationStack,
+  HomeNavigationStack,
 } from './app.stack-navigator';
 import {User} from '~/auth';
 import AppDrawer from './app.drawer';
@@ -66,7 +67,7 @@ const TabNavigation = () => {
             tabBarIcon: ({focused}) => getTabBarIcons(route, focused, user),
           })}
           tabBarOptions={getTabBarOptions()}>
-          <Tab.Screen name="Home" component={AppDrawer} />
+          <Tab.Screen name="Home" component={HomeNavigationStack} />
           <Tab.Screen
             name="Leaderboard"
             component={LeaderboardNavigationStack}

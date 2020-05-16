@@ -7,7 +7,7 @@ import {TouchableHighlight} from 'react-native-gesture-handler';
 import {ApiResponse} from '~/api';
 import {styles} from '~/quiz/quiz.style';
 import {appStyles} from '~/app/app.style';
-import {VALIDATION} from '../quiz.constant';
+import {QUIZ_TIME} from '../quiz.constant';
 import {submitAnswer} from '~/api/request.api';
 import {Counter} from './quiz-timer.component';
 import {alert} from '~/component/alert/alert.component';
@@ -21,7 +21,7 @@ const checkAnswer = async (
   const answer: Answer = {
     answer: option.id,
     question: question.id,
-    timeTaken: Counter.getTotalTimeTaken(),
+    timeTaken: QUIZ_TIME - Counter.getTotalTimeTaken(),
   };
 
   const {data, error}: ApiResponse = await submitAnswer(answer);

@@ -9,6 +9,7 @@ import HomeScreen from '~/home/screen/home.screen';
 import SigninScreen from '~/auth/screen/signin.screen';
 import ProfileScreen from '~/user/screen/profile.screen';
 import LeaderboardScreen from '~/quiz/screen/leaderboard.screen';
+import AppDrawer from './app.drawer';
 
 const forFade = ({current, next}: any) => {
   const opacity = Animated.add(
@@ -51,7 +52,7 @@ export const HomeNavigationStack = () => (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
-        component={HomeScreen}
+        component={AppDrawer}
         options={{
           headerShown: false,
           headerStyleInterpolator: forFade,
