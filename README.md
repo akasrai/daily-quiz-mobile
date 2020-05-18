@@ -1,6 +1,6 @@
 <p align="center">
 <img src="https://raw.githubusercontent.com/akasrai/daily-quiz-mobile/master/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png?token=AELU3B4SR6VBOVAVMVPCESC6ZOMJ6" alt="logo" />
-<h3 align="center"><font size="6"> Daily Quiz</font></h3>
+<h1 align="center" >Daily Quiz</h1>
 <p align="center">
 <img src="https://img.shields.io/badge/License-MIT-red.svg" src="license">
 </p>
