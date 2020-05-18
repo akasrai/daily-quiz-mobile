@@ -1,9 +1,8 @@
 <p align="center">
 <img src="https://raw.githubusercontent.com/akasrai/daily-quiz-mobile/master/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png?token=AELU3B4SR6VBOVAVMVPCESC6ZOMJ6" alt="logo" />
-<h1 align="center" >Daily Quiz</h1>
-<p align="center">
+<h1 align="center" >Daily Quiz
 <img src="https://img.shields.io/badge/License-MIT-red.svg" src="license">
-</p>
+</h1>
 <p align="center">
 This is simple react-native application for playing quiz daily. A spring-boot backend for this application <a href="https://github.com/akasrai/daily-quiz-backend">here</a>. This app can be used in offices as entertainment. A quiz season can be hosted and each day a new qiuz can be published. Player can track points and position in leaderboard. At the end of the season top there winnner can be announced through the app.
 </p>
