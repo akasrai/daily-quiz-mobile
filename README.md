@@ -5,7 +5,7 @@
 <h1 style="margin:0"> Daily Quiz</h1>
 <img src="https://img.shields.io/badge/License-MIT-red.svg" src="license">
 
-This is simple react-native application for playing quiz daily. A spring-boot backend for this application [here](https://github.com/akasrai/daily-quiz-backend). This app can be used in offices as entertainment. A quiz season can be hosted and each day a new qiuz can be published. At the end of the season top there winnner can be announced through the app.
+This is simple react-native application for playing quiz daily. A spring-boot backend for this application <a href="https://github.com/akasrai/daily-quiz-backend">here</a>. This app can be used in offices as entertainment. A quiz season can be hosted and each day a new qiuz can be published. Player can track points and position in leaderboard. At the end of the season top there winnner can be announced through the app.
 
 </div>
 
