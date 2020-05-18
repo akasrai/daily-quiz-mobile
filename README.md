@@ -11,6 +11,7 @@
 This is simple react-native application for playing quiz daily. A spring-boot backend for this application [here](https://github.com/akasrai/daily-quiz-backend). This app can be used in offices as entertainment. A quiz season can be hosted and each day a new qiuz can be published. At the end of the season top there winnner can be announced through the app.
 
 </div>
+
 ### Installation
 
 1. Clone project
