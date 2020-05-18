@@ -64,3 +64,4 @@ buck-out/
 
 env.js
 playground.js
+/android/app/google-services.json
