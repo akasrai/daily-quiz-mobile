@@ -2,3 +2,4 @@ iOS installation
 -> link firebase (https://rnfirebase.io/#2-android-setup)
 -> link google-signin (https://github.com/react-native-community/google-signin/blob/master/docs/ios-guide.md)
 -> link fonts (https://medium.com/@mehran.khan/ultimate-guide-to-use-custom-fonts-in-react-native-77fcdf859cf4)
+-> link firebase messaging (https://rnfirebase.io/messaging/usage)
