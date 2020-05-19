@@ -32,7 +32,10 @@ const signIn = async (dispatch: Function) => {
     const googleSignIn = await GoogleSignin.signIn();
     const {data, error} = await signWithGoogle(googleSignIn.idToken);
 
-    if (error) handleSignInError(error);
+    if (error) {
+      dispatch({type: auth.SIGN_IN_ERROR});
+      return handleSignInError(VALIDATION.ERROR_IN_SIGNIN);
+    }
 
     dispatch({
       type: auth.SIGN_IN_SUCCESS,
@@ -46,6 +49,7 @@ const signIn = async (dispatch: Function) => {
 };
 
 const handleSignInError = (error: any) => {
+  console.log(error.code);
   switch (error.code) {
     case statusCodes.SIGN_IN_CANCELLED:
       return alert.error(VALIDATION.SIGN_IN_CANCELED);

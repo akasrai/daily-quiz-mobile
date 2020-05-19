@@ -996,10 +996,10 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/eslint-plugin/-/eslint-plugin-1.0.0.tgz#ae9a430f2c5795debca491f15a989fce86ea75a0"
   integrity sha512-GLhSN8dRt4lpixPQh+8prSCy6PYk/MT/mvji/ojAd5yshowDo6HFsimCSTD/uWAdjpUq91XK9tVdTNWfGRlKQA==
 
-"@react-native-community/google-signin@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@react-native-community/google-signin/-/google-signin-4.0.0.tgz#b839a310ad65f3647b4ecbd75b5a8460700d4185"
-  integrity sha512-XC7Gi9y7+zdWrjusiuiEHBHcqBYCXezBl8OPXrPWhI+ocYmUaYXk1d5OMrb6UFMQe6M7/0HtCIEU5mEjxirqzw==
+"@react-native-community/google-signin@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@react-native-community/google-signin/-/google-signin-4.0.3.tgz#66fbdd469e5895ec787224334d480c1c867240e8"
+  integrity sha512-0RyMHAPTOejxXuHkcrVLJ9Co1hxG/b1shmtn29QSjZ9W8oLj23gyLhJI4jjca389jToVjr2HsXsDXfNU4CA2Uw==
 
 "@react-native-community/masked-view@^0.1.8":
   version "0.1.8"
