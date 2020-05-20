@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: '#78797a',
+    color: '#362a2e',
     fontWeight: 'bold',
   },
   buttons: {
