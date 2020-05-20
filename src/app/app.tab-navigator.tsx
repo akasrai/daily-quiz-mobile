@@ -3,15 +3,14 @@ import {Image, Route} from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome5';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import {
+  HomeNavigationStack,
   ProfileNavigationStack,
   LeaderboardNavigationStack,
-  HomeNavigationStack,
 } from './app.stack-navigator';
 import {User} from '~/auth';
-import AppDrawer from './app.drawer';
 import {AuthContext, Authenticated} from '~/auth/auth.context';
 
 const getTabBarOptions = () => ({
@@ -21,7 +20,6 @@ const getTabBarOptions = () => ({
   activeTintColor: '#dadada',
   style: {
     height: 50,
-    paddingTop: 10,
     paddingBottom: 10,
     borderTopColor: '#011533',
     backgroundColor: '#011533',
@@ -54,7 +52,7 @@ const getTabBarIcons = (route: Route, focused: boolean, user: User) => {
   }
 };
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 const TabNavigation = () => {
   const {user}: {user: User} = useContext(AuthContext);
@@ -63,6 +61,7 @@ const TabNavigation = () => {
     <Authenticated>
       <NavigationContainer>
         <Tab.Navigator
+          tabBarPosition="bottom"
           screenOptions={({route}) => ({
             tabBarIcon: ({focused}) => getTabBarIcons(route, focused, user),
           })}
