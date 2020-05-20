@@ -49,7 +49,6 @@ const signIn = async (dispatch: Function) => {
 };
 
 const handleSignInError = (error: any) => {
-  console.log(error.code);
   switch (error.code) {
     case statusCodes.SIGN_IN_CANCELLED:
       return alert.error(VALIDATION.SIGN_IN_CANCELED);
