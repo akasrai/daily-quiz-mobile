@@ -153,9 +153,7 @@ export const QuizAnswers = ({
 export const QuizQuestion = ({question}: {question: Question}) => {
   return (
     <View style={styles.questionWrapper}>
-      <Text style={styles.quesLabel}>
-        Question <Icon style={styles.quesLabel} name="help-outline" />
-      </Text>
+      <Text style={styles.category}>Category > {question.category}</Text>
       <Text style={styles.question}>{question.question}</Text>
     </View>
   );

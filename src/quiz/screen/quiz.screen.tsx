@@ -28,7 +28,7 @@ const getQuestion = async (
 
   if (error) {
     setIsLoading(false);
-    return alert.error(error.message);
+    return alert.error(VALIDATION.YOU_CANNOT_PLAY_QUIZ, error.message);
   }
 
   setIsLoading(false);

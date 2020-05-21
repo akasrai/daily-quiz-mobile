@@ -1,5 +1,6 @@
 export const VALIDATION = {
   SOMETHING_WENT_WRONG: 'Something went wrong',
+  YOU_CANNOT_PLAY_QUIZ: 'You cannot play the Quiz',
 };
 
 export const QUIZ_TIME: number = 30;

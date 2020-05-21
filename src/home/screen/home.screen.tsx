@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import FIcon from 'react-native-vector-icons/FontAwesome5';
+import MIcon from 'react-native-vector-icons/MaterialIcons';
 import React, {useContext, useEffect, useState} from 'react';
 
 import {styles} from '../home.style';
@@ -64,13 +65,13 @@ const PlayQuiz = () => {
       ) : isEligible ? (
         <>
           <Text style={styles.gameNotice}>
-            Hey {user.givenName}, here's a new question for you.
+            A new question has been published
           </Text>
           <TouchableHighlight
             activeOpacity={0.5}
             underlayColor="#fff"
             onPress={() => navigation.navigate('Quiz')}>
-            <Icon style={styles.playBtn} name="play-circle-filled"></Icon>
+            <MIcon style={styles.playBtn} name="play-circle-filled"></MIcon>
           </TouchableHighlight>
         </>
       ) : (
@@ -98,24 +99,55 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={appGradientBG} style={appStyles.container}>
         <AddQuoteFloatingBtn />
+        {/* <MoreMenu /> */}
         <ScrollView
           style={styles.contentWrapper}
           refreshControl={
             <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
           }>
           <DailyQuote refreshedQuote={quote} />
-          {/* <MoreMenu /> */}
 
           <View style={styles.content}>
             <GameStatus />
             <Hr />
             <ScrollView>
+              <DailyQuizInfo />
               <PlayQuiz />
             </ScrollView>
           </View>
         </ScrollView>
       </LinearGradient>
     </SafeAreaView>
+  );
+};
+
+const DailyQuizInfo = () => {
+  return (
+    <View style={styles.quizInfo}>
+      <Text style={styles.season}>Season 1</Text>
+      <Text style={styles.seasonTitle}>Winner Winner Chicken Dinner</Text>
+
+      <View style={appStyles.row}>
+        <View style={styles.rowItem}>
+          <FIcon style={styles.play} name="dice-d6" />
+          <Text style={styles.rowItemLabel}>Play</Text>
+        </View>
+
+        <View style={styles.rowItem}>
+          <FIcon style={styles.win} name="trophy" />
+          <Text style={styles.rowItemLabel}>Win</Text>
+        </View>
+
+        <View style={styles.rowItem}>
+          <FIcon style={styles.host} name="bullhorn" />
+          <Text style={styles.rowItemLabel}>Host</Text>
+        </View>
+      </View>
+      <Text style={styles.note}>
+        The top three player will win the attractive prizes and get chance to
+        host the next season of Daily Quiz.
+      </Text>
+    </View>
   );
 };
 

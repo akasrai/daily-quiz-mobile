@@ -74,7 +74,13 @@ const getMedalColor = (key: number) =>
 
 export const SeasonWinners = ({plays}: {plays: Array<QuizPlayer>}) => (
   <>
-    <Text style={styles.congratsText}>This Season Winners !!!</Text>
+    <View style={styles.winnerNotice}>
+      <Text style={styles.season}>Season 1:</Text>
+      <Text style={styles.seasonTitle}>Winner Winner Chicken Dinner</Text>
+      <Text style={styles.congratsText}>
+        Congratulations to the top three winners of this season.
+      </Text>
+    </View>
     <View style={styles.winners}>
       {plays.map((winner, key) => (
         <View key={key} style={styles.winner}>

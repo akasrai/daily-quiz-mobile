@@ -138,11 +138,22 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     color: '#cfcece',
   },
+  category: {
+    fontSize: 14,
+    borderRadius: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 3,
+    marginBottom: 8,
+    color: '#cfcece',
+    backgroundColor: 'green',
+  },
   questionWrapper: {
     minHeight: 120,
     marginTop: 70,
     paddingLeft: 20,
     paddingRight: 20,
+    alignItems: 'flex-start',
   },
   question: {
     fontSize: 23,
@@ -253,11 +264,8 @@ export const styles = StyleSheet.create({
     borderColor: '#02183b',
   },
   congratsText: {
-    padding: 15,
-    marginTop: 15,
-    width: '100%',
-    fontSize: 20,
-    color: 'orange',
+    fontSize: 16,
+    color: '#fff',
   },
   winnerName: {
     color: '#02183b',
@@ -296,5 +304,19 @@ export const styles = StyleSheet.create({
     paddingTop: 5,
     color: '#362a2e',
     textAlign: 'center',
+  },
+  winnerNotice: {
+    paddingTop: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 5,
+  },
+  season: {
+    fontSize: 18,
+    color: 'orange',
+  },
+  seasonTitle: {
+    fontSize: 20,
+    color: 'orange',
   },
 });

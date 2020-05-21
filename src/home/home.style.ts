@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {ceil} from 'react-native-reanimated';
 
 export const styles = StyleSheet.create({
   container: {
@@ -49,6 +50,59 @@ export const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   gameNotice: {
-    padding: 15,
+    paddingTop: 60,
+    paddingBottom: 20,
+  },
+  quizInfo: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  season: {
+    fontSize: 22,
+    paddingTop: 20,
+    textAlign: 'center',
+  },
+  seasonCount: {
+    width: 50,
+    height: 50,
+    padding: 10,
+    fontSize: 20,
+    color: '#fff',
+    borderRadius: 100,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    backgroundColor: 'red',
+  },
+  seasonTitle: {
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  rowItem: {
+    padding: 30,
+  },
+  rowItemLabel: {
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  play: {
+    fontSize: 25,
+    color: 'red',
+    textAlign: 'center',
+  },
+  win: {
+    fontSize: 25,
+    color: '#f3b72e',
+    textAlign: 'center',
+  },
+  host: {
+    fontSize: 25,
+    color: 'green',
+    textAlign: 'center',
+  },
+  note: {
+    fontSize: 14,
+    paddingLeft: 40,
+    paddingRight: 40,
+    textAlign: 'center',
   },
 });
