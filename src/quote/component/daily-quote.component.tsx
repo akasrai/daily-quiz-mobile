@@ -18,7 +18,7 @@ const getQuote = async (setQuote: Function) => {
   setQuote(data);
 };
 
-const DailyQuote = () => {
+const DailyQuote = ({refreshedQuote}: {refreshedQuote: Quote | undefined}) => {
   const navigation = useNavigation();
   const [quote, setQuote] = useState<Quote>();
 
@@ -27,8 +27,10 @@ const DailyQuote = () => {
       getQuote(setQuote);
     });
 
+    if (refreshedQuote?.quote) setQuote(refreshedQuote);
+
     return unsubscribe;
-  }, []);
+  }, [refreshedQuote]);
 
   return (
     <View style={styles.quoteWrapper}>

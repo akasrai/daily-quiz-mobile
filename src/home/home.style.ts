@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
   quoteWrapper: {
     flex: 0,
     padding: 20,
-    marginTop: 30,
     alignItems: 'center',
   },
   quote: {
@@ -16,6 +15,9 @@ export const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     fontFamily: 'Ubuntu-R',
+  },
+  contentWrapper: {
+    marginTop: 30,
   },
   content: {
     marginLeft: 10,

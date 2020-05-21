@@ -3,6 +3,7 @@ import {
   Text,
   ScrollView,
   SafeAreaView,
+  RefreshControl,
   TouchableHighlight,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -13,7 +14,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {styles} from '../home.style';
 import {AuthContext} from '~/auth/auth.context';
 import {VALIDATION} from '~/home/home.constant';
-import {getQuizPlayPermission} from '~/api/request.api';
+import {getQuizPlayPermission, getRandomQuote} from '~/api/request.api';
 import {alert} from '~/component/alert/alert.component';
 import {appGradientBG, appStyles} from '~/app/app.style';
 import Loader from '~/component/loader/spinner.component';
@@ -22,6 +23,8 @@ import MoreMenu from '~/component/navigator/more-menu.component';
 import DailyQuote from '~/quote/component/daily-quote.component';
 import GameStatus from '~/quiz/component/current-player-stats.component';
 import {AddQuoteFloatingBtn} from '~/quote/component/add-quote.component';
+import {Quote} from '~/quote/quote.type';
+import {ApiResponse} from '~/api';
 
 const getQuizPermission = async (
   setPermission: Function,
@@ -80,20 +83,37 @@ const PlayQuiz = () => {
 };
 
 const HomeScreen = () => {
+  const [quote, setQuote] = React.useState<Quote>();
+  const [isRefreshing, setIsRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setIsRefreshing(true);
+    getRandomQuote().then(({data}: ApiResponse) => {
+      setQuote(data);
+      setIsRefreshing(false);
+    });
+  }, [isRefreshing]);
+
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient colors={appGradientBG} style={appStyles.container}>
-        <DailyQuote />
         <AddQuoteFloatingBtn />
-        {/* <MoreMenu /> */}
+        <ScrollView
+          style={styles.contentWrapper}
+          refreshControl={
+            <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+          }>
+          <DailyQuote refreshedQuote={quote} />
+          {/* <MoreMenu /> */}
 
-        <View style={styles.content}>
-          <GameStatus />
-          <Hr />
-          <ScrollView>
-            <PlayQuiz />
-          </ScrollView>
-        </View>
+          <View style={styles.content}>
+            <GameStatus />
+            <Hr />
+            <ScrollView>
+              <PlayQuiz />
+            </ScrollView>
+          </View>
+        </ScrollView>
       </LinearGradient>
     </SafeAreaView>
   );
