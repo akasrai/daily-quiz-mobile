@@ -3,10 +3,9 @@ import {StatusBar} from 'react-native';
 
 import {auth} from '~/auth';
 import {useAuth} from '~/auth/auth.hooks';
-import TabNavigation from '~/app/app.tab-navigator';
 import {AuthContextProvider} from '~/auth/auth.context';
-import {SigninNavigation} from '~/app/app.stack-navigator';
 import PushNotification from '~/app/app.push-notification';
+import AppNavigationStack, {SigninNavigation} from '~/app/app.stack-navigator';
 
 const App = () => {
   const currentAuth = useAuth();
@@ -24,7 +23,7 @@ const App = () => {
       />
       <PushNotification />
       <SigninNavigation />
-      <TabNavigation />
+      <AppNavigationStack />
     </AuthContextProvider>
   );
 };

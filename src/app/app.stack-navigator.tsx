@@ -3,13 +3,13 @@ import {Animated} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {Authenticated, NonAuthenticated} from '~/auth/auth.context';
+import AppDrawer from './app.drawer';
 import QuizScreen from '~/quiz/screen/quiz.screen';
-import HomeScreen from '~/home/screen/home.screen';
 import SigninScreen from '~/auth/screen/signin.screen';
 import ProfileScreen from '~/user/screen/profile.screen';
+import AppTabNavigation from '~/app/app.tab-navigator';
 import LeaderboardScreen from '~/quiz/screen/leaderboard.screen';
-import AppDrawer from './app.drawer';
+import {Authenticated, NonAuthenticated} from '~/auth/auth.context';
 
 const forFade = ({current, next}: any) => {
   const opacity = Animated.add(
@@ -48,41 +48,29 @@ export const SigninNavigation = () => (
 );
 
 export const HomeNavigationStack = () => (
-  <Authenticated>
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen
-        name="Home"
-        component={AppDrawer}
-        options={{
-          headerShown: false,
-          headerStyleInterpolator: forFade,
-        }}
-      />
-      <Stack.Screen
-        name="Quiz"
-        component={QuizScreen}
-        options={{
-          headerShown: false,
-          headerStyleInterpolator: forFade,
-        }}
-      />
-    </Stack.Navigator>
-  </Authenticated>
+  <Stack.Navigator initialRouteName="Home">
+    <Stack.Screen
+      name="Home"
+      component={AppDrawer}
+      options={{
+        headerShown: false,
+        headerStyleInterpolator: forFade,
+      }}
+    />
+  </Stack.Navigator>
 );
 
 export const LeaderboardNavigationStack = () => (
-  <Authenticated>
-    <Stack.Navigator initialRouteName="Leaderboard">
-      <Stack.Screen
-        name="Leaderboard"
-        component={LeaderboardScreen}
-        options={{
-          headerShown: false,
-          headerStyleInterpolator: forFade,
-        }}
-      />
-    </Stack.Navigator>
-  </Authenticated>
+  <Stack.Navigator initialRouteName="Leaderboard">
+    <Stack.Screen
+      name="Leaderboard"
+      component={LeaderboardScreen}
+      options={{
+        headerShown: false,
+        headerStyleInterpolator: forFade,
+      }}
+    />
+  </Stack.Navigator>
 );
 
 export const ProfileNavigationStack = () => (
@@ -99,3 +87,30 @@ export const ProfileNavigationStack = () => (
     </Stack.Navigator>
   </Authenticated>
 );
+
+const AppNavigationStack = () => (
+  <Authenticated>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="AppTab">
+        <Stack.Screen
+          name="AppTab"
+          component={AppTabNavigation}
+          options={{
+            headerShown: false,
+            headerStyleInterpolator: forFade,
+          }}
+        />
+        <Stack.Screen
+          name="Quiz"
+          component={QuizScreen}
+          options={{
+            headerShown: false,
+            headerStyleInterpolator: forFade,
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  </Authenticated>
+);
+
+export default AppNavigationStack;

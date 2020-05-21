@@ -2,7 +2,6 @@ import React, {useContext} from 'react';
 import {Image, Route} from 'react-native';
 import FIcon from 'react-native-vector-icons/FontAwesome5';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
-import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import {
@@ -54,28 +53,23 @@ const getTabBarIcons = (route: Route, focused: boolean, user: User) => {
 
 const Tab = createMaterialTopTabNavigator();
 
-const TabNavigation = () => {
+const AppTabNavigation = () => {
   const {user}: {user: User} = useContext(AuthContext);
 
   return (
     <Authenticated>
-      <NavigationContainer>
-        <Tab.Navigator
-          tabBarPosition="bottom"
-          screenOptions={({route}) => ({
-            tabBarIcon: ({focused}) => getTabBarIcons(route, focused, user),
-          })}
-          tabBarOptions={getTabBarOptions()}>
-          <Tab.Screen name="Home" component={HomeNavigationStack} />
-          <Tab.Screen
-            name="Leaderboard"
-            component={LeaderboardNavigationStack}
-          />
-          <Tab.Screen name="Profile" component={ProfileNavigationStack} />
-        </Tab.Navigator>
-      </NavigationContainer>
+      <Tab.Navigator
+        tabBarPosition="bottom"
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused}) => getTabBarIcons(route, focused, user),
+        })}
+        tabBarOptions={getTabBarOptions()}>
+        <Tab.Screen name="Home" component={HomeNavigationStack} />
+        <Tab.Screen name="Leaderboard" component={LeaderboardNavigationStack} />
+        <Tab.Screen name="Profile" component={ProfileNavigationStack} />
+      </Tab.Navigator>
     </Authenticated>
   );
 };
 
-export default TabNavigation;
+export default AppTabNavigation;
