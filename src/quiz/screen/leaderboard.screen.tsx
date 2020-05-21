@@ -41,13 +41,14 @@ const LeaderboardScreen = () => {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
+      setIsLoading(true);
       getLeaderBoard(setIsLoading, setLeaderboard);
     });
 
     return unsubscribe;
   }, []);
 
-  if (isLoading) {
+  if (isLoading && !leaderboard.type) {
     return <PageLoader />;
   }
 
@@ -63,7 +64,10 @@ const LeaderboardScreen = () => {
         )}
 
         {RESULT_TYPE.SEASON_LEADER_BOARD === leaderboard.type && (
-          <SeasonLeaderBoard plays={leaderboard.results} />
+          <SeasonLeaderBoard
+            isUpdating={isLoading}
+            plays={leaderboard.results}
+          />
         )}
       </LinearGradient>
     </SafeAreaView>

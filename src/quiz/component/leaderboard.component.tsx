@@ -124,13 +124,20 @@ const WinnerStats = ({pos, winner}: {pos: number; winner: QuizPlayer}) => (
   </View>
 );
 
-export const SeasonLeaderBoard = ({plays}: {plays: Array<QuizPlayer>}) => (
+export const SeasonLeaderBoard = ({
+  plays,
+  isUpdating,
+}: {
+  isUpdating: boolean;
+  plays: Array<QuizPlayer>;
+}) => (
   <>
     {plays?.length > 3 && <TopThree winners={plays.splice(0, 3)} />}
 
     <View style={styles.content}>
       <GameStatus />
       <Hr />
+      {isUpdating && <Text style={styles.updating}>Updating...</Text>}
       <ScrollView style={styles.pointsTable}>
         {plays?.map((position, key) => (
           <View key={key} style={styles.pointsRow}>

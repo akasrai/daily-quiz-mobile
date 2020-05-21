@@ -291,4 +291,10 @@ export const styles = StyleSheet.create({
     fontSize: 10,
     color: 'orange',
   },
+  updating: {
+    fontSize: 11,
+    paddingTop: 5,
+    color: '#362a2e',
+    textAlign: 'center',
+  },
 });
