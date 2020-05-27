@@ -8,7 +8,7 @@ import {styles} from '../quote.style';
 import {LogoSm} from '~/assets/image/logo';
 import {getRandomQuote} from '~/api/request.api';
 
-const getQuote = async (setQuote: Function) => {
+const getQuote = async (setQuote: (prop: Quote) => void) => {
   const {data, error}: ApiResponse = await getRandomQuote();
 
   if (error) {

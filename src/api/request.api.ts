@@ -1,7 +1,6 @@
 import {Token} from './token.api';
 import * as http from './http.api';
 import {Answer} from '~/quiz/quiz.type';
-import {Quote} from '~/quote/quote.type';
 
 export const signWithGoogle = (token: string | null) => {
   return http.get(`/auth/google/${token}`);

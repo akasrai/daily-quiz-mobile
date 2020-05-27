@@ -28,8 +28,8 @@ import {Quote} from '~/quote/quote.type';
 import {ApiResponse} from '~/api';
 
 const getQuizPermission = async (
-  setPermission: Function,
-  setCheckingPem: Function,
+  setPermission: (prop: boolean) => void,
+  setCheckingPem: (prop: boolean) => void,
 ) => {
   const {data, error} = await getQuizPlayPermission();
 
@@ -43,7 +43,6 @@ const getQuizPermission = async (
 
 const PlayQuiz = () => {
   const navigation = useNavigation();
-  const {user} = useContext(AuthContext);
   const [isEligible, setPermission] = useState<boolean>(false);
   const [isCheckingPem, setCheckingPem] = useState<boolean>(false);
 

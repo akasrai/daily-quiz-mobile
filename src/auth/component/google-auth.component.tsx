@@ -14,6 +14,7 @@ import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import {ApiResponse} from '~/api';
+import {Action} from '../auth.type';
 import {styles} from '~/auth/auth.style';
 import * as auth from '~/auth/auth.state';
 import {VALIDATION} from '../auth.constant';
@@ -24,7 +25,7 @@ import Loader from '~/component/loader/spinner.component';
 import {asyncStorage} from '~/helper/async-storage-helper';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 
-const signIn = async (dispatch: Function) => {
+const signIn = async (dispatch: (props: Action) => void) => {
   dispatch({type: auth.SIGN_IN_PENDING});
 
   try {
@@ -33,6 +34,7 @@ const signIn = async (dispatch: Function) => {
     const {data, error} = await signWithGoogle(googleSignIn.idToken);
 
     if (error) {
+      console.log(error);
       dispatch({type: auth.SIGN_IN_ERROR});
       return handleSignInError(VALIDATION.ERROR_IN_SIGNIN);
     }
@@ -64,7 +66,10 @@ const handleSignInError = (error: any) => {
   }
 };
 
-const handleSignOut = async (dispatch: Function, setIsSignedOut: Function) => {
+const handleSignOut = async (
+  dispatch: (props: Action) => void,
+  setIsSignedOut: (prop: boolean) => void,
+) => {
   try {
     signOut();
     await GoogleSignin.revokeAccess();
@@ -101,7 +106,7 @@ export const GoogleSignoutButton = () => {
   );
 };
 
-const restoreAuthentication = async (dispatch: Function) => {
+const restoreAuthentication = async (dispatch: (props: Action) => void) => {
   dispatch({type: auth.SIGN_IN_PENDING});
   const {data}: ApiResponse = await asyncStorage.get('auth');
 

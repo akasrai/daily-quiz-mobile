@@ -23,9 +23,9 @@ axiosInstance.interceptors.request.use(
 );
 
 let isRefreshing: boolean = false;
-let refreshSubscribers: Array<Function> = [];
+let refreshSubscribers: ((token: string) => void)[] = [];
 
-const subscribeTokenRefresh = (cb: Function) => {
+const subscribeTokenRefresh = (cb: (token: string) => void) => {
   refreshSubscribers.push(cb);
 };
 

@@ -9,7 +9,9 @@ import {useNavigation} from '@react-navigation/native';
 import {getPlayerCurrentStats} from '~/api/request.api';
 import {alert} from '~/component/alert/alert.component';
 
-const getCurrentStats = async (setCurrentStatus: Function) => {
+const getCurrentStats = async (
+  setCurrentStatus: (props: CurrentStatus) => void,
+) => {
   const {data, error}: ApiResponse = await getPlayerCurrentStats();
 
   if (error) {

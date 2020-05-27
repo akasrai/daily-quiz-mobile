@@ -20,9 +20,9 @@ import {PageLoader} from '~/component/loader/spinner.component';
 import BackButton from '~/component/navigator/back-button.component';
 
 const getQuestion = async (
-  setQuestion: Function,
-  setOptions: Function,
-  setIsLoading: Function,
+  setQuestion: (prop: Question) => void,
+  setOptions: (prop: Array<Option>) => void,
+  setIsLoading: (prop: boolean) => void,
 ) => {
   const {data, error}: ApiResponse = await getLatestQuestion();
 

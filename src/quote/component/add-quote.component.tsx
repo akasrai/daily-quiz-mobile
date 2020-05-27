@@ -42,7 +42,10 @@ const showSuccessMessage = () => {
   );
 };
 
-const submitQuote = async (quote: Quote, setIsPosting: Function) => {
+const submitQuote = async (
+  quote: Quote,
+  setIsPosting: (prop: boolean) => void,
+) => {
   setIsPosting(true);
 
   const {error} = await postQuote({
@@ -65,7 +68,7 @@ const AddQuoteForm = ({
   setModalVisible,
 }: {
   isModalVisible: boolean;
-  setModalVisible: Function;
+  setModalVisible: (prop: boolean) => void;
 }) => {
   const [quote, setQuote] = useState<string>('');
   const [author, setAuthor] = useState<string>('');

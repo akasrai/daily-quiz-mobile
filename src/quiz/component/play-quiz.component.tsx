@@ -16,7 +16,7 @@ import {Option, Answer, Answers, Question, AnswerResponse} from '../quiz.type';
 const checkAnswer = async (
   option: Option,
   question: Question,
-  setAnswerResponse: Function,
+  setAnswerResponse: (props: AnswerResponse) => void,
 ) => {
   const answer: Answer = {
     answer: option.id,

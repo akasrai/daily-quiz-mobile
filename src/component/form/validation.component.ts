@@ -45,8 +45,8 @@ const hasOwnProperty = (key: any, obj: any) => {
 export const validate = (
   input: any,
   rules: Array<any>,
-  setError: Function,
-  handler: Function,
+  setError: (error: string) => void,
+  handler: (value: any) => void,
 ) => {
   handler('');
   const value = input.nativeEvent.text;

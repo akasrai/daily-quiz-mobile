@@ -29,8 +29,8 @@ export interface AnswerResponse {
 export interface Answers {
   timeOut: boolean;
   question: Question;
-  setTimeOut: Function;
   options: Array<Option>;
+  setTimeOut: (prop: boolean) => void;
 }
 
 export interface CurrentStatus {

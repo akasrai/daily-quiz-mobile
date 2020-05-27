@@ -18,8 +18,8 @@ import {PageLoader} from '~/component/loader/spinner.component';
 import BackButton from '~/component/navigator/back-button.component';
 
 const getLeaderBoard = async (
-  setIsLoading: Function,
-  setLeaderboard: Function,
+  setIsLoading: (prop: boolean) => void,
+  setLeaderboard: (props: LeaderBoard) => void,
 ) => {
   const {data, error}: ApiResponse = await getQuizLeaderBoard();
 

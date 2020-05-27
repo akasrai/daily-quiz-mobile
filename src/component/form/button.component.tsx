@@ -5,7 +5,7 @@ import {isEmpty} from '~/helper';
 interface ButtonProps {
   value?: any;
   label: string;
-  handler: Function;
+  handler: () => void;
 }
 
 export const ActionButton = ({value, label, handler}: ButtonProps) => {

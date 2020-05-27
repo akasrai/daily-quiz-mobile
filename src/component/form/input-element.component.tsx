@@ -6,9 +6,9 @@ import FIcon from 'react-native-vector-icons/FontAwesome5';
 import {validate} from './validation.component';
 
 interface InputProps {
-  handler: Function;
   rules?: Array<any>;
   placeholder?: string;
+  handler: (prop: any) => void;
 }
 
 export const TextArea = ({
