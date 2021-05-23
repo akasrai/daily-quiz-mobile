@@ -5,6 +5,7 @@
 </h1>
 <p align="center">
 This is simple react-native application for playing quiz daily. A spring-boot backend for this application <a href="https://github.com/akasrai/daily-quiz-backend">here</a>. This app can be used in offices as entertainment. A quiz season can be hosted and each day a new qiuz can be published. Player can track points and position in leaderboard. At the end of the season top there winnner can be announced through the app.
+A web dashboard app to host seasons and questions is <a href="https://github.com/akasrai/daily-quiz-web">here</a>.
 </p>
 
 ### Installation
